@@ -33,7 +33,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.eomcs.pms.App'
+    mainClass = 'com.eomcs.pms.Test'
 }
 
 compileJava.options.encoding='UTF-8' // 인코딩 옵션 추가
