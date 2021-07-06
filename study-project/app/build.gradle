@@ -1,6 +1,7 @@
 // Grdale 도구에 추가할 작업이 있으면 플러그인을 장착하라!
 plugins {  //플러그인 장착 필수
     //id 'java'  // 자바 애플리케이션 빌드 관련 작업들을 추가한다.
+    //id 'java'는 javac로 컴파일링 되는 것이고, gradle run은 application에만 있는 것이다.
     id 'application' // = 'java' 플러그인 + 애플리케이션 관련 작업 추가
     id 'eclipse' // 이클립스 IDE 관련 작업 플러그인
     // eclipseProject : .project 파일 생성
@@ -40,5 +41,7 @@ dependencies { // 의존하는 라이브러리 이름을 적어라: 마음대로
 application {
     mainClass = 'com.eomcs.pms.App'
 }
+
+compileJava.options.encoding='UTF-8' // 인코딩 옵션 추가
 
 //
