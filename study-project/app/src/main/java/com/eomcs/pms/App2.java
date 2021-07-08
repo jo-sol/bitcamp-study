@@ -1,52 +1,71 @@
-package com.eomcs.pms;
+package com.eomcs.pms; //강사님파일
 
 import java.sql.Date;
 import java.util.Scanner;
 
 public class App2 {
+
   public static void main(String[] args) {
+    System.out.println("[프로젝트]");
 
-    Scanner keyboard = new Scanner(System.in);
+    final int MAX_LENGTH = 10;
 
-    System.out.printf("[%s]\n", "프로젝트");
+    int[] no = new int[MAX_LENGTH];
+    String[] title = new String[MAX_LENGTH];
+    String[] content = new String[MAX_LENGTH];
+    Date[] startDate = new Date[MAX_LENGTH];
+    Date[] endDate = new Date[MAX_LENGTH];
+    String[] owner = new String[MAX_LENGTH];
+    String[] members = new String[MAX_LENGTH];
 
-    System.out.print("번호? ");
-    int no = keyboard.nextInt();
-    keyboard.nextLine();
+    Scanner keyboardScan = new Scanner(System.in);
 
-    System.out.print("프로젝트명? ");
-    String projectname = keyboard.nextLine();
+    int size = 0;
 
-    System.out.print("내용? ");
-    String text = keyboard.nextLine();
+    for (int i = 0; i < MAX_LENGTH; i = i + 1) {
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyboardScan.nextLine());
+      
+      System.out.print("프로젝트명? ");
+      title[i] = keyboardScan.nextLine();
+      
+      System.out.print("내용? ");
+      content[i] = keyboardScan.nextLine();
+      
+      System.out.print("시작일? ");
+      startDate[i] = Date.valueOf(keyboardScan.nextLine()); 
+      
+      System.out.print("종료일? ");
+      endDate[i] = Date.valueOf(keyboardScan.nextLine());
+      
+      System.out.print("만든이? ");
+      owner[i] = keyboardScan.nextLine();
+      
+      System.out.print("팀원? ");
+      members[i] = keyboardScan.nextLine();
+      
+      size = size + 1;
+      System.out.println();
 
-    System.out.print("시작일? ");
-    Date startDate = Date.valueOf(keyboard.nextLine());
+      System.out.print("계속 입력하시겠습니까? (y/N) ");
+      String input = keyboardScan.nextLine();
+      if (input.equals("N") || input.equals("")) {
+        break;
+      }
+      System.out.println();
+    }
 
-    System.out.print("종료일? ");
-    Date endDate = Date.valueOf(keyboard.nextLine());
+    keyboardScan.close();
 
-    System.out.print("만든이? ");
-    String made = keyboard.nextLine();
+    System.out.println("--------------------------------");
 
-    System.out.print("팀원? ");
-    String team1 = keyboard.next();
-    String team2 = keyboard.next();
-    String team3 = keyboard.next();
-    String team4 = keyboard.next();
-    String team5 = keyboard.next();
-
-    keyboard.close();
-
-    System.out.println("----------------------------");
-    System.out.printf("번호: %d\n", no);
-    System.out.printf("프로젝트명: %s\n", projectname);
-    System.out.println("내용: " + text);  
-    System.out.printf("시작일: %s\n", startDate);
-    System.out.printf("종료일: %s\n", endDate);
-    System.out.printf("만든이: %s\n", made);
-    System.out.printf("%s, %s, %s, %s, %s\n", team1, team2, team3, team4, team5);
-
+    for (int i = 0; i < size; i = i + 1) {
+      System.out.printf("%d, %s, %tY-%3$tm-%3$td, %tY-%4$tm-%4$td, %s\n",
+    no[i],
+    title[i],
+    startDate[i],
+    endDate[i],
+    owner[i]);
+    }
   }
-
 }
