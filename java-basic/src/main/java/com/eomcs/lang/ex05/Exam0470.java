@@ -50,3 +50,6 @@ public class Exam0470 {
     System.out.printf("C          : %b\n", (lang & C) > 0);
   }
 }
+
+// 어떤 변수가 있는데 해당 변수가 1로 세팅이 됐는지 안 됐는지 확인하는 방법이 상기와 같다
+
