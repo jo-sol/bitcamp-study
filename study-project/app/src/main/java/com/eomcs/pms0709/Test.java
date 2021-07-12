@@ -1,4 +1,4 @@
-package com.eomcs.pms; // 임의의 작업 파일
+package com.eomcs.pms0709; // 임의의 작업 파일
 
 public class Test {
 

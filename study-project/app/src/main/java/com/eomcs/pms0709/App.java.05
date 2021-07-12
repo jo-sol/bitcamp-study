@@ -1,0 +1,60 @@
+package com.eomcs.pms; // 강사님파일
+
+import java.util.Date;
+import java.util.Scanner;
+
+public class App {
+
+  //5) 여러 문장에서 반복해서 사용하는 값은 변수에 담아서 사용한다. // maxLength 사용(최대값)
+  public static void main(String[] args) {
+    System.out.println("[회원]");
+
+    int maxLength = 3; // 여러 문장에서 반복해서 쓸 거라면 변수에 담아서 사용해라
+    // 반복할 횟수를 3 <- 위치에 넣어 주면 됨
+    int[] no = new int[maxLength]; 
+    String[] name = new String[maxLength];
+    String[] email = new String[maxLength];
+    String[] password = new String[maxLength];
+    String[] photo = new String[maxLength];
+    String[] tel = new String[maxLength];
+    Date [] registeredDate = new Date[maxLength];
+
+    Scanner keyboardScan = new Scanner(System.in);
+
+    for (int i = 0; i < maxLength; i = i + 1) { // for문은 연산자를 여기에 몰아서 쓴다
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyboardScan.nextLine());
+      System.out.print("이름? ");
+      name[i] = keyboardScan.nextLine();
+      System.out.print("이메일? ");
+      email[i] = keyboardScan.nextLine();
+      System.out.print("암호? ");
+      password[i] = keyboardScan.nextLine();
+      System.out.print("사진? ");
+      photo[i] = keyboardScan.nextLine();
+      System.out.print("전화? ");
+      tel[i] = keyboardScan.nextLine();
+      registeredDate[i] = new Date();
+      System.out.println();
+    } 
+
+    keyboardScan.close(); // 데이터 입출력이 끝났으면 도구를 닫는다.
+
+    System.out.println("--------------------------------");
+    
+    // maxLength = 2; 이렇게 입력한 숫자보다 작게 선언해 버리면 출력이 마지막에 선언한 숫자만큼만 나온다
+    // 한 번 선언해 버리면 중간에 값이 바뀌지 않는 것이 필요함
+
+    for (int i = 0; i < maxLength; i = i + 1) { // for문은 반복이 안 되고 한 번 끝나면 다시 변수 선언해 줘야 한다
+      System.out.println("번호: " + no[i]);
+      System.out.println("이름: " + name[i]);
+      System.out.println("이메일: " + email[i]);
+      System.out.printf("암호: %s\n", password[i]);
+      System.out.printf("사진: %s\n", photo[i]);
+      System.out.printf("전화: %s\n", tel[i]);
+      System.out.printf("가입일: %s\n", registeredDate[i]);
+      System.out.println();
+    }
+  }
+}
+

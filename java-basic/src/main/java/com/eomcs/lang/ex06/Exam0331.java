@@ -11,7 +11,7 @@ public class Exam0331 {
     //      라벨: 문장;
     //      라벨: {문장1, 문장2, ...}
 
-    myloop:
+    myloop: // 라벨
       while (x <= 9) {
 
         while (y <= 9) {
@@ -24,7 +24,7 @@ public class Exam0331 {
         System.out.println();
         x++;
         y = 1;
-      }
+      } // while문 자체의 문장 하나가 여기에서 끝남
     System.out.println("종료!!");
   }
 }

@@ -15,7 +15,7 @@ public class Exam0221 {
     int no = keyScan.nextInt();
 
     System.out.println("제출하실 서류는 다음과 같습니다.");
-    switch (no) {
+    switch (no) { // 숫자의 값을 비교할 때는 if문이 아니라 switch 문을 쓴다
       case 1:
         System.out.println("정보처리자격증");
         System.out.println("졸업증명서");

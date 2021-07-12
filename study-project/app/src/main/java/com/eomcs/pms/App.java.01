@@ -1,192 +1,70 @@
-package com.eomcs.pms; // App 백업파일
+package com.eomcs.pms;
 
-import java.util.Date; // sql보다 성능 떨어짐
 import java.util.Scanner;
 
+//1) 변경 준비 
 public class App {
 
-// 1) 배열 사용 전
   public static void main(String[] args) {
+    /*
     System.out.println("[회원]");
-
-    int no1, no2, no3, no4, no5; // 다섯 명분의 정보를 담을 데이터가 다섯 개 필요한 상태
-    String name1, name2, name3, name4, name5;
-    String email1, email2, email3, email4, email5;
-    String password1, password2, password3, password4, password5;
-    String photo1, photo2, photo3, photo4, photo5;
-    String tel1, tel2, tel3, tel4, tel5;
-    Date registeredDate1, registeredDate2, registeredDate3, registeredDate4, registeredDate5; 
 
     Scanner keyboardScan = new Scanner(System.in);
 
-    System.out.print("번호? ");
-    no1 = Integer.parseInt(keyboardScan.nextLine());
-    System.out.print("이름? ");
-    name1 = keyboardScan.nextLine();
-    System.out.print("이메일? ");
-    email1 = keyboardScan.nextLine();
-    System.out.print("암호? ");
-    password1 = keyboardScan.nextLine();
-    System.out.print("사진? ");
-    photo1 = keyboardScan.nextLine();
-    System.out.print("전화? ");
-    tel1 = keyboardScan.nextLine();
-    registeredDate1 = new Date(); // 만드는 순간 시간 정보가 해당 물건에 들어 있음
-    System.out.println(); // 입력받은 후 한 줄 띄우기 // 그래야 그 다음 사람이 입력받을 수 있음
+    // 최대 입력 개수
+    final int LENGTH = 100;
 
-    System.out.print("번호? ");
-    no2 = Integer.parseInt(keyboardScan.nextLine());
-    System.out.print("이름? ");
-    name2 = keyboardScan.nextLine();
-    System.out.print("이메일? ");
-    email2 = keyboardScan.nextLine();
-    System.out.print("암호? ");
-    password2 = keyboardScan.nextLine();
-    System.out.print("사진? ");
-    photo2 = keyboardScan.nextLine();
-    System.out.print("전화? ");
-    tel2 = keyboardScan.nextLine();
-    registeredDate2 = new Date();
-    System.out.println();
+    int[] no = new int[LENGTH];
+    String[] name = new String[LENGTH];
+    String[] email = new String[LENGTH];
+    String[] password = new String[LENGTH];
+    String[] photo = new String[LENGTH];
+    String[] tel = new String[LENGTH];
+    Date[] registeredDate = new Date[LENGTH];
 
-    System.out.print("번호? ");
-    no3 = Integer.parseInt(keyboardScan.nextLine());
-    System.out.print("이름? ");
-    name3 = keyboardScan.nextLine();
-    System.out.print("이메일? ");
-    email3 = keyboardScan.nextLine();
-    System.out.print("암호? ");
-    password3 = keyboardScan.nextLine();
-    System.out.print("사진? ");
-    photo3 = keyboardScan.nextLine();
-    System.out.print("전화? ");
-    tel3 = keyboardScan.nextLine();
-    registeredDate3 = new Date();
-    System.out.println();
+    int size = 0;
 
-    System.out.print("번호? ");
-    no4 = Integer.parseInt(keyboardScan.nextLine());
-    System.out.print("이름? ");
-    name4 = keyboardScan.nextLine();
-    System.out.print("이메일? ");
-    email4 = keyboardScan.nextLine();
-    System.out.print("암호? ");
-    password4 = keyboardScan.nextLine();
-    System.out.print("사진? ");
-    photo4 = keyboardScan.nextLine();
-    System.out.print("전화? ");
-    tel4 = keyboardScan.nextLine();
-    registeredDate4 = new Date();
-    System.out.println();
+    for (int i = 0; i < LENGTH; i++) {
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyboardScan.nextLine());
 
-    System.out.print("번호? ");
-    no5 = Integer.parseInt(keyboardScan.nextLine());
-    System.out.print("이름? ");
-    name5 = keyboardScan.nextLine();
-    System.out.print("이메일? ");
-    email5 = keyboardScan.nextLine();
-    System.out.print("암호? ");
-    password5 = keyboardScan.nextLine();
-    System.out.print("사진? ");
-    photo5 = keyboardScan.nextLine();
-    System.out.print("전화? ");
-    tel5 = keyboardScan.nextLine();
-    registeredDate5 = new Date();
-    System.out.println();
+      System.out.print("이름? ");
+      name[i] = keyboardScan.nextLine();
 
-    keyboardScan.close(); // 데이터 입출력이 끝났으면 도구를 닫는다.
+      System.out.print("이메일? ");
+      email[i] = keyboardScan.nextLine();
+
+      System.out.print("암호? ");
+      password[i] = keyboardScan.nextLine();
+
+      System.out.print("사진? ");
+      photo[i] = keyboardScan.nextLine();
+
+      System.out.print("전화? ");
+      tel[i] = keyboardScan.nextLine();
+
+      registeredDate[i] = new java.sql.Date(System.currentTimeMillis());
+
+      size++;
+      System.out.println(); // 빈 줄 출력
+
+      System.out.print("계속 입력하시겠습니까?(y/N) ");
+      String str = keyboardScan.nextLine();
+      if (!str.equalsIgnoreCase("y")) {
+        break;
+      }
+      System.out.println(); // 빈 줄 출력
+    }
+
+    keyboardScan.close();
 
     System.out.println("--------------------------------");
 
-    System.out.println("번호: " + no1);
-    System.out.println("이름: " + name1);
-    System.out.println("이메일: " + email1);
-    System.out.printf("암호: %s\n", password1);
-    System.out.printf("사진: %s\n", photo1);
-    System.out.printf("전화: %s\n", tel1);
-    System.out.printf("가입일: %s\n", registeredDate1);
-    System.out.println();
-
-    System.out.println("번호: " + no2);
-    System.out.println("이름: " + name2);
-    System.out.println("이메일: " + email2);
-    System.out.printf("암호: %s\n", password2);
-    System.out.printf("사진: %s\n", photo2);
-    System.out.printf("전화: %s\n", tel2);
-    System.out.printf("가입일: %s\n", registeredDate2);
-    System.out.println();
-
-    System.out.println("번호: " + no3);
-    System.out.println("이름: " + name3);
-    System.out.println("이메일: " + email3);
-    System.out.printf("암호: %s\n", password3);
-    System.out.printf("사진: %s\n", photo3);
-    System.out.printf("전화: %s\n", tel3);
-    System.out.printf("가입일: %s\n", registeredDate3);
-    System.out.println();
-
-    System.out.println("번호: " + no4);
-    System.out.println("이름: " + name4);
-    System.out.println("이메일: " + email4);
-    System.out.printf("암호: %s\n", password4);
-    System.out.printf("사진: %s\n", photo4);
-    System.out.printf("전화: %s\n", tel4);
-    System.out.printf("가입일: %s\n", registeredDate4);
-    System.out.println();
-
-    System.out.println("번호: " + no5);
-    System.out.println("이름: " + name5);
-    System.out.println("이메일: " + email5);
-    System.out.printf("암호: %s\n", password5);
-    System.out.printf("사진: %s\n", photo5);
-    System.out.printf("전화: %s\n", tel5);
-    System.out.printf("가입일: %s\n", registeredDate5);
-    System.out.println();
-
+    for (int i = 0; i < size; i++) {
+      // 번호, 이름, 이메일, 전화, 가입일
+      System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
+          no[i], name[i], email[i], tel[i], registeredDate[i]);
+    }
+     */
   }
 }
-
-
-/* System.out.println("[회원]");
-
-// Scanner?
-// 키보드에서 사용자가 입력한 값을 읽어서
-// 문자열이나 정수, 부동소수점 등으로 리턴하는 역할
-Scanner keyboardScan = new Scanner(System.in);
-
-System.out.print("번호? ");
-String no = keyboardScan.nextLine();
-
-System.out.print("이름? ");
-String name = keyboardScan.nextLine();
-
-System.out.print("이메일? ");
-String email = keyboardScan.nextLine();
-
-System.out.print("암호? ");
-String password = keyboardScan.nextLine();
-
-System.out.print("사진? ");
-String photo = keyboardScan.nextLine();
-
-System.out.print("전화? ");
-String tel = keyboardScan.nextLine();
-
-// 현재 일시 알아내기
-java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
-// System.currentTimeMillis()
-//   - 1970년 1월 1일 0시 0분 0초부터 현재까지 경과된 시간을 밀리초로 리턴한다.
-// new java.sql.Date(밀리초)
-//  - 넘겨 받은 밀리초를 가지고 년,월,일,시,분,초를 계산한다.
-
-keyboardScan.close(); // 데이터 입출력이 끝났으면 도구를 닫는다.
-
-System.out.println("--------------------------------");
-
-System.out.println("번호: " + no);
-System.out.println("이름: " + name);
-System.out.println("이메일: " + email);
-System.out.printf("암호: %s\n", password);
-System.out.printf("사진: %s\n", photo);
-System.out.printf("전화: %s\n", tel);
-System.out.printf("가입일: %s\n", now); */

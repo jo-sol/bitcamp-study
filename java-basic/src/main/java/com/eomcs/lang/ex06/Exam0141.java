@@ -17,7 +17,7 @@ public class Exam0141 {
     // => if 문과 else 문 사이에 다른 문장이 올 수 없다.
     /*
         if (age >= 19)
-            System.out.println("성인입니다.");
+            System.out.println("성인입니다."); // 중괄호로 묶지 않았기 때문에 하나의 문장으로 두지 않는다
         System.out.println("--------------------------");
         else
             System.out.println("미성년입니다.");

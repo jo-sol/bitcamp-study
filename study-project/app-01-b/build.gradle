@@ -41,4 +41,6 @@ application {
     mainClass = 'com.eomcs.pms.App'
 }
 
+compileJava.options.encoding='UTF-8'
+
 //

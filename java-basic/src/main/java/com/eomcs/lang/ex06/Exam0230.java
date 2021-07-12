@@ -33,7 +33,7 @@ public class Exam0230 {
     switch (c) {
       // case 의 값도 int 값이면 무엇이든 된다.
       case 'A': // 0x41 = 65
-      case 66:
+      case 66: // 문자값을 적어도 되고 'A'처럼 적어도 된다
       case 0x43:
       default:
     }

@@ -1,0 +1,73 @@
+package com.eomcs.pms; // 강사님파일
+
+import java.util.Date;
+import java.util.Scanner;
+
+public class App {
+
+  //7) 특정 조건에 따라 반복을 멈춘다
+  public static void main(String[] args) {
+    System.out.println("[회원]");
+
+    final int MAX_LENGTH = 100;
+
+    int[] no = new int[MAX_LENGTH]; 
+    String[] name = new String[MAX_LENGTH];
+    String[] email = new String[MAX_LENGTH];
+    String[] password = new String[MAX_LENGTH];
+    String[] photo = new String[MAX_LENGTH];
+    String[] tel = new String[MAX_LENGTH];
+    Date [] registeredDate = new Date[MAX_LENGTH];
+
+    Scanner keyboardScan = new Scanner(System.in);
+
+    int size = 0; // 7. 몇 개를 입력할 건지 선언해 주기 위해 변수 추가 
+    // 7-1. size = size + 1; 위에 적어야 함
+    for (int i = 0; i < MAX_LENGTH; i = i + 1) { 
+      System.out.print("번호? ");
+      no[i] = Integer.parseInt(keyboardScan.nextLine());
+      System.out.print("이름? ");
+      name[i] = keyboardScan.nextLine();
+      System.out.print("이메일? ");
+      email[i] = keyboardScan.nextLine();
+      System.out.print("암호? ");
+      password[i] = keyboardScan.nextLine();
+      System.out.print("사진? ");
+      photo[i] = keyboardScan.nextLine();
+      System.out.print("전화? ");
+      tel[i] = keyboardScan.nextLine();
+      registeredDate[i] = new Date();
+      size = size + 1; // 8. 처음 입력할 때 사이즈를 하나 증가시킨다
+      System.out.println();
+
+      System.out.print("계속 입력하시겠습니까? (y/N) ");
+      String input = keyboardScan.nextLine(); // 4. 문자열을 비교할 때는 "=="이 안 먹힌다
+      // input.equalsIgnoreCase 대소문자를 구분하고 싶을 때 사용
+      if (input.equalsIgnoreCase("N") || input.equals("")) { // 9. 둘 중 하나가 참이라면 ||(or라는 조건 사용)
+        break; // 3. 만약 입력값이 no라면 나가겠다 (break 사용) // 현재 반복한 걸 멈추라는 의미
+      } // 5. 문자열끼리 비교할 때는 (문자열이 저장된 변수.equals("문자열"))
+      // 1. 조건에 따라 나갈지 말지 결정 
+    } // 2. 조건이 no라면 나가게 하고 그 외는 계속 진행하게 만들어 보기
+
+    keyboardScan.close(); // 데이터 입출력이 끝났으면 도구를 닫는다.
+
+    System.out.println("--------------------------------");
+    // 6. 입력한 갯수만큼만 반복하려면 최대치인 MAX_LENGTH 사용 x
+
+    for (int i = 0; i < size; i = i + 1) { // 9. 몇 개를 입력했냐 계산할 때 변수로 " size or length " 입력 // count 아님
+      // size = size + 1; 여기에도 입력해도 된다 (선언만 해 주면 됨)
+      // 배열이 0부터 시작하기 때문에 무조건 0으로 기재해 줘야 함
+      System.out.println("번호: " + no[i]);
+      System.out.println("이름: " + name[i]);
+      System.out.println("이메일: " + email[i]);
+      System.out.printf("암호: %s\n", password[i]);
+      System.out.printf("사진: %s\n", photo[i]);
+      System.out.printf("전화: %s\n", tel[i]);
+      System.out.printf("가입일: %s\n", registeredDate[i]);
+      System.out.println();
+
+      // size = size + 1; 여기에도 입력해도 된다 (선언만 해 주면 됨)
+
+    }
+  }
+}

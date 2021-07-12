@@ -27,7 +27,7 @@ public class Exam0322 {
     while (count < 100) {
       count++;
       if (count > 50)
-        break; // 즉시 반복문을 종료하고 나간다.
+        break; // 50이 되는 순간 즉시 반복문을 종료하고 나간다.
       sum += count;
     }
     System.out.printf("count=%d, sum=%d\n", count, sum);
