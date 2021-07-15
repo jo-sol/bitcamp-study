@@ -19,7 +19,7 @@ public class Exam0440 {
   }
 
   public static void main(String[] args) {
-    int r = m1(5);
+    int r = m1(5); // 여기에 브레이크 걸고 디버그로 화면 돌려 보기
     System.out.println(r);
   }
 }

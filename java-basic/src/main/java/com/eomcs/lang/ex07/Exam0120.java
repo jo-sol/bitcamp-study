@@ -17,7 +17,7 @@ public class Exam0120 {
   // => 물론 명사구나 전치사구 형태로 짓는 경우도 있다.
   //    예) valueOf(), toString() 등
   //
-  static void printSpaces(int len) {
+  static void printSpaces(int len) { // 0110의 공백 출력하는 부분을 메서드로 분류함
     for (int i = 0; i < len; i++) {
       System.out.print(" ");
     }

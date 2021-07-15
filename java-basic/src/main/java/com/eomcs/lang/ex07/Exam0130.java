@@ -21,6 +21,7 @@ public class Exam0130 {
   // 코드를 유지보수하기 쉽도록 가능한 기능 별로 묶어 둔다.
   // 그래서 Exam0120에 있던 코드 중에서 공백을 계산하는 코드를 
   // 별도의 블록으로 분리하여 이름을 부여한다.
+  // 밑변 길이에서 출력될 별 개수를 나눈 나머지가 공백의 길이인데, 그를 메서드로 출력한 것이다
   public static int getSpaceLength(int totalStar, int displayStar) {
     return (totalStar - displayStar) / 2;
   }
@@ -34,7 +35,7 @@ public class Exam0130 {
       // 출력할 스페이스의 개수를 계산하는 코드를 
       // 블록에 묶어 놓고 이름을 부여해두고 사용하면
       // 코드를 이해하기가 더 쉽다.
-      printSpaces(getSpaceLength(len, starLen));
+      printSpaces(getSpaceLength(len, starLen));  // printSpaces((len - starLen) / 2)을 쉽게 풀어 놓은 부분이다
       printStars(starLen);
       System.out.println();
     }

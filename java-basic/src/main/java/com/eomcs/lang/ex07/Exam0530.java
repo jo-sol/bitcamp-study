@@ -12,7 +12,7 @@ public class Exam0530 {
     for (String arg : args)
       sum += Integer.parseInt(arg);
     System.out.printf("합계: %d\n", sum);
-  }
+  } // 반복문 돌아서 합계를 출력
 }
 
 // # 프로그램 아규먼트(arguments)

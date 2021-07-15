@@ -8,7 +8,7 @@ public class Exam0610 {
     // JVM 아규먼트?
     // - JVM에게 전달하는 값
     // - 형식
-    // $java -cp ./bin/main -D이름=값 -D이름=값 -D이름=값 com.eomcs.basic.ex07.Exam0610
+    // $java -cp ./bin/main -D이름=값 -D이름=값 -D이름=값 com.eomcs.basic.ex07.Exam0610 // -D 뒤에 공백이 오면 안 된다
     //
 
     // JVM 아규먼트의 값 꺼내기
@@ -24,4 +24,4 @@ public class Exam0610 {
   }
 }
 
-
+// null -> 인스턴스 값이 없다는 뜻

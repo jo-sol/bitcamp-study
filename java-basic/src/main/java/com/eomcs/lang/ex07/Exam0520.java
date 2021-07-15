@@ -17,8 +17,8 @@ public class Exam0520 {
     // 아규먼트가 없으면 빈 배열이 넘어온다.
     //
     for (String value : args) {
-      System.out.printf("[%s]\n", value);
-    }
+      System.out.printf("[%s]\n", value); // 공백을 포함하지 않는다는 걸 보여 주려고 함
+    }               // 공백이 있어도 JVM이 공백을 다 자르고 보여 줌
     System.out.println("종료!");
   }
 }
