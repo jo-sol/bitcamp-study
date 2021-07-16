@@ -1,6 +1,7 @@
 package com.eomcs.pms;
 
 import java.sql.Date;
+import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 

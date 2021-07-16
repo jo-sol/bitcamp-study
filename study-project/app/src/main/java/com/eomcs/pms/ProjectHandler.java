@@ -1,5 +1,7 @@
 package com.eomcs.pms;
 
+import com.eomcs.util.Prompt;
+
 public class ProjectHandler {
 
   static final int MAX_LENGTH = 5;
