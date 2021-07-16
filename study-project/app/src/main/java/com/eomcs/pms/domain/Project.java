@@ -1,4 +1,4 @@
-package com.eomcs.pms;
+package com.eomcs.pms.domain;
 
 import java.sql.Date;
 
@@ -6,12 +6,12 @@ import java.sql.Date;
 //=> 프로젝트 정보를 저장할 새 데이터 타입을 정의한다
 public class Project {
 
-  int no;
-  String title;
-  String content;
-  Date startDate;
-  Date endDate;
-  String owner;
-  String members;
+  public int no;
+  public String title;
+  public String content;
+  public Date startDate;
+  public Date endDate;
+  public String owner;
+  public String members;
 
 }
