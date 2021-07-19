@@ -30,8 +30,6 @@ public class BoardHandler {
     board.registeredDate = new Date(System.currentTimeMillis());
     board.viewCount = Prompt.inputInt("조회수? ");
 
-    //    System.out.println("게시글을 등록하였습니다.");
-
     that.boards[that.size++] = board; // that 메모리의 boards 변수를 that 메모리의 size 변수에 따라 실행하겠다.
   }
 
