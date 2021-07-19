@@ -5,11 +5,11 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  // 작업 정보
   static final int MAX_LENGTH = 5;
   static Task[] tasks = new Task[MAX_LENGTH];
   static int size = 0;
 
+  //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public static void add() {
     System.out.println("[작업 등록]");
 
@@ -29,6 +29,7 @@ public class TaskHandler {
     tasks[size++] = task;
   }
 
+  //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public static void list() {
     System.out.println("[작업 목록]");
 
@@ -44,12 +45,14 @@ public class TaskHandler {
         default:
           stateLabel = "신규";
       }
+
       System.out.printf("%d, %s, %s, %s, %s\n",
-          tasks[i].no,
-          tasks[i].content,
-          tasks[i].deadline,
-          stateLabel,
+          tasks[i].no, 
+          tasks[i].content, 
+          tasks[i].deadline, 
+          stateLabel, 
           tasks[i].owner);
     }
   }
+
 }
