@@ -1,4 +1,4 @@
-package com.eomcs.oop.ex00.util;
+package com.eomcs.oop.ex00test.util;
 
 public class Calculator {
   // 어떤 클래스에 인스턴스를 만드는 것은 그 클래스가 사용할 메서드를 만든다는 것
@@ -12,16 +12,17 @@ public class Calculator {
   // 값도 Calculator.plus(result개수번호, 2) 이렇게 개별적으로 하나씩 선언해 줘야 한다 -> 유지보수 차원에서 불편함
 
   // 그래서 다시 Calculator로 돌아와서 result를 필요한 만큼 사용하기 위해
-  // int result = 0; 변수를 non-static 변수로 바꿔 준다
+  // staitc int result; 변수를 non-static 변수(int result;)로 바꿔 준다
+
   // 이에 따라 Exam0500에는 인스턴스 변수로 만들어 주는 new를 사용하여 
   // 개수에 맞춰 클래스명.변수가 들어있는 주소 = new 클래스명(); 선언
 
-  public void plus(int value) {
-    this.result += value;
+  public void plus(int value) { // void로 바꿔 주는 이유: return 선언하지 않아서
+    this.result += value; // return 안 쓰는 이유: 더 이상 반환할 값이 없어서 // int result 값을 위로 빼줬기 때문
   }
 
-  public void minus(int value) {
-    this.result -= value;
+  public void minus(int value) { // 결과는 내부에서 관리하기 때문에 파라미터를 사용할 필요가 없어짐
+    this.result -= value; // 그래서 (int result, int value) -> (int value)로 변경
   }
 
   public void multiple(int value) {

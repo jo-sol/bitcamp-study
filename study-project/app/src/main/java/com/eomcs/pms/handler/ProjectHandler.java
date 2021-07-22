@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import java.sql.Date;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
@@ -67,5 +68,107 @@ public class ProjectHandler {
     }
   }
 
+  public void detail() {
+    System.out.println("[프로젝트 등록]");
+    int no = Prompt.inputInt("번호? ");
+
+    Project project = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (projects[i].no == no) {
+        project = projects[i];
+        break;
+      }
+    }
+
+    if (project == null) {
+      System.out.println("해당 번호의 프로젝트가 없습니다.");
+      return;
+    }
+
+    System.out.printf("프로젝트명? %s\n", project.title);
+    System.out.printf("내용? %s\n", project.content);
+    System.out.printf("시작일? %s\n", project.startDate);
+    System.out.printf("종료일? %s\n", project.endDate);
+  }
+
+  public void update() {
+    System.out.println("[프로젝트 변경]");
+    int no = Prompt.inputInt("번호? ");
+
+    Project project = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (projects[i].no == no) {
+        project = projects[i];
+        break;
+      }
+    }
+
+    if (project == null) {
+      System.out.println("해당 번호의 프로젝트가 없습니다.");
+      return;
+    }
+
+    String works = String.format("프로젝트명:(%s)? ", project.title);
+    String title = Prompt.inputString(works);
+
+    works = String.format("내용:(%s)? ", project.content);
+    String content = Prompt.inputString(works);
+
+    works = String.format("시작일:(%s)? ", project.startDate);
+    Date startDate = Prompt.inputDate(works);
+
+    works = String.format("종료일:(%s)? ", project.endDate);
+    Date endDate = Prompt.inputDate(works);
+
+    String input = Prompt.inputString("정말 변경하시겠습니까?(y/N)");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("프로젝트 변경을 취소하였습니다.");
+      return;
+    }
+
+    project.title = title;
+    project.content = content;
+    project.startDate = startDate;
+    project.endDate = endDate;
+
+    System.out.println("프로젝트를 변경하였습니다.");
+
+  }
+
+  public void delete() {
+    System.out.println("[프로젝트 삭제]");
+    int no = Prompt.inputInt("번호? ");
+
+    int projectIndex = -1;
+
+    for (int i = 0; i < this.size; i++) {
+      if (projects[i].no == no) {
+        projectIndex = i;
+        break;
+      }
+    }
+
+    if (projectIndex == -1) {
+      System.out.println("해당 번호의 프로젝트가 없습니다.");
+      return;
+    }
+
+    String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("프로젝트 삭제를 취소하였습니다.");
+      return;
+    }
+
+    for (int i = projectIndex +1; i < this.size; i++) {
+      projects[i - 1] = projects[i];
+    }
+
+    projects[--this.size] = null;
+
+    System.out.println("프로젝트를 삭제하였습니다.");
+
+  }
 
 }

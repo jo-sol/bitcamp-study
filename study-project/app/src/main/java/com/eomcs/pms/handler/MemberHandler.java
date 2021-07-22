@@ -53,9 +53,116 @@ public class MemberHandler {
     return false;
   }
 
+  public void detail() {
+    System.out.println("[회원 상세보기]");
+    int no = Prompt.inputInt("번호? ");
+
+    Member member = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (members[i].no == no) {
+        member = members[i];
+        break;
+      }
+    }
+
+    if (member == null) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    System.out.printf("이름? %s\n", member.name);
+    System.out.printf("이메일? %s\n", member.email);
+    System.out.printf("암호? %s\n", member.password);
+    System.out.printf("사진? %s\n", member.photo);
+    System.out.printf("전화? %s\n", member.tel);
+    System.out.printf("등록일? %s\n", member.registeredDate);
+  }
+
+  public void update() {
+    System.out.println("[회원 변경]");
+    int no = Prompt.inputInt("번호? ");
+
+    Member member = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (members[i].no == no) {
+        member = members[i];
+        break;
+      }
+    }
+
+    if (member == null) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    String person = String.format("이름:(%s)? ", member.name);
+    String name = Prompt.inputString(person);
+
+    person = String.format("이메일:(%s)? ", member.email);
+    String email = Prompt.inputString(person);
+
+    person = String.format("암호:(%s)? ", member.password);
+    String password = Prompt.inputString(person);
+
+    person = String.format("사진:(%s)? ", member.photo);
+    String photo = Prompt.inputString(person);
+
+    person = String.format("전화:(%s)? ", member.tel);
+    String tel = Prompt.inputString(person);
+
+    person = String.format("등록일:(%s)? ", member.registeredDate);
+    Date registeredDate = Prompt.inputDate(person);
+
+    String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("회원 변경을 취소하였습니다.");
+      return;
+    }
+
+    member.name = name;
+    member.email = email;
+    member.password = password;
+    member.photo = photo;
+    member.tel = tel;
+    member.registeredDate = registeredDate;
+    System.out.println("회원을 변경하였습니다.");
+  }
+
+  public void delete() {
+    System.out.println("[회원 삭제]");
+    int no = Prompt.inputInt("번호? ");
+
+    int memberIndex = -1;
+
+    for (int i = 0; i < this.size; i++) {
+      if (members[i].no == no) {
+        memberIndex = i;
+        break;
+      }
+    }
+
+    if (memberIndex == -1) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("회원 삭제를 취소하였습니다.");
+      return;
+    }
+
+    for (int i = memberIndex +1; i <this.size; i++) {
+      members[i - 1] = members[i];
+    }
+    members[--this.size] = null;
+
+    System.out.println("회원을 삭제하였습니다.");
+  }
+
 }
-
-
 
 
 

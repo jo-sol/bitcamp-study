@@ -1,4 +1,4 @@
-package com.eomcs.oop.ex00;
+package com.eomcs.oop.ex00test;
 
 import com.eomcs.oop.ex00.util.Calculator;
 

@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import java.sql.Date;
 import com.eomcs.pms.domain.Task;
 import com.eomcs.util.Prompt;
 
@@ -67,5 +68,116 @@ public class TaskHandler {
           this.tasks[i].owner);
     }
   }
+
+  public void detail() { 
+    System.out.println("[작업 등록]");
+    int no = Prompt.inputInt("번호? ");
+
+    Task task = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (tasks[i].no == no) {
+        task = tasks[i];
+        break;
+      }
+    }
+
+    System.out.printf("내용? %s\n", task.content);
+    System.out.printf("마감일? %s\n", task.deadline);
+
+    for (int i = 0; i < this.size; i++) {
+      String stateLabel = null;
+      switch (this.tasks[i].status) {
+        case 1:
+          stateLabel = "진행중";
+          break;
+        case 2:
+          stateLabel = "완료";
+          break;
+        default:
+          stateLabel = "신규";
+      }
+      System.out.printf("상태? %s\n", stateLabel);
+    }
+  }
+
+  public void update() { 
+    System.out.println("[작업 변경]");
+    int no = Prompt.inputInt("번호? ");
+
+    Task task = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (tasks[i].no == no) {
+        task = tasks[i];
+        break;
+      }
+    }
+
+    if (task == null) {
+      System.out.println("해당 번호의 작업이 없습니다.");
+      return;
+    }
+
+    String operation = String.format("내용:(%s)? ", task.content);
+    String content = Prompt.inputString(operation);
+
+    operation = String.format("마감일:(%s)? ", task.deadline);
+    Date deadline = Prompt.inputDate(operation);
+
+    // operation = String.format("상태(%s)? ", task.status);
+    int status = Prompt.inputInt(String.format("상태(%s)? ", task.status));
+    // stateLebel은 list에서 선언되었기 때문에 app이랑 비슷한 루트인
+    // update에서는 app에서 선언된 status를 사용하는 게 옳다
+
+
+    String input = Prompt.inputString("정말 변경하시겠습니까?(y/N)");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("작업 변경이 취소되었습니다.");
+      return;
+    }
+
+    task.content = content;
+    task.deadline = deadline;
+    task.status = status;
+
+    System.out.println("작업을 변경하였습니다.");
+
+  }
+
+  public void delete() { 
+    System.out.println("[작업 변경]");
+    int no = Prompt.inputInt("번호? ");
+
+    int taskindex = -1; // this.size와 숫자가 겹치면 헷갈리니까 아예 -1 선언
+
+    for (int i = 0; i < this.size; i++) {
+      if (this.tasks[i].no == no) {
+        taskindex = i;
+        break;
+      }
+
+      else if (taskindex == -1) {
+        System.out.println("해당 번호의 작업이 없습니다.");
+        return;
+      }
+    }
+
+    String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N)");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("작업 삭제를 취소하였습니다.");
+      return;
+    }
+
+    for (int i = taskindex +1; i < this.size; i++) {
+      this.tasks[i - 1] = this.tasks[i];
+    }
+    this.tasks[--this.size] = null;
+
+
+    System.out.println("작업을 삭제하였습니다.");
+
+  }
+
 
 }
