@@ -90,12 +90,9 @@ public class BoardHandler {
     System.out.println("[게시글 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int boardIndex = indexOf(no);
+    int index = indexOf(no);
 
-    // Board 인스턴스가 들어 있는 배열을 뒤져서
-    // 게시글 번호와 일치하는 Board 인스턴스를 찾는다. 
-
-    if (boardIndex == -1) {
+    if (index == -1) {
       System.out.println("해당 번호의 게시글이 없습니다.");
       return;
     }
@@ -106,7 +103,7 @@ public class BoardHandler {
       return;
     }
 
-    for (int i = boardIndex + 1; i < this.size; i++) {
+    for (int i = index + 1; i < this.size; i++) {
       this.boards[i - 1] = this.boards[i];
     }
     this.boards[--this.size] = null;
@@ -131,7 +128,6 @@ public class BoardHandler {
     }
     return -1;
   }
-
 
 
 }
