@@ -11,8 +11,14 @@ public class TaskHandler {
   Task[] tasks = new Task[MAX_LENGTH];
   int size = 0;
 
-  //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
-  public void add(MemberHandler memberHandler) {
+  // TaskHandler의 여러 메서드에서 지속적으로 사용할 의존 객체를
+  // 인스턴스 필드에 *미리* 주입 받는다.
+  // 다른 패키지의 클래스에서 이 변수를 사용할 수 있도록 접근 모드를 공개한다.
+  public MemberHandler memberHandler;
+
+  // add()에서 사용할 MemberHandler는 메서드를 호출하기 전에
+  // 인스턴스 변수에 미리 주입되어 있어야 한다.
+  public void add() {
     System.out.println("[작업 등록]");
 
     Task task = new Task();
@@ -20,8 +26,8 @@ public class TaskHandler {
     task.no = Prompt.inputInt("번호? ");
     task.content = Prompt.inputString("내용? ");
     task.deadline = Prompt.inputDate("마감일? ");
-    task.status = promptStatus(-1);
-    task.owner = promptOwner(memberHandler, null);
+    task.status = promptStatus();
+    task.owner = promptOwner("담당자?(취소: 빈 문자열) ");
     if (task.owner == null) {
       System.out.println("작업 등록을 취소합니다.");
       return; 
@@ -60,7 +66,10 @@ public class TaskHandler {
     System.out.printf("담당자: %s\n", task.owner);
   }
 
-  public void update(MemberHandler memberHandler) {
+
+  // update()가 사용할 MemberHandler는
+  // 인스턴스 변수에 미리 주입 받기 때문에 파라미터로 받을 필요가 없다.
+  public void update() {
     System.out.println("[작업 변경]");
     int no = Prompt.inputInt("번호? ");
 
@@ -73,7 +82,8 @@ public class TaskHandler {
     String content = Prompt.inputString(String.format("내용(%s)? ", task.content));
     Date deadline = Prompt.inputDate(String.format("마감일(%s)? ", task.deadline));
     int status = promptStatus(task.status);
-    String owner = promptOwner(memberHandler, task.owner);
+    String owner = promptOwner(String.format(
+        "담당자(%s)?(취소: 빈 문자열) ", task.owner));
     if (owner == null) {
       System.out.println("작업 변경을 취소합니다.");
       return;
@@ -143,12 +153,11 @@ public class TaskHandler {
     }
   }
 
-  private String promptOwner(MemberHandler memberHandler, String ownerName) {
+  private String promptOwner(String label) {
     while (true) {
-      String owner = Prompt.inputString(String.format(
-          "담당자%s?(취소: 빈 문자열) ", 
-          ownerName != null ? "(" + ownerName + ")" : ""));
-      if (memberHandler.exist(owner)) {
+      String owner = Prompt.inputString(label);
+      // memberHandler의 인스턴스는 미리 인스턴스 변수에 주입 받은 것을 사용한다.
+      if (this.memberHandler.exist(owner)) {
         return owner;
       } else if (owner.length() == 0) {
         return null;
@@ -157,8 +166,16 @@ public class TaskHandler {
     }
   }
 
+  private int promptStatus() {
+    return promptStatus(-1);
+  }
+
   private int promptStatus(int status) {
-    System.out.printf("상태%s?\n", status != -1 ? getStatusLabel(status) : "");
+    if (status == -1) {
+      System.out.println("상태?");
+    } else {
+      System.out.printf("상태(%s)?\n", getStatusLabel(status));
+    }
     System.out.println("0: 신규");
     System.out.println("1: 진행중");
     System.out.println("2: 완료");

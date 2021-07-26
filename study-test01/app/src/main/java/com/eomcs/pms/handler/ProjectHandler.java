@@ -11,7 +11,12 @@ public class ProjectHandler {
   Project[] projects = new Project[MAX_LENGTH];
   int size = 0;
 
-  public void add(MemberHandler memberHandler) {
+  // ProjectHandler가 지속적으로 사용할 의존 객체는
+  // 다음과 같이 인스턴스 필드로 받는다.
+  // 이 인스턴스 변수에 의존 객체의 주소를 넣을 수 있도록 접근모드를 공개로 설정한다.
+  public MemberHandler memberHandler;
+
+  public void add() {
     System.out.println("[프로젝트 등록]");
 
     Project project = new Project();
@@ -22,13 +27,13 @@ public class ProjectHandler {
     project.startDate = Prompt.inputDate("시작일? ");
     project.endDate = Prompt.inputDate("종료일? ");
 
-    project.owner = promptOwner(memberHandler);
+    project.owner = promptOwner("만든이?(취소: 빈 문자열) ");
     if (project.owner == null) {
       System.out.println("프로젝트 등록을 취소합니다.");
       return;
     }
 
-    project.members = promptMembers(memberHandler);
+    project.members = promptMembers("팀원?(완료: 빈 문자열) ");
 
     this.projects[this.size++] = project;
   }
@@ -66,7 +71,7 @@ public class ProjectHandler {
     System.out.printf("팀원: %s\n", project.members);
   }
 
-  public void update(MemberHandler memberHandler) {
+  public void update() {
     System.out.println("[프로젝트 변경]");
     int no = Prompt.inputInt("번호? ");
 
@@ -82,14 +87,15 @@ public class ProjectHandler {
     Date startDate = Prompt.inputDate(String.format("시작일(%s)? ", project.startDate));
     Date endDate = Prompt.inputDate(String.format("종료일(%s)? ", project.endDate));
 
-    String owner = promptOwner(memberHandler, project.owner);
+    String owner = promptOwner(String.format(
+        "만든이(%s)?(취소: 빈 문자열) ", project.owner));
     if (owner == null) {
       System.out.println("프로젝트 변경을 취소합니다.");
       return;
     }
 
-    String members = promptMembers(memberHandler, project.members);
-
+    String members = promptMembers(String.format(
+        "팀원(%s)?(완료: 빈 문자열) ", project.members));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -150,16 +156,13 @@ public class ProjectHandler {
     return -1;
   }
 
-  private String promptOwner(MemberHandler memberHandler) {
-    return promptOwner(memberHandler, null); // 이 자리에 null로 세팅해 놓으면 add update 등 null을 신경쓰지 않아도 된다
-  }
-
-  private String promptOwner(MemberHandler memberHandler, String ownerName) {
+  private String promptOwner(String label) {
     while (true) {
-      String owner = Prompt.inputString(String.format(
-          "만든이%s?(취소: 빈 문자열) ", 
-          ownerName != null ? "(" + ownerName + ")" : ""));
-      if (memberHandler.exist(owner)) {
+      String owner = Prompt.inputString(label);
+      // 회원 이름이 등록된 회원의 이름인지 검사할 때 사용할 MemberHandler 인스턴스는
+      // 인스턴스 변수에 미리 주입되어 있기 때문에 파라미터로 받을 필요가 없다.
+      // 다음과 같이 인스턴스 변수를 직접 사용하면 된다.
+      if (this.memberHandler.exist(owner)) {
         return owner;
       } else if (owner.length() == 0) {
         return null;
@@ -168,17 +171,11 @@ public class ProjectHandler {
     }
   }
 
-  private String promptMembers(MemberHandler memberHandler) {
-    return promptMembers(memberHandler, null);
-  }
-
-  private String promptMembers(MemberHandler memberHandler, String oldMembers) {
+  private String promptMembers(String label) {
     String members = "";
     while (true) {
-      String member = Prompt.inputString(String.format(
-          "팀원%s?(완료: 빈 문자열) ",
-          oldMembers != null ? "(" + oldMembers + ")" : ""));
-      if (memberHandler.exist(member)) {
+      String member = Prompt.inputString(label);
+      if (this.memberHandler.exist(member)) {
         if (members.length() > 0) {
           members += ",";
         }
