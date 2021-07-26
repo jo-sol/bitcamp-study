@@ -2,12 +2,12 @@ package com.eomcs.oop.ex01;
 
 // # 클래스 사용 : 4) 메서드 활용
 //
-public class Exam0113 {
+public class Exam0113 { // 설계도면을 메서드 밖에 둔 Exam0113
 
   // 여러 메서드에서 클래스를 사용한다면
   // 이렇게 메서드 밖에 선언해야 한다.
   // => static 메서드에서 사용할 수 있게 클래스도 static으로 선언한다.
-  static class Score {
+  static class Score { // Static 메서드는 Static 메서드끼리 접근할 수 있으므로 밖으로 빼낼 때 Static 붙이기
     String name;
     int kor;
     int eng;

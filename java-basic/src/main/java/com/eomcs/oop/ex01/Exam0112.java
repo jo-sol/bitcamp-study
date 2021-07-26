@@ -3,7 +3,7 @@ package com.eomcs.oop.ex01;
 // # 클래스 사용 : 3) 클래스 사용
 //
 public class Exam0112 {
-  public static void main(String[] args) {
+  public static void main(String[] args) { // 설계도면을 메서드 안에 둔 Exam0112
     // 여러 개의 변수(메모리)를 묶어서 한 사람의 성적 정보를 저장하라!
     // => 밥, 국, 반찬1, 반찬2, 반찬3 을 쟁반에 담아서 가져오는 상황.
 
@@ -26,7 +26,7 @@ public class Exam0112 {
     //
 
     // 다음은 성적 정보를 저장할 메모리 구조를 클래스로 설계한 것이다.
-    class Score {
+    class Score { // 하기는 Score 클래스의 인스턴스 변수(필드)들
       String name;
       int kor;
       int eng;
@@ -37,7 +37,8 @@ public class Exam0112 {
 
     // 위에서 작성한 설계도에 따라 메모리를 준비해보자!
     Score s; // int 변수 선언하듯이 이렇게 하면 될까?
-    //
+    // 메모리 주소를 저장하는 레퍼런스 변수
+    // 
     // => 이 선언은 설계도에 따라 메모리를 준비시키는 명령이 아니다!!!
     // => Score 설계도에 따라 만든 메모리의 주소를 저장할 변수를 만드는 명령이다.
     // => 이렇게 메모리의 주소를 저장하는 변수를 "레퍼런스(reference)"라 부른다.
@@ -70,7 +71,7 @@ public class Exam0112 {
     //   => s 인스턴스의 필드 값을 설정한다.
     //   => s 객체의 필드 값을 설정한다.
     //
-    s.name = "홍길동"; // s에 저장된 주소로 찾아가서 name 항목에 값 저장
+    s.name = "홍길동"; // s에 저장된 주소로 찾아가서 그 인스턴스의 name변수(필드) 항목에 값 저장
     s.kor = 100; // s에 저장된 주소로 찾아가서 kor 항목에 값 저장
     s.eng = 90;
     s.math = 80;

@@ -7,7 +7,7 @@ public class Exam0210 {
     // 여러 개의 인스턴스 주소 저장하기
 
     // 1) 성적 정보를 저장할 메모리를 설계한다.
-    class Score {
+    class Score { // Score 설계도 / Score 클래스 // Static이 안 붙은 변수는 new 명령어를 생성해야 존재
       String name;
       int kor;
       int eng;
@@ -17,6 +17,8 @@ public class Exam0210 {
     }
 
     // 2) 메모리 주소를 저장할 레퍼런스를 준비한다.
+    // Score 설계도에 따라 만든 변수들의 주소를 저장 = "레퍼런스(reference)"
+    // -> 인스턴스의 주소를 담는 변수이며, 인스턴스라는 말이 아님!!
     Score s1, s2, s3;
 
     // 3) 설계도에 따라 메모리를 준비하고 그 주소를 각 레퍼런스에 저장한다.

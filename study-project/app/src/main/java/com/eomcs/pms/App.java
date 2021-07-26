@@ -14,36 +14,17 @@ public class App {
 
     MemberHandler memberHandler = new MemberHandler();
 
-    // projectHandler.memberHandler(파라미터로 안 받고 인스턴스 변수에 미리 주입 선언) = memberHandler(의존 객체);
-    // projectHandler 안에 memberHandler가 있는데 그 안에 의존 객체 memberHandler를 주입해 주세요!!
-    // 만약 ProjectHandler의 메서드가 사용할 의존 객체를 주입하지 않는다면?
-    // - 그 의존 객체를 사용하는 메서드를 호출할 때 실행 오류가 발생할 것이다.
-    // ProjectHandler projectHandler = new ProjectHandler();
-    // projectHandler.memberHandler = memberHandler;
-    //
-    // 왜 이런 문제가 발생하는가?
-    // - 의존 객체 주입을 강제하지 않기 때문이다.
-    // 해결책?
-    // - 의존 객체 주입을 강제하면 된다.
-    // - ProjectHandler의 인스턴스를 생성할 때 반드시 MemberHandler의 인스턴스를 주입하게
-    //   만들면 된다.
-    // 어떻게?
-    // - 생성자를 도입하라!
-    ProjectHandler projectHandler = new ProjectHandler(memberHandler);
-    // public ProjectHandler(MemberHandler memberHandler) 이렇게 선언해 버렸기 때문에 memberHandler를 받아 줘야 함
-    //    projectHandler.memberHandler = memberHandler;
+    ProjectHandler projectHandler = new ProjectHandler();
+    // ProjectHandler의 메서드가 사용할 의존 객체는
+    // 메서드를 호출할 때 마다 파라미터로 전달하는 것이 아니라, 
+    // 다음과 같이 인스턴스 변수에 미리 주입한다.
+    projectHandler.memberHandler = memberHandler;
 
-    // taskHandler 안에 memberHandler가 있는데 그 안에 의존 객체 memberHandler를 주입해 주세요!!
-    // 그 의존 객체를 사용하는 메서드를 호출할 때 실행 오류가 발생할 것이다.
-    // 생성자를 이용하면 다음과 같이 인스턴스를 생성할 때 의존 객체 주입을 강제할 수 있다.
-    TaskHandler taskHandler = new TaskHandler(memberHandler);
-    // 만약 TaskHandler의 메서드가 사용할 의존 객체를 주입하지 않는다면?
-    // taskHandler.memberHandler = memberHandler;
-    // - 그 의존 객체를 사용하는 메서드를 호출할 때 실행 오류가 발생할 것이다.
-
-    // public TaskHandler(MemberHandler memberHandler) 이렇게 선언해 버렸기 때문에 memberHandler를 받아 줘야 함
-    //    taskHandler.memberHandler = memberHandler;
-
+    TaskHandler taskHandler = new TaskHandler();
+    // TaskHandler의 메서드가 사용할 의존 객체는
+    // 메서드를 호출할 때 마다 파라미터로 전달하는 것이 아니라, 
+    // 다음과 같이 인스턴스 변수에 미리 주입한다.
+    taskHandler.memberHandler = memberHandler;
     while (true) {
       String input = Prompt.inputString("명령> ");
 

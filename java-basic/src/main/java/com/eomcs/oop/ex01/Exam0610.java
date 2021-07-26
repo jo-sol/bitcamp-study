@@ -1,10 +1,11 @@
 package com.eomcs.oop.ex01;
 
-// # public 클래스와 기본 클래스
+// # public 클래스와 기본 클래스(default class = package private class)
 //
 public class Exam0610 {
   public static void main(String[] args) {
 
+    // 패키지 안에서만 접근 가능
     // 같은 패키지에 소속된 클래스 사용
     // - 공개, 비공개 상관없이 사용할 수 있다.
     com.eomcs.oop.ex01.X obj1;

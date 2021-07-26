@@ -4,7 +4,7 @@ package com.eomcs.oop.ex01;
 //
 public class Exam0114 {
 
-  static class Score {
+  static class Score { 
     String name;
     int kor;
     int eng;
@@ -16,9 +16,9 @@ public class Exam0114 {
   public static void main(String[] args) {
 
     // 클래스를 이용하면 성적 정보와 같은 여러 개의 값을 한 번에 리턴 받을 수 있다.
-    Score s = createScore("홍길동", 100, 100, 100);
+    Score s = createScore("홍길동", 100, 100, 100); // creatScore는 메서드 안에서 인스턴스 생성해서 그 주소를 리턴
 
-    printScore(s);
+    printScore(s); // printScore는 인스턴스 주소를 파라미터로 받아서 사용하는 메서드
   }
 
   static void printScore(Score s) {
@@ -31,7 +31,7 @@ public class Exam0114 {
   // 클래스를 이용하면 성적 정보를 하나로 묶어 리턴할 수 있다.
   // - Score 인스턴스를 생성하여 리턴한다.
   // - 더 정확하게 표현하면, Score 인스턴스를 생성한 후 그 주소를 리턴한다.
-  static Score createScore(String name, int kor, int eng, int math) {
+  static Score createScore(String name, int kor, int eng, int math) { // createScore = factory 메서드
     Score s = new Score();
 
     s.name = "홍길동";

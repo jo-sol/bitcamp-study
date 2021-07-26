@@ -4,9 +4,9 @@ package com.eomcs.oop.ex01;
 //
 public class Exam0330 {
   public static void main(String[] args) {
-    class Score {
-      String name;
-      int kor;
+    class Score { // 컴파일 하게 되면 해당 class는 별도의 .class 파일로 빠지며,
+      String name; // main() 메서드가 호출할 때마다 안에서 실행되는 게 아니다.
+      int kor; // 다만 사용 범위는 main() 안에서만 사용된다.
       int eng;
       int math;
       int sum;
