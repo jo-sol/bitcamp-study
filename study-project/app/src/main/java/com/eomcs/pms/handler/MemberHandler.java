@@ -93,14 +93,7 @@ public class MemberHandler {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = -1;
-
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i].no == no) {
-        index = i;
-        break;
-      }
-    }
+    int index = indexOf(no);
 
     if (index == -1) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -139,7 +132,14 @@ public class MemberHandler {
     return null;
   }
 
-
+  private int indexOf(int no) {
+    for (int i = 0; i < this.size; i++) {
+      if (this.members[i].no == no) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
 
 }
