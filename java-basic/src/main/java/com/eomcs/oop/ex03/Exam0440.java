@@ -34,7 +34,8 @@ public class Exam0440 {
       this.math = math;
       this.compute();
     }
-
+    // 생성자가 호출되었을 때 그 안에서 this()가 호출될 수 있지만,
+    // 생성자 아닌 메서드() 안에서 this()가 호출될 수는 없다.
     public void compute() {
       this.sum = this.kor + this.eng + this.math;
       this.average = this.sum / 3f;

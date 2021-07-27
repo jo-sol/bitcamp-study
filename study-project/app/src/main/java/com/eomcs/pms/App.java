@@ -10,21 +10,18 @@ public class App {
 
   public static void main(String[] args) {
 
+    // 각 게시판의 게시글을 담을 메모리(boards 레퍼런스 배열과 size)를 준비한다.
+    // new BoardHandler()
+    //   - BoardHandler가 작업할 때 사용할 변수를 준비한다. 
+    //   - BoardHandler는 게시글을 다루는 작업을 한다.
     BoardHandler boardHandler = new BoardHandler();
 
     MemberHandler memberHandler = new MemberHandler();
 
     ProjectHandler projectHandler = new ProjectHandler();
-    // ProjectHandler의 메서드가 사용할 의존 객체는
-    // 메서드를 호출할 때 마다 파라미터로 전달하는 것이 아니라, 
-    // 다음과 같이 인스턴스 변수에 미리 주입한다.
-    projectHandler.memberHandler = memberHandler;
 
     TaskHandler taskHandler = new TaskHandler();
-    // TaskHandler의 메서드가 사용할 의존 객체는
-    // 메서드를 호출할 때 마다 파라미터로 전달하는 것이 아니라, 
-    // 다음과 같이 인스턴스 변수에 미리 주입한다.
-    taskHandler.memberHandler = memberHandler;
+
     while (true) {
       String input = Prompt.inputString("명령> ");
 
@@ -37,44 +34,17 @@ public class App {
       } else if (input.equals("/member/list")) {
         memberHandler.list();
 
-      } else if (input.equals("/member/detail")) {
-        memberHandler.detail();
-
-      } else if (input.equals("/member/update")) {
-        memberHandler.update();
-
-      } else if (input.equals("/member/delete")) {
-        memberHandler.delete();
-
       }  else if (input.equals("/project/add")) {
-        projectHandler.add();
+        projectHandler.add(memberHandler);
 
       }  else if (input.equals("/project/list")) {
         projectHandler.list();
 
-      }  else if (input.equals("/project/detail")) {
-        projectHandler.detail();
-
-      }  else if (input.equals("/project/update")) {
-        projectHandler.update();
-
-      }  else if (input.equals("/project/delete")) {
-        projectHandler.delete();
-
       }  else if (input.equals("/task/add")) {
-        taskHandler.add();
+        taskHandler.add(memberHandler);
 
       }  else if (input.equals("/task/list")) {
         taskHandler.list();
-
-      }  else if (input.equals("/task/detail")) {
-        taskHandler.detail();
-
-      }  else if (input.equals("/task/update")) {
-        taskHandler.update();
-
-      }  else if (input.equals("/task/delete")) {
-        taskHandler.delete();
 
       }  else if (input.equals("/board/add")) {
         boardHandler.add();
@@ -85,10 +55,10 @@ public class App {
       }  else if (input.equals("/board/detail")) {
         boardHandler.detail();
 
-      }  else if (input.equals("/board/update")) {
+      } else if (input.equals("/board/update")) {
         boardHandler.update();
 
-      }  else if (input.equals("/board/delete")) {
+      } else if (input.equals("/board/delete")) {
         boardHandler.delete();
 
       } else {
@@ -101,7 +71,6 @@ public class App {
     Prompt.close();
   }
 }
-
 
 
 

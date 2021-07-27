@@ -34,6 +34,7 @@ public class Exam0310 {
         int result = m.abs(value);
      */
 
+
     System.out.printf("절대값=%d\n", result);
   }
 }

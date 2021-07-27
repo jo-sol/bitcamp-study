@@ -47,6 +47,7 @@ public class Exam0240 {
     s.aver = s.sum / 3f;
 
     return s;
+
   }
 
   static void printScoreList(Score[] arr) {

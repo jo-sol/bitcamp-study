@@ -4,7 +4,7 @@ package com.eomcs.oop.ex03;
 
 public class Exam0110 {
 
-  // 지금 당장 A 클래스 앞에 붙은 static은 고민하지 말라!
+  // 지금 당장 A 클래스 앞에 붙은 **static은 고민하지 말라!**
   // 이 예제의 목표는 인스턴스 변수이다.
   static class A {
     // 인스턴스 변수
