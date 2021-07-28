@@ -48,7 +48,7 @@ public class Exam0113 {
     // Windows CLI에서 깨지지 않게 하는 방법?
     // => JVM 실행 옵션에 다음을 추가하라
     //     -Dfile.encoding=UTF-8
-    // => java -Dfile.encoding=UTF-8 -cp bin/main 클래스명
+    // => ** java -Dfile.encoding=UTF-8 -cp bin/main 클래스명
     // => PowerShell 이 아닌 Command 창에서 실행하라!
     //    PowerShell 에서는 -Dfile.encoding 옵션을 제대로 처리하지 못한다.
     //    도트(.)를 분리 문자로 인식한다.

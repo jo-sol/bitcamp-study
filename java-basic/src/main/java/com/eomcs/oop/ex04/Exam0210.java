@@ -6,14 +6,14 @@ public class Exam0210 {
     String s1 = new String("Hello");
 
     // s1 인스턴스(s1 레퍼런스가 가리키는 인스턴스)의 값을 조회하는 메서드 사용
-    // 따라서 이 메서드를 호출하려면 반드시 String 인스턴스의 주소를 줘야 한다.
+    // 따라서 이 메서드(charAt(1)를 호출하려면 반드시 String 인스턴스의 주소를 줘야 한다.
     char c = s1.charAt(1);
     System.out.println(c);
-
-    System.out.println(s1.compareTo("Helli"));
-    System.out.println(s1.compareTo("Hello"));
-    System.out.println(s1.compareTo("Hellq"));
-
+    // compareTo는 인스턴스 메서드이다
+    System.out.println(s1.compareTo("Helli")); // i가 o랑 6만큼 떨어짐
+    System.out.println(s1.compareTo("Hello")); // compareTo: (ex. "Hello"라는 문자열이 "Helli"보다 앞이냐 뒤냐) 정렬순으로 순서를 따져 주는 것
+    System.out.println(s1.compareTo("Hellq")); // => 현재 문자열이 파라미터로 주어진 문자열보다 이전이면 '-' 이후면 '+'
+    // contains는 파라미터로 주어진 문자열에 포함되어 있냐 없냐 따져서 true / false 따지는 메서드
     System.out.println(s1.contains("ll"));
     System.out.println(s1.contains("ee"));
 
@@ -53,15 +53,15 @@ public class Exam0210 {
     // 즉 "클래스 메서드=스태틱 메서드"를 제공한다.
 
     // => 형식을 갖춘 문자열을 만들기
-    String s4 = String.format("%s님 반갑습니다", "홍길동");
+    String s4 = String.format("%s님 반갑습니다", "홍길동"); // format 전형적인 스태틱 메서드 (인스턴스 필요 없이 바로 호출 가능)
     System.out.println(s4);
 
     // => 구분자와 문자열들을 파라미터로 받아서 새 문자열을 만든다.
-    String s5 = String.join(":", "홍길동", "임꺽정", "유관순");
-    System.out.println(s5);
+    String s5 = String.join(":", "홍길동", "임꺽정", "유관순"); // join 전형적인 스태틱 메서드 (인스턴스 필요 없이 바로 호출 가능)
+    System.out.println(s5); 
 
     // => primitive 값을 문자열로 만든다.
-    String s6 = String.valueOf(true);
+    String s6 = String.valueOf(true); // valueOf 전형적인 스태틱 메서드 (인스턴스 필요 없이 바로 호출 가능)
     String s7 = String.valueOf(3.14f);
     String s8 = String.valueOf(100);
     System.out.println(s6);

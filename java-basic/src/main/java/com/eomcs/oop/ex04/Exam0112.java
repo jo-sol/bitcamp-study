@@ -36,17 +36,17 @@ public class Exam0112 {
     // => 즉 bytes 배열에 EUC-KR의 코드 값이 들어 있다고 알려준다.
     //    그러면 JVM은 바이트 배열에 들어 있는 값을 제대로 유니코드 바꿀 것이다.
     // 
-    String s2 = new String(bytes, "EUC-KR");
+    String s2 = new String(bytes, "EUC-KR"); // EUC-KR 규칙에 따라 byte 코드를 실행하는 거니까 UTF-16 코드로 변경
     System.out.println(s2);
   }
 }
 
+// UTF-8 : 외부로 입출력하는 문자를 다룰 때 기본으로 사용하는 문자표
+//  => $java -Dfile.encoding = 문자표
+// UTF-16 : 내부에서 입출력하는 문자를 다룰 때 기본으로 사용하는 문자표
 
-
-
-
-
-
+// **남이 만든 클래스에 생성자를 사용할 때는 적절한 생성자를 선택해서 유효한 값으로 설정하라!!
+// **생성자를 사용할 때는 적절한 생성자를 선택해서 유효한 값으로 설정하라!!
 
 
 

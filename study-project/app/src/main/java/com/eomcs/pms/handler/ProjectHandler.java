@@ -66,5 +66,32 @@ public class ProjectHandler {
     }
   }
 
+  public void detail() {
+    System.out.println("[회원 상세보기]");
+    int no = Prompt.inputInt("번호? ");
+
+    Project project = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (this.projects[i].no == no) {
+        project = this.projects[i];
+        break;
+      }
+    }
+
+    if (project == null) {
+      System.out.println("해당 번호의 회원이 없습니다.");
+      return;
+    }
+
+    System.out.println("번호? ");
+
+    project.no = Prompt.inputInt("번호? ");
+    project.title = Prompt.inputString("프로젝트명? ");
+    project.content = Prompt.inputString("내용? ");
+    project.startDate = Prompt.inputDate("시작일? ");
+    project.endDate = Prompt.inputDate("종료일? ");
+
+  }
 
 }
