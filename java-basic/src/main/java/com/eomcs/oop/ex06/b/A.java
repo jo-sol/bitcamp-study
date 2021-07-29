@@ -1,5 +1,5 @@
 package com.eomcs.oop.ex06.b;
-
+// Exam0210
 public class A {
   static public void m() {
     System.out.println("m()");
@@ -42,7 +42,7 @@ public class A {
   //  }
 }
 
-
+// 리턴 타입은 상관없음
 
 
 

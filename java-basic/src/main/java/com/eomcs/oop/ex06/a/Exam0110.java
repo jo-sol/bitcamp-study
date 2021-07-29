@@ -29,7 +29,7 @@ public class Exam0110 {
     Car car2 = null;
     car2 = sedan; // OK
     car2 = truck; // OK
-    //    car2 = bike; // Error!
+    //    car2 = bike; // Error! -> bike에는 car 클래스가 원하는 게 없음!!
 
     Bike bike2 = null;
     //    bike2 = car; // Error!
