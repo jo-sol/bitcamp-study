@@ -14,15 +14,16 @@ class Score3 {
   private int math;
 
   // 대신 메서드를 통해 값을 설정하게 하라!
-  // 보통 필드의 값을 설정하는 메서드는 set필드명()으로 이름을 짓는다.
+  // 보통 필드의 값을 설정하는 메서드는 'set필드명()'으로 이름을 짓는다.
   // - 이런 메서드를 "세터(setter)"라 부른다.
-  // - 외부에서 호출할 수 있도록 공개 모드로 설정한다.
+  // - 외부에서 호출할 수 있도록 공개 모드(public)로 설정한다.
   // - 필드를 비공개로 막으면 값을 조회할 수 없기 때문에
-  //   getter를 추가해야 한다.
+  //   getter도 추가해야 한다.
   //
+  // 값을 넣기도 하고 빼기도 해야 하기 때문에 세터와 게터를 둘 다 가지고 있다
   public void setKor(int kor) {
     this.kor = kor;
-    this.compute();
+    this.compute(); // 값을 넣자마자 바로 compute()로 호출
   }
 
   public int getKor() {
@@ -38,9 +39,9 @@ class Score3 {
     return this.eng;
   }
 
-  public void setMath(int math) {
-    this.math = math;
-    this.compute();
+  public void setMath(int math) { // 파라미터로 넘어온 값을
+    this.math = math; // this.math가 대신 저장
+    this.compute(); // 저장하자마자 this가 가리키는 점수들을 가지고 compute()가 호출
   }
 
   public int getMath() {
@@ -51,6 +52,8 @@ class Score3 {
   private int sum;
   private float aver;
 
+  // 그러나 sum과 aver는 빼기만 하기 때문에 게터만 가지고 있다
+
   public int getSum() {
     return this.sum;
   }
@@ -59,7 +62,7 @@ class Score3 {
     return this.aver;
   }
 
-  // 공개할 필요가 없는 메서드는 private으로 막아라.
+  // **공개할 필요가 없는 메서드는 private으로 막아라.**
   // 보통 private 으로 막는 메서드는 해당 클래스 내부에서만 사용되는 메서드이다.
   private void compute() {
     this.sum = this.kor + this.eng + this.math;

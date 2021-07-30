@@ -4,7 +4,7 @@ package com.eomcs.oop.ex08.a;
 class Score4 {
 
   private String name;
-  // name은 직접 접근해도 되는데, 프로그래밍의 일관성을 위해
+  // name은 직접 접근해도 되는데, **프로그래밍의 일관성을 위해**
   // 다른 필드처럼 직접 접근을 막고 getter/setter를 통해 값을 다루도록 한다.
   // 이렇게 하면 나중에 name에 대해
   // 값의 유효성을 검사하는 코드를 즉시 삽입할 수 있어 유지보수에도 도움이 된다.

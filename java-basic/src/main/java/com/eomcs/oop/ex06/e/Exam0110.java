@@ -11,6 +11,6 @@ final class A {
 }
 
 // final 클래스를 상속 받을 수 없다.
-public class Exam0110 //extends A
+public class Exam0110 //extends A -> "final" 때문에 상속 불가능!!
 {
 }
