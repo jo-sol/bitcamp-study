@@ -58,8 +58,7 @@ public class BoardHandler {
     System.out.printf("내용: %s\n", board.content);
     System.out.printf("작성자: %s\n", board.writer);
     System.out.printf("등록일: %s\n", board.registeredDate);
-    System.out.printf("조회수: %d\n", board.viewCount);
-
+    System.out.printf("조회수: %d\n", ++board.viewCount);
   }
 
   public void update() {
@@ -73,8 +72,8 @@ public class BoardHandler {
       return;
     }
 
-    String title = Prompt.inputString(String.format("제목(%s)? \n", board.title));
-    String content = Prompt.inputString(String.format("내용(%s)? \n", board.content));
+    String title = Prompt.inputString(String.format("제목(%s)? ", board.title));
+    String content = Prompt.inputString(String.format("내용(%s)? ", board.content));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -88,15 +87,15 @@ public class BoardHandler {
   }
 
   public void delete() {
-    System.out.println("[게시글 삭제]");    
+    System.out.println("[게시글 삭제]");
     int no = Prompt.inputInt("번호? ");
 
     int index = indexOf(no);
 
     if (index == -1) {
       System.out.println("해당 번호의 게시글이 없습니다.");
+      return;
     }
-
 
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -104,7 +103,7 @@ public class BoardHandler {
       return;
     }
 
-    for (int i = index +1; i < this.size; i++) {
+    for (int i = index + 1; i < this.size; i++) {
       this.boards[i - 1] = this.boards[i];
     }
     this.boards[--this.size] = null;
@@ -131,9 +130,8 @@ public class BoardHandler {
   }
 
 
-
-
 }
+
 
 
 
