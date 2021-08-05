@@ -2,63 +2,29 @@ package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Member;
 
-public class MemberList {
-
-  static final int MAX_LENGTH = 5;
-  Member[] members = new Member[MAX_LENGTH];
-  int size = 0;
-
-  public void add(Member member) {
-    this.members[this.size++] = member;
-  }
-
-  public Member[] toArray() {
-    Member[] arr = new Member[this.size]; // 배열에 저장된 값을 담을 정도의 크기를 가진 새 배열을 만든다.
-    for (int i = 0; i < this.size; i++) { // 배열에 저장된 값을 새 배열에 복사한다.
-      arr[i] = members[i];
-    }
-    return arr; // 새 배열을 리턴한다.
-  }
+public class MemberList extends ArrayList {
 
   public Member findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (members[i].no == no) {
-        return members[i];
+    Object[] arr = toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj; // 반복문을 돌 때마다 하는 게 아니라 여기에서 한 번 쓰는 것
+      if (member.no == no) {
+        return member; // member에서만 하는 거니까 -> 변수명(int no 등)이 같을 거라는 보장을 못하기 때문!
       }
     }
     return null;
   }
 
-  public boolean remove(Member member) {
-    int index = indexOf(member);
-    if (index == -1) {
-      return false;
-    }
-
-    for (int i = index + 1; i < this.size; i++) {
-      this.members[i - 1] = this.members[i];
-    }
-    this.members[--this.size] = null;
-
-    return true;
-  }
-
-  private int indexOf(Member member) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i] == member) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
+  // ArrayList의 공통이 아니기 때문에 여기에서 사용
   public boolean exist(String name) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i].name.equals(name)) {
-        return true;
+    Object[] arr = toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj; // 반복문을 돌 때마다 하는 게 아니라 여기에서 한 번 쓰는 것
+      if (member.name.equals(name)) {
+        return true; // 같으면 true
       }
     }
-    return false;
+    return false; // 아니면 false
   }
 }
 

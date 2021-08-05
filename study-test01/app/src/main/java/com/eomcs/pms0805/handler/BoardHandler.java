@@ -5,9 +5,8 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
-  // 배열을 LinkedList 방식으로 돌아가도록 변경하기 -> 클래스 이름만 바꿔 주면 됨
-  // BoardList boardList = new BoardList -> BoardList2 boardList = new BoardList2
-  BoardList2 boardList = new BoardList2();
+
+  BoardList boardList = new BoardList(); // 본인 스스로가 만들기
 
   public void add() {
     System.out.println("[새 게시글]");
@@ -26,10 +25,9 @@ public class BoardHandler {
   public void list() {
     System.out.println("[게시글 목록]");
 
-    Object[] list = boardList.toArray();
+    Board[] list = boardList.toArray();
 
-    for (Object obj : list) {
-      Board board = (Board) obj; // 원래 obj 타입이니까 board로 형변환 시켜 주기
+    for (Board board : list) {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.no, 
           board.title, 

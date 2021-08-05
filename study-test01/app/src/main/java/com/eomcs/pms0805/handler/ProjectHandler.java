@@ -4,12 +4,12 @@ import java.sql.Date;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
-public class ProjectHandler {
+public class ProjectHandler { // MemberList를 사용해야 함
 
-  ProjectList2 projectList = new ProjectList2();
-  MemberList2 memberList;
+  ProjectList projectList = new ProjectList(); // ProjectList가 사용해야 하니까 생성
+  MemberList memberList;
 
-  public ProjectHandler(MemberList2 memberList) {
+  public ProjectHandler(MemberList memberList) {
     this.memberList = memberList;
   }
 
@@ -39,10 +39,9 @@ public class ProjectHandler {
   public void list() {
     System.out.println("[프로젝트 목록]");
 
-    Object[] list = projectList.toArray();
+    Project[] list = projectList.toArray();
 
-    for (Object obj : list) {
-      Project project = (Project) obj; // 원래 obj 타입이니까 project로 형변환 시켜 주기
+    for (Project project : list) {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
           project.no, 
           project.title, 

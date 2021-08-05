@@ -8,11 +8,20 @@ import com.eomcs.pms.menu.Menu;
 import com.eomcs.pms.menu.MenuGroup;
 import com.eomcs.util.Prompt;
 
-public class App {
+public class App { // 클래스 안에는 변수 선언만 가능하고, 조건 사용 불가능
+
+  //  BoardList boardList = new BoardList();
+  //  MemberList memberList = new MemberList();
+  //  ProjectList projectList = new ProjectList();
+  //  TaskList taskList = new TaskList();
+  // 생성자에 만드는 것보다 직접 만드는 것이 유지보수에 낫다.
 
   BoardHandler boardHandler = new BoardHandler();
   MemberHandler memberHandler = new MemberHandler();
   ProjectHandler projectHandler = new ProjectHandler(memberHandler.getMemberList());
+  // App과 memberHandler는 같은 패키지가 아님!
+  //    -> 접근 안 됨! new ProjectHandler(memberHandler.memberList)
+  // 따라서 getter를 사용한 new ProjectHandler(memberHandler.getMemberList()) 사용하기!
   TaskHandler taskHandler = new TaskHandler(memberHandler.getMemberList());
 
   public static void main(String[] args) {

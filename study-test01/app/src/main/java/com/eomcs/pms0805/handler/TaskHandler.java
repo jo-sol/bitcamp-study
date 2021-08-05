@@ -6,11 +6,11 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  TaskList2 taskList = new TaskList2();
-  MemberList2 memberList;
+  TaskList taskList = new TaskList(); // 본인 스스로의 것을 자기만 사용할 건 자기가 만들기
+  MemberList memberList; // 자기께 아니라서 생성자에서 받기
 
 
-  public TaskHandler(MemberList2 memberList) {
+  public TaskHandler(MemberList memberList) {
     this.memberList = memberList;
   }
 
@@ -36,10 +36,9 @@ public class TaskHandler {
   public void list() {
     System.out.println("[작업 목록]");
 
-    Object[] list = taskList.toArray();
+    Task[] list = taskList.toArray();
 
-    for (Object obj : list) {
-      Task task = (Task) obj; // 원래 obj 타입이니까 task로 형변환 시켜 주기
+    for (Task task : list) {
       System.out.printf("%d, %s, %s, %s, %s\n",
           task.no, 
           task.content, 
@@ -157,8 +156,6 @@ public class TaskHandler {
   }
 
 }
-
-
 
 
 

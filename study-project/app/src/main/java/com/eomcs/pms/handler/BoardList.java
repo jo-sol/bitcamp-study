@@ -1,57 +1,27 @@
 package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Board;
+// 배열 쓰고 싶을 때는 이거 쓰면 됨
+public class BoardList extends ArrayList {
 
-public class BoardList {
-
-  static final int MAX_LENGTH = 5;
-  Board[] boards = new Board[MAX_LENGTH];
-  int size = 0;
-
-  public void add(Board board) {
-    this.boards[this.size++] = board;
-  }
-
-  public Board[] toArray() {
-    Board[] arr = new Board[this.size]; // 배열에 저장된 값을 담을 정도의 크기를 가진 새 배열을 만든다.
-    for (int i = 0; i < this.size; i++) { // 배열에 저장된 값을 새 배열에 복사한다.
-      arr[i] = boards[i];
-    }
-    return arr; // 새 배열을 리턴한다.
-  }
-
-  public Board findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (boards[i].no == no) {
-        return boards[i];
+  public Board findByNo(int no) { // findByNo(?) ?: 뭐로 찾을 수 있을지 모르니까 list에서 따로 추가해 줌
+    // -> findByNo(int no) int no: 번호를 구분한다는 보장이 없음
+    Object[] arr = toArray();
+    for (Object obj : arr) {
+      Board board = (Board) obj; // 반복문을 돌 때마다 하는 게 아니라 여기에서 한 번 쓰는 것
+      if (board.no == no) {
+        return board; // board에서만 하는 거니까 -> 변수명(int no 등)이 같을 거라는 보장을 못하기 때문!
       }
     }
     return null;
   }
-
-  public boolean remove(Board board) {
-    int index = indexOf(board);
-    if (index == -1) {
-      return false;
-    }
-
-    for (int i = index + 1; i < this.size; i++) {
-      this.boards[i - 1] = this.boards[i];
-    }
-    this.boards[--this.size] = null;
-
-    return true;
-  }
-
-  private int indexOf(Board board) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.boards[i] == board) {
-        return i;
-      }
-    }
-    return -1;
-  }
 }
+
+//    for (Object obj : arr) {
+//      if (((Board)obj).no == no) {
+//        return (Board)obj; // board에서만 하는 거니까 -> 변수명(int no 등)이 같을 거라는 보장을 못하기 때문!
+//      }
+//    }
 
 
 

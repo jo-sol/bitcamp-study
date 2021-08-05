@@ -6,9 +6,13 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  MemberList2 memberList = new MemberList2();
+  MemberList memberList = new MemberList(); // default로 되어 있어서 같은 패키지만 접근
 
-  public MemberList2 getMemberList() {
+  // public으로 공개하게 되면
+  // 다른 패키지에서 상기와 같은 자체적으로 만든 memberList를 추가할 수 있기 때문에 사용 안 하기
+  // 대신 값을 원하는 쪽에 리턴해 줄 수 있도록 getter 메서드 만들기
+  // memberList에 있는 게 필요하면 getter 메서드를 통해 가지고 가라는 의미!
+  public MemberList getMemberList() {
     return memberList;
   }
 
@@ -31,10 +35,9 @@ public class MemberHandler {
   public void list() {
     System.out.println("[회원 목록]");
 
-    Object[] list = memberList.toArray();
+    Member[] list = memberList.toArray();
 
-    for (Object obj : list) {
-      Member member = (Member) obj; // 원래 obj 타입이니까 member로 형변환 시켜 주기
+    for (Member member : list) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
           member.no, 
           member.name, 
