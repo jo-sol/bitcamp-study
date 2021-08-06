@@ -6,10 +6,10 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  MemberList2 memberList = new MemberList2();
+  List memberList;
 
-  public MemberList2 getMemberList() {
-    return memberList;
+  public MemberHandler(List memberList) {
+    this.memberList = memberList;
   }
 
   public void add() {
@@ -48,7 +48,7 @@ public class MemberHandler {
     System.out.println("[회원 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -66,7 +66,7 @@ public class MemberHandler {
     System.out.println("[회원 변경]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -98,7 +98,7 @@ public class MemberHandler {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -116,6 +116,57 @@ public class MemberHandler {
     System.out.println("회원을 삭제하였습니다.");
   }
 
+  private Member findByNo(int no) {
+    Object[] arr = memberList.toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj; // 반복문을 돌 때마다 하는 게 아니라 여기에서 한 번 쓰는 것
+      if (member.no == no) {
+        return member; // member에서만 하는 거니까 -> 변수명(int no 등)이 같을 거라는 보장을 못하기 때문!
+      }
+    }
+    return null;
+  }
+
+  public boolean exist(String name) {
+    Object[] arr = memberList.toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj; // 반복문을 돌 때마다 하는 게 아니라 여기에서 한 번 쓰는 것
+      if (member.name.equals(name)) {
+        return true; // 같으면 true
+      }
+    }
+    return false; // 아니면 false
+  }
+
+  public String promptMember(String label) { // 리팩토링 기법 중 무브 메서드(메서드 이동)기법
+    while (true) {
+      String owner = Prompt.inputString(label);
+      if (this.exist(owner)) {
+        return owner;
+      } else if (owner.length() == 0) {
+        return null;
+      }
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+  }
+
+  public String promptMembers(String label) { // 리팩토링 기법 중 무브 메서드(메서드 이동)기법
+    String members = "";
+    while (true) {
+      String member = Prompt.inputString(label);
+      if (this.exist(member)) {
+        if (members.length() > 0) {
+          members += ",";
+        }
+        members += member;
+        continue;
+      } else if (member.length() == 0) {
+        break;
+      } 
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+    return members;
+  }
 }
 
 

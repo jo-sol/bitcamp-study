@@ -1,6 +1,6 @@
 package com.eomcs.pms.handler;
 
-public class ArrayList {
+public class ArrayList extends List {
 
   static final int MAX_LENGTH = 5;
   // Board, Member, Project, Task의 수퍼 클래스는 Object이다

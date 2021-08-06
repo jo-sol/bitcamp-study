@@ -1,6 +1,9 @@
 package com.eomcs.pms;
 
+import com.eomcs.pms.handler.ArrayList;
 import com.eomcs.pms.handler.BoardHandler;
+import com.eomcs.pms.handler.LinkedList;
+import com.eomcs.pms.handler.List;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
@@ -10,14 +13,22 @@ import com.eomcs.util.Prompt;
 
 public class App {
 
-  BoardHandler boardHandler = new BoardHandler();
-  MemberHandler memberHandler = new MemberHandler();
-  ProjectHandler projectHandler = new ProjectHandler(memberHandler.getMemberList());
-  TaskHandler taskHandler = new TaskHandler(memberHandler.getMemberList());
+  //  List boardList = new List(); // => List가 추상 클래스이기 때문에 못 만든다.
+  // => 의존 객체 주입하기
+  List boardList = new ArrayList();
+  List memberList = new LinkedList();
+  List projectList = new ArrayList();
+  List taksList = new LinkedList();
+
+  BoardHandler boardHandler = new BoardHandler(boardList);
+  MemberHandler memberHandler = new MemberHandler(memberList);
+  ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
+  TaskHandler taskHandler = new TaskHandler(taksList, memberHandler);
 
   public static void main(String[] args) {
     App app = new App();
     app.service();
+
   }
 
   void service() {
