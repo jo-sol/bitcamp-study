@@ -7,7 +7,7 @@ abstract class A2 {
   // 추상 메서드
   // - 메서드 선언부에 abstract를 붙인다.
   // - 메서드 몸체(body)가 없다.
-  // - 추상 클래스나 인터페이스에서만 선언할 수 있다.
+  // - 추상 클래스나 인터페이스에서만 선언할 수 있다. // 일반 클래스는 메서드 만들어야 함
   //
   // 추상 메서드의 용도
   // - 서브 클래스 마다 구현이 다를 수 있는 경우에 사용한다.
@@ -23,11 +23,11 @@ abstract class A2 {
   //  public abstract void m2() {} // 컴파일 오류!
 }
 
-// 일반 클래스(concrete class)
-class A2Sub extends A2 {
+// 일반 클래스(**concrete class**)
+class A2Sub extends A2 { // 1) 추상 메서드를 상속받은 서브 클래스는
   @Override
   public void m1() {
-    // 서브 클래스에서 추상 메서드를 구현해야 한다.
+    // 2) 서브 클래스에서 추상 메서드를 구현해야 한다.
   }
 }
 

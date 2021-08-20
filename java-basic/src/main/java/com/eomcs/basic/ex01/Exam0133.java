@@ -1,6 +1,8 @@
 // Object 클래스의 메서드를 오버라이딩 하기 - equals()
 package com.eomcs.basic.ex01;
 
+import java.util.Objects;
+
 public class Exam0133 {
 
   static class Member /*extends Object */{
@@ -11,24 +13,39 @@ public class Exam0133 {
       this.name = name;
       this.age = age;
     }
-
     // Object로부터 상속 받은 equals() 메서드를 
     // Member 클래스의 역할에 맞게 재정의해보자! => "오버라이딩"
+
+    // 이클립스의 자동 소스
     @Override
     public boolean equals(Object obj) {
-      if (!(obj.getClass() == Member.class))
+      if (this == obj)
+        return true;
+      if (obj == null)
         return false;
-      
+      if (getClass() != obj.getClass())
+        return false;
       Member other = (Member) obj;
+      return age == other.age && Objects.equals(name, other.name);
 
-      if (!this.name.equals(other.name))
-        return false;
-
-      if (this.age != other.age)
-        return false;
-
-      return true;
+      // 강사님 기존 파일이며 위와 같은 내용
+      //      @Override
+      //      public boolean equals(Object obj) {
+      //        if (!(obj.getClass() == Member.class))
+      //          return false;
+      //        
+      //        Member other = (Member) obj;
+      //        
+      //        if (!this.name.equals(other.name))
+      //          return false;
+      //        
+      //        if (this.age != other.age)
+      //          return false;
+      //        
+      //        return true;
+      //      }
     }
+
   }
 
   public static void main(String[] args) {
@@ -38,9 +55,11 @@ public class Exam0133 {
 
     System.out.println(m1 == m2);
     System.out.println(m1 == m3);
+    System.out.println(m2 == m3);
 
-    System.out.println(m1.equals(m2));
+    System.out.println(m1.equals(m2)); // 위에서 정의한 코드에서 m1과 m2의 필드(인스턴스 값)이 같아서 true가 뜸
     System.out.println(m1.equals(m3));
+    System.out.println(m2.equals(m3));
   }
 }
 

@@ -1,7 +1,7 @@
-package com.eomcs.pms02.handler;
+package com.eomcs.pms01.handler;
 
 import java.sql.Date;
-import com.eomcs.pms02.domain.Project;
+import com.eomcs.pms01.domain.Project;
 import com.eomcs.util.Prompt;
 
 public class ProjectHandler {

@@ -1,34 +1,35 @@
 package com.eomcs.pms;
 
-import com.eomcs.pms.handler.ArrayList;
+import com.eomcs.menu.Menu;
+import com.eomcs.menu.MenuGroup;
+import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.BoardHandler;
-import com.eomcs.pms.handler.LinkedList;
-import com.eomcs.pms.handler.List;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
-import com.eomcs.pms.menu.Menu;
-import com.eomcs.pms.menu.MenuGroup;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class App {
-
-  //  List boardList = new List(); // => List가 추상 클래스이기 때문에 못 만든다.
-  // => 의존 객체 주입하기
-  List boardList = new ArrayList();
-  List memberList = new LinkedList();
-  List projectList = new ArrayList();
-  List taksList = new LinkedList();
+  // 하나의 클래스를 만들어 여러 클래스를 만든 효과가 생성된다(제네릭)
+  List<Board> boardList = new ArrayList<>(); // 이 ArrayList는 모두 Board가 되는 것이고
+  List<Member> memberList = new LinkedList<>();
+  List<Project> projectList = new ArrayList<>(); // 이 ArrayList는 모두 Project가 되는 것이다
+  List<Task> taskList = new LinkedList<>();
 
   BoardHandler boardHandler = new BoardHandler(boardList);
   MemberHandler memberHandler = new MemberHandler(memberList);
   ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
-  TaskHandler taskHandler = new TaskHandler(taksList, memberHandler);
+  TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
 
   public static void main(String[] args) {
-    App app = new App();
+    App app = new App(); 
     app.service();
-
   }
 
   void service() {

@@ -17,6 +17,9 @@ public class Exam0110 {
 
     // 인스턴스가 같은지를 비교해보면,
     System.out.println(s1 == s2); // false => 서로 다른 인스턴스이다.
+    // 문자열(String)의 값이 같은지 비교할 때는 equals()를 사용하면 안 된다!!
+    // equals()는 Object에서 상속받은(정의된) 메서드이기 때문
+    // == -> 인스턴스 주소가 다름
   }
 }
 

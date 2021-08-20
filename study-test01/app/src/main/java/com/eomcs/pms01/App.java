@@ -1,9 +1,9 @@
-package com.eomcs.pms01;
+package com.eomcs.pms00;
 
-import com.eomcs.pms01.handler.BoardHandler;
-import com.eomcs.pms01.handler.MemberHandler;
-import com.eomcs.pms01.handler.ProjectHandler;
-import com.eomcs.pms01.handler.TaskHandler;
+import com.eomcs.pms00.handler.BoardHandler;
+import com.eomcs.pms00.handler.MemberHandler;
+import com.eomcs.pms00.handler.ProjectHandler;
+import com.eomcs.pms00.handler.TaskHandler;
 import com.eomcs.util.Prompt;
 
 public class App {
@@ -15,6 +15,10 @@ public class App {
     //  - BoardHandler의 메서드가 작업할 때 사용할 변수를 준비한다.
     BoardHandler boardHandler = new BoardHandler();
     BoardHandler boardHandler2 = new BoardHandler();
+    BoardHandler boardHandler3 = new BoardHandler();
+    BoardHandler boardHandler4 = new BoardHandler();
+    BoardHandler boardHandler5 = new BoardHandler();
+    BoardHandler boardHandler6 = new BoardHandler();
 
     MemberHandler memberHandler = new MemberHandler();
 
@@ -36,15 +40,14 @@ public class App {
         memberHandler.list();
 
       }  else if (input.equals("/project/add")) {
-        projectHandler.add(memberHandler); 
-        // add를 실행할 때는 사용자가 입력한 프로젝트를 저장하기 위한 인스턴스 주소를 줘야 함
+        projectHandler.add(memberHandler); // add를 실행할 때는 사용자가 입력한 프로젝트를 저장하기 위한 인스턴스 주소를 줘야 함
         // 파라미터로는 exist를 호출하기 위해 exist를 사용할 member 데이터(배열)가 저장된 인스턴스 주소가 필요함
       }  else if (input.equals("/project/list")) {
         projectHandler.list();
 
       }  else if (input.equals("/task/add")) {
-        taskHandler.add(memberHandler); 
-        // member 데이터가 저장된 배열과 몇 개의 값을 가지고 있는 사이즈라는 주소를 memberHandler가 가지고 있기 때문
+        taskHandler.add(memberHandler); // member 데이터가 저장된 배열과 몇 개의 값을 가지고 있는 사이즈라는 주소를 memberHandler가 가지고 있기 때문
+
       }  else if (input.equals("/task/list")) {
         taskHandler.list();
 
@@ -64,41 +67,29 @@ public class App {
       } else if (input.equals("/board2/list")) {
         boardHandler2.list();
 
-      } else if (input.equals("/board/detail")) {
-        boardHandler.detail();
+      } else if (input.equals("/board3/add")) {
+        boardHandler3.add();
 
-      } else if (input.equals("/board/update")) {
-        boardHandler.update();
+      } else if (input.equals("/board3/list")) {
+        boardHandler3.list();
 
-      } else if (input.equals("/board/delete")) {
-        boardHandler.delete();
+      } else if (input.equals("/board4/add")) {
+        boardHandler4.add();
 
-      } else if (input.equals("/member/detail")) {
-        memberHandler.detail();
+      } else if (input.equals("/board4/list")) {
+        boardHandler4.list();
 
-      } else if (input.equals("/member/update")) {
-        memberHandler.update();
+      } else if (input.equals("/board5/add")) {
+        boardHandler5.add();
 
-      } else if (input.equals("/member/delete")) {
-        memberHandler.delete();
+      } else if (input.equals("/board5/list")) {
+        boardHandler5.list();
 
-      } else if (input.equals("/project/detail")) {
-        projectHandler.detail();
+      } else if (input.equals("/board6/add")) {
+        boardHandler6.add();
 
-      } else if (input.equals("/project/update")) {
-        projectHandler.update(memberHandler);
-
-      } else if (input.equals("/project/delete")) {
-        projectHandler.delete();
-
-      } else if (input.equals("/task/detail")) {
-        taskHandler.detail();
-
-      } else if (input.equals("/task/update")) {
-        taskHandler.update(memberHandler);
-
-      } else if (input.equals("/task/delete")) {
-        taskHandler.delete();
+      } else if (input.equals("/board6/list")) {
+        boardHandler6.list();
 
       } else {
         System.out.println("실행할 수 없는 명령입니다.");

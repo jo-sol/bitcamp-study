@@ -12,7 +12,7 @@ public class Exam0171 {
   // 해결책?
   // => Object에서 상속 받은 clone()을 오버라이딩 한다.
   // => 다른 패키지의 멤버가 호출하려면 public 으로 접근 제어의 범위를 넓혀야 한다.
-  // => 어떻게? 다음과 같이 오버라이딩 하라!
+  // => 어떻게? 다음과 같이 오버라이딩 하라! -> Exam0172 implements Cloneable
   static class Score {
     String name;
     int kor;
@@ -47,7 +47,8 @@ public class Exam0171 {
       // 복제를 위한 코드를 따로 작성할 필요가 없다. 
       // JVM이 알아서 해준다. 
       // 그냥 상속 받은 메서드를 오버라이딩하고, 접근 권한을 public 으로 확대한다.
-      // 리턴 타입은 해당 클래스 이름으로 변경한다.
+      // 원래의 clone() 메서드를 실행한 다음에
+      // 리턴 타입을 해당 클래스로 형변환 한다.
       return (Score) super.clone();
     }
   }

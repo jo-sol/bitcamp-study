@@ -11,6 +11,7 @@ public class Exam0121 {
 
     // 개발을 하다 보면 인스턴스의 현재 값을 간단히 확인하고 싶을 경우가 있다.
     // 그럴 경우 toString()을 오버라이딩 하라!
+    // 데이터를 담는 (ex.domain 같은) 클래스들은 기본적으로 toString()을 오버라이딩 한다.
     @Override
     public String toString() {
       return "My [name=" + name + ", age=" + age + "]";
@@ -23,8 +24,8 @@ public class Exam0121 {
 
     My obj1 = new My();
 
-    obj1.name = "홍길동";
-    obj1.age = 20;
+    obj1.name = "홍길동"; // obj1의 name의 홍길동
+    obj1.age = 20; // obj1.age에 20을 넣어라 => 둘 다 같은 의미
 
     System.out.println(obj1.toString());
 

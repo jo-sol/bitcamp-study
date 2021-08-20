@@ -1,9 +1,9 @@
-package com.eomcs.pms02;
+package com.eomcs.pms01;
 
-import com.eomcs.pms02.handler.BoardHandler;
-import com.eomcs.pms02.handler.MemberHandler;
-import com.eomcs.pms02.handler.ProjectHandler;
-import com.eomcs.pms02.handler.TaskHandler;
+import com.eomcs.pms01.handler.BoardHandler;
+import com.eomcs.pms01.handler.MemberHandler;
+import com.eomcs.pms01.handler.ProjectHandler;
+import com.eomcs.pms01.handler.TaskHandler;
 import com.eomcs.util.Prompt;
 
 public class App {

@@ -7,7 +7,8 @@ package com.eomcs.oop.ex07.d;
 public class MergeSort extends Sorter {
 
   // Sorter 클래스를 상속 받았지만
-  // Sorter 클래스의 sort() 메서드를 재정의하지 않았다.
+  // Sorter 클래스의 sort() 메서드를 재정의하지 않았다. (누가? Merge가)
+  //
   // 아래의 sort(int[], int, int) 메서드는
   // 내부적으로 사용하기 위해 추가한 메서드이다.
   // 이렇게 Sorter를 상속 받아 서브 클래스를 만드는 것에는 문제가 없지만,

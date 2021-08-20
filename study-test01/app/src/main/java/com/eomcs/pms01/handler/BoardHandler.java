@@ -1,7 +1,7 @@
-package com.eomcs.pms01.handler;
+package com.eomcs.pms00.handler;
 
 import java.sql.Date;
-import com.eomcs.pms01.domain.Board;
+import com.eomcs.pms00.domain.Board;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
@@ -58,8 +58,8 @@ public class BoardHandler {
     Board board = null;
 
     for (int i = 0; i < this.size; i++) { // 위에 선언한 int size = 0; 이 변수를 공유하는 것이기 때문에 this.size라 표기
-      if (this.boards[i].no == no) {
-        board = this.boards[i];
+      if (boards[i].no == no) {
+        board = boards[i];
         break;
       }
     }
@@ -83,8 +83,8 @@ public class BoardHandler {
     Board board = null;
 
     for (int i = 0; i < this.size; i++) {
-      if (this.boards[i].no == no) {
-        board = this.boards[i];
+      if (boards[i].no == no) {
+        board = boards[i];
         break;
       }
     }
@@ -96,7 +96,6 @@ public class BoardHandler {
 
     String label = String.format("제목(%s)? ", board.title);
     String title = Prompt.inputString(label);
-    // String title = Prompt.inputString(String.format("제목:(%s)? ", board.title);
 
     label = String.format("내용(%s)? ", board.content);
     String content = Prompt.inputString(label);
@@ -117,54 +116,36 @@ public class BoardHandler {
     System.out.println("[게시글 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    // boardIndex : 삭제해야 할 번호가 들어있는 주소(임의 변수)
     int boardIndex = -1;
     // for문의 배열에서 찾은 인스턴스가 null에 들어감
     // for문에서 해당 값을 찾을 때까지 돌리는데
     // 값이 없을 경우 값이 계속 null인 상태로 있게 된다
+    // boardIndex : 삭제해야 할 번호가 들어있는 주소
 
-    // Board 인스턴스가 들어있는 배열(Boards[])을 뒤져서 
+    // Board 인스턴스가 들어있는 배열을 뒤져서 
     // 게시글 번호와 일치하는 Board 인스턴스를 찾는다.
     for (int i = 0; i < this.size; i++) { // this.size -> 배열에 입력된 개수
       if (this.boards[i].no == no) { // this 생략 가능
-        boardIndex = i; // i 값을 boardIndex에 넣어라
+        boardIndex = i;
         break; // 배열에 입력된 개수만큼 반복하는 반복 for문
       } // break는 현재 반복문을 나가라는 의미
-    } // 
+    } // return은 실행을 끝내라는 의미
 
     if (boardIndex == -1) {
       System.out.println("해당 번호의 게시글이 없습니다.");
       return;
     }
-
-    //    for (int i = 0; i < this.size; i++) { 
-    //      if (this.boards[i].no == no) { 
-    //        boardIndex = i;
-    //        break; 
-    //      } 
-    //      else if (boardIndex == -1) {
-    //        System.out.println("해당 번호의 게시글이 없습니다.");
-    //        return;
-    //      }    
-    //    } 
-    //      for문 안에서 if와 else if 같이 선언 가능
-
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) { // length() == 0 빈문자열이면
       System.out.println("게시글 삭제를 취소하였습니다.");
       return;
     }
 
-    for (int i = boardIndex +1; i < this.size; i++) { // boardIndex에서부터 size까지만 가기
-      this.boards[i - 1] = this.boards[i]; // boardIndex 1부터 반복
+    for (int i = boardIndex; i < this.size -1; i++) { // boardIndex에서부터 시작
+      this.boards[i] = this.boards[i + 1]; // boards의 i 번 방에 i + 1 방에 있는 애를 당겨오기
     }
-    this.boards[--this.size] = null;
-    // 다 당긴 다음에 제일 끝을 null로 선언해 주기 위해
-    // 마지막 항목은 항상 size보다 하나 작은데 어차피 size에서 하나 빼야 하니까
-    // 미리 size에서 하나 빼고 계산
-
-    //    this.boards[this.size -1] = null; // 전체 size보다 -1인 곳까지 반복해 주고 null 넣기
-    //    this.size--; // 당겼으니까 size 수를 줄여 줘야 함
+    this.boards[this.size -1] = null;
+    this.size--; // 당겼으니까 size 수를 줄여 줘야 함
     System.out.println("게시글을 삭제하였습니다.");
   }
 
@@ -190,14 +171,12 @@ public class BoardHandler {
 //    // String title = Prompt.inputString(String.format("제목:(%s)?", board.title));
 //    // 임시변수가 들어갈 자리에 위와 같이 넣는 게 유지보수에 낫다
 //    // board 인스턴스의 title이 있는 걸 
-
 //    String label = String.format("제목:(%s)?", board.title); // String 클래스의 format은 printf와 비슷하지만 제목:(%s)?이 문자열을 만들고 리턴한다
 //    String title = Prompt.inputString(label); // 제목:(%s)?을 출력하고 입력받아야 함
 //    // 제목:(%s)? 문자열을 입력받아서(문자열을 만들어) label 변수에 리턴함
 //    // label은 해당 문자열을 다시 title에 줌
 //    // printf = 문자열을 만들어서 출력한다
 //    // format = 문자열을 만들어서 리턴한다
-
 //    label = String.format("내용:(%s)?", board.content);
 //    String content = Prompt.inputString(label);
 //
@@ -212,6 +191,8 @@ public class BoardHandler {
 //    System.out.println("게시글을 변경하였습니다."); // 바꾼 뒤 게시글을 변경하였습니다 출력
 //
 //  }
+
+
 
 
 //public void detail() {
@@ -231,7 +212,7 @@ public class BoardHandler {
 //  
 //  if (board == null) { // 만약 board가 null일 경우
 //    System.out.println("해당 번호의 게시글이 없습니다.");
-//    return; // return은 실행을 끝내라는 의미
+//    return;
 //  }
 //  
 //  System.out.printf("제목: %s\n", board.title); // board 변수에 저장된 title 인스턴스가 들어있는 주소 -> 찾아가서 출력해라
@@ -241,39 +222,48 @@ public class BoardHandler {
 //  System.out.printf("조회수: %d\n", ++board.viewCount); // 숫자 // 조회수 필드값 1씩 증가
 //}
 
-//public void delete() {
-//  System.out.println("[게시글 삭제]");
+//public void update() {
+//  System.out.println("[게시글 변경]");
+//
 //  int no = Prompt.inputInt("번호? ");
 //
-//  int boardIndex = -1;
-//  // for문의 배열에서 찾은 인스턴스가 null에 들어감
-//  // for문에서 해당 값을 찾을 때까지 돌리는데
-//  // 값이 없을 경우 값이 계속 null인 상태로 있게 된다
-//  // boardIndex : 삭제해야 할 번호가 들어있는 주소
+//  Board board = null;
 //
-//  // Board 인스턴스가 들어있는 배열을 뒤져서 
-//  // 게시글 번호와 일치하는 Board 인스턴스를 찾는다.
-//  for (int i = 0; i < this.size; i++) { // this.size -> 배열에 입력된 개수
-//    if (this.boards[i].no == no) { // this 생략 가능
-//      boardIndex = i;
-//      break; // 배열에 입력된 개수만큼 반복하는 반복 for문
-//    } // break는 현재 반복문을 나가라는 의미
-//  } // return은 실행을 끝내라는 의미
+//  for (int i = 0; i < this.size; i++) {
+//    if (boards[i].no == no) {
+//      board = boards[i];
+//      break;
+//    }
+//  }
 //
-//  if (boardIndex == -1) {
+//  if (board == null) {
 //    System.out.println("해당 번호의 게시글이 없습니다.");
 //    return;
 //  }
-//  String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
-//  if (input.equalsIgnoreCase("n") || input.length() == 0) { // length() == 0 빈문자열이면
-//    System.out.println("게시글 삭제를 취소하였습니다.");
+//  // String title = Prompt.inputString(String.format("제목:(%s)?", board.title));
+//  // 임시변수가 들어갈 자리에 위와 같이 넣는 게 유지보수에 낫다
+//  // board 인스턴스의 title이 있는 걸 
+//  String label = String.format("제목:(%s)?", board.title); // String 클래스의 format은 printf와 비슷하지만 제목:(%s)?이 문자열을 만들고 리턴한다
+//  String title = Prompt.inputString(label); // 제목:(%s)?을 출력하고 입력받아야 함
+//  // 제목:(%s)? 문자열을 입력받아서(문자열을 만들어) label 변수에 리턴함
+//  // label은 해당 문자열을 다시 title에 줌
+//  // printf = 문자열을 만들어서 출력한다
+//  // format = 문자열을 만들어서 리턴한다
+//  label = String.format("내용:(%s)?", board.content);
+//  String content = Prompt.inputString(label);
+//
+//  String input = Prompt.inputString("정말 변경하시겠습니까?(y/N)");
+//  if (input.equalsIgnoreCase("n") || input.length() == 0) { // equalsIgnoreCase = 대소문자 구분 없이 비교하고 출력하라
+//    System.out.println("게시글 변경을 취소하였습니다."); // 또는 (input.length() == 0)그냥 엔터를 치거나 대문자 N을 쳤을 때 no로 처리하겠다
 //    return;
 //  }
+//  // yes인 경우에는 아래와 같이 해당 내용을 변경한다
+//  board.title = title; // board에 입력된 title값을 사용자가 입력한 title 값으로 바꾼다
+//  board.content = content; // board에 입력된 content값을 사용자가 입력한 content 값으로 바꾼다
+//  System.out.println("게시글을 변경하였습니다."); // 바꾼 뒤 게시글을 변경하였습니다 출력
 //
-//  for (int i = boardIndex; i < this.size -1; i++) { // boardIndex에서부터 시작
-//    this.boards[i] = this.boards[i + 1]; // boards의 i 번 방에 i + 1 방에 있는 애를 당겨오기
-//  }
-//  this.boards[this.size -1] = null;
-//  this.size--; // 당겼으니까 size 수를 줄여 줘야 함
-//  System.out.println("게시글을 삭제하였습니다.");
 //}
+
+
+
+

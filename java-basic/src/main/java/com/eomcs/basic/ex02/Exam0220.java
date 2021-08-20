@@ -15,7 +15,7 @@ public class Exam0220 {
 
     // Integer ==> int
     Integer obj2 = Integer.valueOf(200);
-    int i2 = obj2.intValue();
+    int i2 = obj2.intValue(); // 일반적으로 하는 방식
 
   }
 }

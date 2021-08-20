@@ -1,4 +1,4 @@
-// Object 클래스 - clone() 사용법 III
+// Object 클래스 - clone() 사용법 III // 녹음 133번 42분 정도
 package com.eomcs.basic.ex01;
 
 public class Exam0172 {
@@ -9,7 +9,7 @@ public class Exam0172 {
   // => Cloneable을 구현하는 이유는 
   //    JVM에게 이 클래스의 인스턴스를 복제할 수 있음을 표시하기 위함이다.
   //    이 표시가 안된 클래스는 JVM이 인스턴스를 복제해 주지 않는다. 즉 clone()을 호출할 수 없다.
-  static class Score implements Cloneable {
+  static class Score implements Cloneable { // Cloneable는 메서드가 없으며 그냥 표시하는 기능이다
     String name;
     int kor;
     int eng;

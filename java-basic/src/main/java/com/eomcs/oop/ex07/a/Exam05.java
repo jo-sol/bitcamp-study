@@ -1,4 +1,4 @@
-// 추상 클래스와 추상 메서드의 활용
+// ***추상 클래스와 추상 메서드의 활용 - 템플릿 메서드 패턴 위키백과에서 검색해서 보기
 package com.eomcs.oop.ex07.a;
 
 abstract class Letter {
@@ -11,7 +11,17 @@ abstract class Letter {
   }
 
   // 수퍼 클래스에서 기능이 어떻게 동작하는지 정의한다.
-  public void print() {
+  // => 템플릿의 역할을 하는 메서드를 수퍼 클래스에 둔다.
+  // => 자세한 구현은 서브 클래스에 맡긴다.
+  //
+  // 지금 당장은 만들지 않았지만 서브 클래스에서 구현할 테니까,
+  // 서브 클래스에서 구현한 것을 호출하라.
+  public void print() { // <== 템플릿 메서드 디자인 패턴에서 "템플릿 메서드"에 해당한다.
+    // print()를 호출하려면 일반 클래스가 있어야 함
+    // 추상 메서드가 하나로도 있으면 일반 클래스가 아님 (녹음 123의 33분부터 다시 듣기)
+    // 
+    // print를 만들고, 작은 상세한 흐름의 구현은 서브 클래스에서 맡기고
+    // 큰 흐름은 수퍼 클래스에서 할게
     this.printHeader();
     System.out.println(this.content);
     System.out.println();
@@ -20,6 +30,7 @@ abstract class Letter {
     this.printFooter();
   }
 
+  // 지금은 비워둔 상태로 있는 중
   // 세부 사항에 대한 것은
   // 서브 클래스에게 구현을 맡긴다.
   public abstract void printHeader();

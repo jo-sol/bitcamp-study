@@ -3,7 +3,7 @@ package com.eomcs.basic.ex02;
 
 public class Exam0150 {
 
-  static class Member {
+  static class Member { // 여기에서는 equals(), hashCode() 둘 다 오버라이딩 하지 않았음
     String name;
     int age;
 
@@ -32,13 +32,14 @@ public class Exam0150 {
 
     System.out.println("-------------------------------------");
 
+    // String 클래스는 문자열이 같을 때 같은 hashCode값을 리턴하도록
     String s1 = new String("Hello");
     String s2 = new String("Hello");
 
     // 비록 s1과 s2는 같은 문자열을 갖고 있지만 인스턴스가 다르다.
     System.out.println(s1 == s2);
 
-    // String 클래스는 Object로부터 상속 받은 hashCode()를 오버라이딩 했다.
+    // String 클래스는 문자열이 같을 때 Object로부터 상속 받은 같은 hashCode()를 오버라이딩 했다.
     // => 문자열이 같으면 같은 해시값을 리턴하게 만들었다.
     System.out.printf("%x, %x\n", s1.hashCode(), s2.hashCode());
 

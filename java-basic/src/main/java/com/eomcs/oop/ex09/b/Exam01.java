@@ -1,4 +1,4 @@
-// 인터페이스 - 정의와 구현
+// 인터페이스 - 정의와 구현 // 녹음 141번 22분~
 package com.eomcs.oop.ex09.b;
 
 // 1) 인터페이스 정의
@@ -13,7 +13,7 @@ interface MyInterface {
   public abstract void m1();
 
   // public 을 생략할 수 있다.
-  abstract void m2(); // public 이 생략된 것이다. (default) 아니다!
+  abstract void m2(); // **public 이 생략된 것이다.** (default) 아니다!
 
   // abstract 를 생략할 수 있다.
   public void m3();

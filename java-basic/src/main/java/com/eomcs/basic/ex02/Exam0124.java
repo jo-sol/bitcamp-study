@@ -10,10 +10,10 @@ public class Exam0124 {
     // b1, b2는 서로 다른 인스턴스이다.
     System.out.println(b1 == b2); // false
 
-    // StringBuffer는 Object에서 상속 받은 equals()를 오버라이딩 하지 않았다.
+    // **StringBuffer는 Object에서 상속 받은 equals()를 오버라이딩 하지 않았다.**
     System.out.println(b1.equals(b2)); // false
-    // => 따라서 원래 Object의 equals()를 사용한다.
-    // => 즉 두 개의 인스턴스가 같은지를 비교한다.
+    // => 따라서 원래 Object의 equals()를 사용한다. -> 인스턴스가 같은지를 비교하는 것(동작이 다름)
+    // => 즉 두 개의 인스턴스가 같은지를 비교한다. -> 재정의하지 않았기 때문!(오버라이딩 안 해서)
     // 그러니 결과는 false이다.
     //
 
@@ -22,7 +22,7 @@ public class Exam0124 {
     //
     // 엥?
     // => 자바의 모든 클래스는 Object 클래스에 정의된 기능을 상속 받는다.
-    // Object를 상속 받지 않을 수 없다.
+    //    Object를 상속 받지 않을 수 없다.
     // => 따라서 자바의 모든 클래스는 Object 클래스에 정의된 메서드를 사용할 수 있다.
     //
     // Object 클래스에 어떤 메서드가 있나요?
@@ -40,7 +40,7 @@ public class Exam0124 {
     // 왜, String 클래스는 인스턴스가 아닌 문자열 값을 비교하나요?
     // => String 클래스는 상속 받은 equals() 메서드를 재정의하였기 때문이다.
     // => 이렇게 상속 받은 기능을 자신의 역할에 맞게끔 재정의하는 것을
-    // "오버라이딩(overriding)"이라 한다.
+    //    "오버라이딩(overriding)"이라 한다.
     //
     // StringBuffer는 재정의 하지 않아서 다르다고 결과가 나온건가요?
     // => 예!

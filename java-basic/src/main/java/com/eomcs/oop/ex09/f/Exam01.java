@@ -20,6 +20,7 @@ public class Exam01 {
 
     // 볼펜을 교체한다.
     c1.setPen(t2);
+    // Pen 규칙에 따라 만든 클래스라면 이 자리에 놓을 수 있다
 
     // 멀티펜을 사용할 수 있게 한다.
     t2.rotate(Zebra.ON);

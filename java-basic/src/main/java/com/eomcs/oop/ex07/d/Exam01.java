@@ -6,6 +6,7 @@ public class Exam01 {
   public static void main(String[] args) {
     int[] values = {23, 7, 12, 15, 9, 2, 22, 8, 11, 25, 13, 5};
 
+    // 추상 클래스라는 문법을 사용하는 이유:
     // Sorter 클래스를 추상 클래스로 선언했기 때문에
     // 이제 Sorter의 인스턴스를 생성을 막을 수 있다.
     //

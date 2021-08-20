@@ -2,40 +2,41 @@
 package com.eomcs.basic.ex01;
 
 public class Exam0141 {
-  
+
   static class My {
     String name;
     int age;
-    
+
     @Override
     public int hashCode() {
       // String 클래스의 hashCode() 메서드는
-      // 같은 문자열에 대해 같은 해시값을 리턴한다.
+      // **같은 문자열에 대해 같은 해시값**을 리턴한다.
       // 이 능력을 이용하여 My 클래스의 인스턴스 해시값을 계산해보자.
       //
       String str = String.format("%s,%d", this.name, this.age);
       return str.hashCode();
     }
   }
-  
+
   public static void main(String[] args) {
     My obj1 = new My();
     obj1.name = "홍길동";
     obj1.age = 20;
-    
+
     My obj2 = new My();
     obj2.name = "홍길동";
     obj2.age = 20;
-    
-    System.out.println(obj1 == obj2);
+
+    System.out.println(obj1 == obj2); // 인스턴스 주소가 다름 false
     System.out.println(obj1.equals(obj2));
-    
+    // equals를 오버라이딩을 하지 않으면 오브젝트에서 상속받은 인스턴스 주소 비교 false
+
     System.out.println(Integer.toHexString(obj1.hashCode()));
     System.out.println(Integer.toHexString(obj2.hashCode()));
-    
+
     System.out.println(obj1);
     System.out.println(obj2);
-    
+
     // hash value?
     // - 데이터를 다른 데이터와 구분하기 위해 사용하는 특별한 정수 값이다.
     // - 특정 수학 공식에 따라 값을 계산한다.

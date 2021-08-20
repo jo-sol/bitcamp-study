@@ -40,7 +40,7 @@ public class Exam0132 {
     // 위의 실행 결과를 보면 s1과 s2가 서로 다른 인스턴스인데도 불구하고
     // true를 리턴한다.
     // 이유?
-    // => String 클래스에서 Object의 equals()를 오버라이딩 했기 때문이다.
+    // => String 클래스에서 Object의 equals()를 오버라이딩(재정의) 했기 때문이다.
     // => 인스턴스가 다르더라도 문자열이 같으면 true를 리턴하도록
     //    equals() 메서드를 재정의하였다.
     // => 그래서 String에 대해 equals()를 호출하면

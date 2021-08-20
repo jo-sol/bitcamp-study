@@ -6,13 +6,13 @@ package com.eomcs.basic.ex01;
 public class Exam0120 {
 
   static class My {
-    
+
   }
-  
+
   public static void main(String[] args) {
-    
+
     My obj = new My();
-    
+
     // Object에서 상속 받은 메서드 
     //
     // 1) toString()
@@ -21,22 +21,28 @@ public class Exam0120 {
     //    - 예) ch15.My1@1e81f4dc
     //
     System.out.println(obj.toString());
-    
+
     // println()에 넘겨주는 값이 String 타입이 아니라면
     // println()은 그 객체에 대해 toString() 호출한 후 그 리턴 값을 출력한다.
     // 따라서 다음 코드는 위의 코드와 같다.
     System.out.println(obj);
 
+    // 인스턴스에 대해 toString을 호출하고 싶으면,
+    // System.out.println(obj.toString()); 이렇게 적지 않고,
+    // System.out.println(obj); 이렇게 적어도 알아서 toString을 호출한다.
+    // 만약 obj 객체가 String이 아니면 해당 객체에 대해 내부적으로 String을 호출한다.
+
     // 해시값?
     // - 인스턴스 마다 부여된 고유의 식별자이다.
-    // - 주의! 주소 아니다!
+    // - 인스턴스마다 중복되지 않은 고유한 값이 리턴된다.
+    // - **주의! 주소 아니다!**
     // - 인스턴스가 같은지 검사할 때 사용할 수 있다.
     // - hashCode()를 재정의하지 않고 원래 메서드를 그대로 사용하면
     //   무조건 인스턴스마다 새 해시값이 부여된다.
-    
+
     My obj2 = new My();
     My obj3 = new My();
-    
+
     System.out.println(obj2 == obj3);
 
     System.out.println(obj2.toString());

@@ -27,11 +27,11 @@ abstract class A4 {
   //   "이 메서드는 서브 클래스에서 반드시 정의해야 해. 왜냐하면 수퍼 클래스에 정의한 다른
   //    메서드가 이 메서드를 사용하기 때문이야!"
   //
-  public abstract void m3();
+  public abstract void m3(); // 일부 메서드는 구현만 해놓고 서브 클래스가 강제하도록 하는 것
 }
 
 class A4Sub extends A4 {
-  @Override // 이 애노테이션은 빼도 된다.
+  @Override // 이 애노테이션은 빼도 된다. **참고, 메서드를 구현하는 것도 오버라이딩으로 본다.
   public void m3() {
     System.out.println("A4Sub.m3() 호출됨!");
   }

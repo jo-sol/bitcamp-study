@@ -1,4 +1,4 @@
-// local class : 클래스 정의와 인스턴스 생성
+// local class : 클래스 정의와 인스턴스 생성 // 녹음 165
 package com.eomcs.oop.ex11.d;
 
 class A {

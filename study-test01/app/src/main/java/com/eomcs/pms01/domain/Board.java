@@ -1,4 +1,4 @@
-package com.eomcs.pms01.domain;
+package com.eomcs.pms00.domain;
 
 import java.sql.Date;
 
@@ -9,6 +9,5 @@ public class Board {
   public String writer;
   public Date registeredDate;
   public int viewCount;
-  public int like;
-
+  public Object like;
 }

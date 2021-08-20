@@ -4,7 +4,7 @@ package com.eomcs.oop.ex11.e;
 public class Exam0220 {
 
   static class A {
-    public A() {
+    public A() { // 기본 생성자 명시
       System.out.println("A() 호출!");
     }
   }

@@ -18,6 +18,8 @@ public class User {
     play(new ThirdComputer());
 
     // 2000년대:
+    // Computer2라는 규칙에 따라 만들었기 때문에
+    // 새로운 메서드를 따로 정의해 줬다 (제일 밑에 있음)
     play(new NewComputer1());
 
   }

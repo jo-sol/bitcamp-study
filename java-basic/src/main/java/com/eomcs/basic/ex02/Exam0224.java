@@ -29,6 +29,7 @@ public class Exam0224 {
 
     // 위의 코드에서 String이나 Member 처럼
     // primitive type의 값을 객체로 다룰 수 있다.
+    // int는 Object의 자식이 아니기 때문에 Integer.객체 주소에 담아서 i에 넣는 것
     int i = 100;
     obj = i; // auto-boxing 규칙에 따라 Integer.valueOf(i) 문장으로 변환한다.
 

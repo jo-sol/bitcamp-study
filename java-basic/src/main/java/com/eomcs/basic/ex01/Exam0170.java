@@ -1,4 +1,4 @@
-// Object 클래스 - clone() 사용법 I 
+// Object 클래스 - clone() 사용법 I // 녹음 133 23분 정도
 package com.eomcs.basic.ex01;
 
 // clone()은 인스턴스를 복제할 때 호출하는 메서드이다.
@@ -51,7 +51,7 @@ public class Exam0170 {
 
     // 방법2:
     // Object에서 상속 받은 clone()을 호출한다.
-    //    Score s3 = s1.clone(); // 컴파일 오류! 
+    //    Score s3 = s1.clone(); // 컴파일 오류! -> object 클래스에 있는 메서드 
     //
     // Object에서 상속 받은 clone()은 protected 이다. 
     // 따라서 같은 패키지에 소속된 클래스이거나 상속 받은 서브 클래스가 아니면 호출할 수 없다.

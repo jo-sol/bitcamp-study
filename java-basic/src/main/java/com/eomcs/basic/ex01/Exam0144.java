@@ -1,4 +1,4 @@
-// Object 클래스의 메서드를 오버라이딩 하기 - hashCode()
+// Object 클래스의 메서드를 오버라이딩 하기 - hashCode() // 녹음 133
 package com.eomcs.basic.ex01;
 
 public class Exam0144 {
@@ -25,6 +25,9 @@ public class Exam0144 {
     public int hashCode() {
       // 무조건 모든 Score 인스턴스가 같은 해시코드를 갖게 하자!
       return 1000;
+      // *** 내용물이 같을 때 해시 코드 값을 지정해 주는 건 괜찮지만
+      // 인스턴스가 제각기 다를 때 값을 지정해 주면 해시 코드의 존재 이유가 사라진다
+      // 아래의 주석에 있음 ***
     }
   }
 
@@ -36,8 +39,11 @@ public class Exam0144 {
     System.out.println(s1.hashCode());
     System.out.println(s2.hashCode());
     System.out.println(s3.hashCode());
-    
-    
+
+    System.out.println(s1); // toString() 사용으로 인한 16진수
+    System.out.println(s2);
+    System.out.println(s3);
+
     // 해시코드?
     // => 데이터를 식별할 때 사용하는 고유 아이디이다.
     // => 보통 데이터를 특별한 공식(ex: MD4, MD5, SHA-1, SHA-256 등)으로

@@ -19,5 +19,5 @@ public interface Worker {
   // => public 외에 다른 접근 범위는 사용할 수 없다.
   //    (규칙은 공개되어야 하니까!)
   //
-  void execute();
+  void execute(); // public abstract 생략된 것
 }

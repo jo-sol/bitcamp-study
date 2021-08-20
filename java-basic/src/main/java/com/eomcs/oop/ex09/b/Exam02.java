@@ -1,6 +1,5 @@
-// 인터페이스 필드
+// 인터페이스 필드 // 녹음 141 40분 정도부터 보기 // method area -> 프로그래밍 기초 문법(그림) -> 72 page
 package com.eomcs.oop.ex09.b;
-
 
 // 인터페이스 필드 선언
 interface MyInterface2 {
@@ -15,6 +14,11 @@ interface MyInterface2 {
   public final int v3 = 300;
   public static int v4 = 400;
   int v5 = 500; // 모두 생략된 상태!
+
+  // *** 이렇게 사용하지 말고 되도록 아래의 두 가지처럼 짜는 게 좋다 ***
+  //  public static final int v1 = 100;
+  //  int v5 = 500;
+
 }
 
 // 인터페이스 필드 사용

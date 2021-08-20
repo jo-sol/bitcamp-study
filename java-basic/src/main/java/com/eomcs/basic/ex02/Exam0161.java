@@ -1,4 +1,4 @@
-// String - mutable vs immutable 객체
+// String - mutable vs immutable 객체 // 녹음 137 19분 정도
 package com.eomcs.basic.ex02;
 
 public class Exam0161 {
@@ -10,7 +10,7 @@ public class Exam0161 {
     StringBuffer buf = new StringBuffer("Hello");
     System.out.println(buf);
 
-    buf.replace(2, 4, "xxxx");// 원본을 바꾼다.
+    buf.replace(2, 4, "xxxx");// 원본을 바꾼다. // 두 번째부터 네 번째 전까지
     System.out.println(buf);
 
     // println() 메서드에 넘겨주는 파라미터 값이 String 타입이 아닐 경우,

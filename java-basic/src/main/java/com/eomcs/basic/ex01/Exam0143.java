@@ -24,10 +24,13 @@ public class Exam0143 {
   public static void main(String[] args) {
     Score s1 = new Score("홍길동", 100, 100, 100);
     Score s2 = new Score("홍길동", 100, 100, 100);
+    // ***
+    // 해시 코드를 오버라이딩 시키지 않으면 object에 있는 해시 코드를 사용할 텐데
+    // 이는 인스턴스 고유 식별 값으로 구별하게 되는 것이기 때문에 인스턴스와 해시 값이 다르다 ***
 
     // s1, s2의 Score 인스턴스는 서로 다른 인스턴스이다. 
     System.out.println(s1 == s2);
-    
+
     // Object에서 상속 받아 사용하는 hashCode()는 
     // 기본적으로 인스턴스 마다 고유의 값을 리턴한다.
     // 그래서 다음 출력은 비록 같은 값을 갖고 있다하더라도 
