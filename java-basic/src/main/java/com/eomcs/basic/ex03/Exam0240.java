@@ -59,16 +59,27 @@ public class Exam0240 {
     list.add(m2);
     list.add(m3);
 
+    // forEach() 메서드에게 넘길 객체
+    // => Consumer 규칙에 따라 만들어야 한다.
+    // => List에 보관된 객체를 반복문을 통해 꺼낼 때마다 
+    //    Consumer 규칙에 따라 accept()를 호출할 것이다.
+    //
     class MyConsumer implements Consumer<Member> {
       @Override
       public void accept(Member m) {
-        // forEach() 에서 반복문을 돌릴 때
+        // forEach() 에서 반복문을 돌릴 때 (ex. Exam0220이나 0210처럼 반복문을 돌릴 때)
         // Consumer 규칙에 따라 
         // 각 항목에 대해 이 메서드를 호출한다.
         System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
       }
     }
 
+    // 의미:
+    // => 야 List!
+    //    너가 가지고 있는 목록에서 값을 한 개 꺼낼 때마다
+    //    지금 내가 파라미터로 넘겨주는 객체 있지?
+    //    MyConsumer 객체 말이야.
+    //    이 객체의 accept()를 호출해주렴.
     list.forEach(new MyConsumer());
   }
 }

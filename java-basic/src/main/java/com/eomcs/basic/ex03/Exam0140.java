@@ -61,8 +61,9 @@ public class Exam0140 {
 
     // indexOf(값)
     // - 목록에 같은 값을 가진 객체의 인덱스를 알아낸다.
-    // - 값을 비교할 때는 contains()와 마찬가지로
+    // - 값을 비교할 때는 contains()와 마찬가지로 equals()로 비교하며,
     //   equals()의 리턴 값이 true인 경우 같은 값으로 간주한다.
+    // -1은 못 찾았다는 뜻: 하단의 new Member()와 상단의 new Member()가 같은지 비교해 봐서 틀릴 때
     //
     Member m4 = new Member("임꺽정", 30);
     System.out.println(list.indexOf(m4)); // true

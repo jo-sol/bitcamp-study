@@ -59,6 +59,10 @@ public class Exam0130 {
     list.add(m3);
     System.out.println(list);
 
+    // hash 값이 다르더라도 contains() 메서드는 equals()를 통해 비교한다.
+    // 단, 그 전제 조건은 equals를 오버라이딩 해 줘야 한다!!
+    // equals를 오버라이딩 하지 않으면 인스턴스가 같아야만 true를 리턴한다.
+
     // contains()
     // - 해당 인스턴스와 같은 객체가 있는지 알아낸다.
     // - 단 인스턴스 주소를 비교하는 것이 아니라

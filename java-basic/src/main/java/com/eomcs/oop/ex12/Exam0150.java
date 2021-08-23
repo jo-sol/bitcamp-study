@@ -2,13 +2,17 @@
 package com.eomcs.oop.ex12;
 
 public class Exam0150 {
-
+  // function은 인터페이스(그냥 읊조리기)
+  // 이는 람다 문법을 적용할 수 있음
   interface Calculator {
     int compute(int a, int b);
   }
 
   public static void main(String[] args) {
     // 1) 리턴 값은 return 명령을 사용하여 처리한다.
+    //  한 개 남은 문장이 return일 경우 return도 생략 가능
+    //    Calculator c0 = (a, b) -> a + b;
+
     Calculator c1 = (a, b) -> {
       return a + b;
     };
@@ -25,6 +29,7 @@ public class Exam0150 {
     System.out.println(c3.compute(10, 20));
 
     // 값을 리턴해야 하는데 람다 문장에서 값을 리턴하지 않으면 컴파일 오류!
+    // { 대괄호에 return을 넣었을 때 되냐 안 되냐 따져보면 됨 }
     //    Calculator c4 = (a, b) -> System.out.println(a + ",", b); // 컴파일 오류!
     //    System.out.println(c4.compute(10, 20));
   }

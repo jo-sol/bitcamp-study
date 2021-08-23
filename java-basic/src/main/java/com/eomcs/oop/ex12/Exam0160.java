@@ -6,7 +6,7 @@ public class Exam0160 {
     void print();
   }
 
-  // 스태틱 필드
+  // 스태틱 필드 // () <- 파라미터가 하나일 경우에만 생략 가능
   static A obj1 = () -> System.out.println("스태틱 필드");
 
   //인스턴스 필드

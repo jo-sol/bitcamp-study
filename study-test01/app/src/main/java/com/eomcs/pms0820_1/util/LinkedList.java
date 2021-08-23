@@ -1,5 +1,7 @@
 package com.eomcs.util;
 
+import java.lang.reflect.Array;
+
 public class LinkedList<E> extends AbstractList<E> {
 
   static class Node<E> {
@@ -136,6 +138,26 @@ public class LinkedList<E> extends AbstractList<E> {
     }
     return null;
   }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public E[] toArray(E[] arr) {
+    E[] temp = null;
+
+    if (arr.length >= this.size) { // 파라미터로 받은 배열의 크기가 현재 들어있는 배열의 개수를 담을 만큼 충분히 크다면
+      temp = arr;
+    } else {
+      temp = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+    }
+
+    Node<E> node = head;
+    for (int i = 0; i < this.size; i++) {
+      temp[i] = node.item;
+      node = node.next;
+    }
+    return temp; // 새 배열을 리턴한다.
+  }
+
 }
 
 

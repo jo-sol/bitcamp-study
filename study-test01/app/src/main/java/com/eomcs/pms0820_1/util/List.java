@@ -11,7 +11,7 @@ public interface List<E> {
   Object[] toArray();
   boolean remove(E obj);
   int size();
-  E get(int index); // push와 pop 사용을 위해 사용
+  E get(int index); // push와 pop 사용을 위해 사용 // 특정 위치에 있는 값을 뽑아서 쓰기 위해, 실무에서도 사용
   E remove(int index); 
   E[] toArray(E[] arr); // 녹음 175번 24분 정도부터 듣기
 }

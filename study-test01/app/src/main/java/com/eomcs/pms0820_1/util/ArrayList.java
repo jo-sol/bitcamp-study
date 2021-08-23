@@ -97,12 +97,16 @@ public class ArrayList<E> extends AbstractList<E> {
       // 1) 파라미터(위의 arr)로 받은 배열이 현재 목록에 있는 값을 담을 만큼 충분히 크다면
       //    현재 목록에 있는 값을 파라미터로 받은 배열에 복사한다.
 
+      //      for (int i = 0; i < this.size; i++) {
+      //        arr[i] = (E) this.list[i];
+      //      }
+
       //    배열을 복사할 때 자바에서 제공하는 클래스를 사용하면
       //    반복문을 작성할 필요 없이 보다 쉽게 배열을 복사할 수 있다.
       //    => System.arraycopy(
       //                원래 배열, 복사 시작 인덱스, 값을 받을 배열, 복사 시작 인덱스, 복사할 개수)
       System.arraycopy(this.list, 0, arr, 0, this.size);
-      return arr; // 최종적으로 파라미터로 받은 배열을 그대로 리턴한다.
+      return arr; // 최종적으로 기존에 그대로 받은 파라미터 배열을 그대로 리턴한다.
 
     } else {
       // 2) 파라미터로 받은 배열이 현재 목록에 들어 있는 값을 담을 만큼 크지 않다면,
@@ -112,16 +116,30 @@ public class ArrayList<E> extends AbstractList<E> {
       // E[] temp = new E[this.size]; // 컴파일 오류! => 제네릭 타입의 배열은 만들 수 없다
 
       // 그래서 다른 클래스의 도움을 받아 생성해야 한다.
+
+      // 방법 1과 2의 Array 패키지가 서로 다르기 때문에
+      // 방법 1은 Array이고 방법 2는 Arrays이다.
+
+      // 방법 1. 새 배열을 만들어 기존 배열의 값을 복사한다.
+      //    => Array.newInstance(배열 항목의 타입, 생성할 배열의 크기);
+      // 참고! => arr.getClass() => 배열의 타입  예) String[], Project[]
+      //          arr.getClass().getComponentType() => 배열의 각 항목의 타입  예) String, Project
+      //
+      //      E[] temp = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+      //      System.arraycopy(this.list, 0, temp, 0, this.size);
+      //      return temp;
+
+      // 방법 2. 
+      // 제네릭이 적용된 배열을 만들 때는 Arrays.copyOf를 사용해야 한다.
+      // 
       //    => Arrays.copyOf(
       //                     원래 배열, 복사할 개수, 새로 만들 배열의 타입)
-
-      // 제네릭이 적용된 배열을 만들 때는
-      // Arrays.copyOf를 사용해야 한다.
-      return (E[]) Arrays.copyOf(
+      E[] temp = (E[]) Arrays.copyOf(
           this.list, // 원래 배열
           this.size, // 복사할 개수. 현재 배열에 들어있는 값들의 개수
-          arr.getClass()
+          arr.getClass() // 생성할 배열의 타입(파라미터의 배열과 같은 타입의 배열을 생성할 것이다)
           );
+      return temp;
     }
   }
 }

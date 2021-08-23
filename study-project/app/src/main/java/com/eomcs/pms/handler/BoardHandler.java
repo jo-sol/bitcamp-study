@@ -1,17 +1,13 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
+import java.util.List;
 import com.eomcs.pms.domain.Board;
-import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  // *** 1) 제네릭을 적용하지 않으면 모든 타입이 Object가 되므로
-  // 특정 타입으로 제한할 수가 없는 단점이 있음
-  // *** 3) 그러나 제네릭을 적용하면 어떤 타입으로 진행할 것인지 지정해 줄 수 있으며
-  // 잘못된 코드의 사용을 막아 줄 수 있다
-  List<Board> boardList; // 제네릭 적용
+  List<Board> boardList;
 
   public BoardHandler(List<Board> boardList) {
     this.boardList = boardList;
@@ -29,18 +25,21 @@ public class BoardHandler {
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
-    // *** 2) 본래 boardList.add(board); 파라미터 타입을 이렇게 행하려 했으나
-    // boardList.add(new String("Hello!")); 이런 식으로
-    // 다른 파라미터를 넣을 수 있으며, 이를 막을 수는 없다
   }
 
   public void list() {
     System.out.println("[게시글 목록]");
 
-    Object[] list = boardList.toArray();
+    // 현재 BoardList에 보관된 값을 담을 수 있는 만큼 크기의 배열을 생성한다. 
+    Board[] boards = new Board[boardList.size()];
 
-    for (Object obj : list) {
-      Board board = (Board) obj;
+    // 배열을 파라미터로 넘겨서 값을 받아 온다.
+    // => 넘겨 주는 배열의 크기가 충분하기 때문에 toArray()는 새 배열을 만들지 않을 것이다.
+    boardList.toArray(boards);
+
+    // 이렇게 제네릭이 적용된 List를 사용하면 
+    // List에서 값을 꺼낼 때 마다 형변환 할 필요가 없어 프로그래밍이 편리하다.
+    for (Board board : boards) {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
@@ -69,7 +68,6 @@ public class BoardHandler {
 
     board.setViewCount(board.getViewCount() + 1);
     System.out.printf("조회수: %d\n", board.getViewCount());
-
   }
 
   public void update() {
@@ -120,9 +118,10 @@ public class BoardHandler {
   }
 
   private Board findByNo(int no) {
-    Object[] arr = boardList.toArray();
-    for (Object obj : arr) {
-      Board board = (Board) obj;
+    // 일부러 BoardList에 들어 있는 배열 보다 작은 배열을 넘겨준다.
+    // => 그러면 toArray()는 새 배열을 만들어 값을 저장한 후 리턴할 것이다.
+    Board[] arr = boardList.toArray(new Board[0]);
+    for (Board board : arr) {
       if (board.getNo() == no) {
         return board;
       }

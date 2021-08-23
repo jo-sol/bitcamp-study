@@ -59,6 +59,9 @@ public class Exam0242 {
     list.add(m2);
     list.add(m3);
 
+    // 메서드 한 개짜리 인터페이스에서만 적용 가능!! (Exam0243)
+    list.forEach(m -> System.out.printf("이름: %s, 나이: %d\n", m.name, m.age));
+
     list.forEach(new Consumer<>() {
       @Override
       public void accept(Member m) {

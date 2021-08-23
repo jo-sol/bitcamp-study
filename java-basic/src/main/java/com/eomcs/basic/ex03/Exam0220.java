@@ -58,7 +58,7 @@ public class Exam0220 {
     list.add(m2);
     list.add(m3);
 
-    Object[] arr = list.toArray();
+    Object[] arr = list.toArray(); // toArray()의 배열은 Object[]이기 때문에 Member[]로 할 수 없다.
     for (Object obj : arr) {
       Member m = (Member) obj;
       System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
