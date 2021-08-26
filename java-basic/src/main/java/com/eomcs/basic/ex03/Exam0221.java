@@ -1,4 +1,4 @@
-// 목록 조회: toArray(E[]) 사용
+// 목록 조회: toArray(E[]) 사용 // for(변수 : 객체) => Iterable 
 package com.eomcs.basic.ex03;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class Exam0221 {
     list.add(m3);
 
     Member[] arr = list.toArray(new Member[list.size()]); // list에 Member의 값을 담아 toArray에게 넘겨주면 담아줌
-    for (Member m : arr) {
+    for (Member m : arr) { 
       System.out.printf("이름: %s, 나이: %d\n", m.name, m.age);
     }
   }

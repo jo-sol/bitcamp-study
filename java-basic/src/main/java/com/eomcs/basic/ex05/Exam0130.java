@@ -7,17 +7,19 @@ public class Exam0130 {
 
   public static void main(String[] args) {
     Stack<String> stack = new Stack<>();
-    
+
     // push() - 스택의 맨 마지막에 값을 추가한다.
     stack.push("aaa");
     stack.push("bbb");
     stack.push("ccc");
-    
+
     // peek() - 맨 위의 값을 꺼낸다. 단 pop()과는 달리 제거하지 않는다.
+    // 맨 위의 값이 바뀌지 않는다면 계속 같은 값을 꺼냄
+    // 여기에서는 ccc가 가장 상단이기 때문에 ccc만 나온다
     System.out.println(stack.peek());
     System.out.println(stack.peek());
     System.out.println(stack.peek());
-    
+
   }
 
 }

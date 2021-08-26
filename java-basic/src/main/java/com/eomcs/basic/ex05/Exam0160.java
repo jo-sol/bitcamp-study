@@ -16,6 +16,9 @@ public class Exam0160 {
 
     Iterator<String> iterator = stack.iterator();
 
+    // 입력된 순서대로 꺼내면 된다
+    // Iterator를 사용해서 꺼낼 수도 있다.
+
     while (iterator.hasNext()) {
       System.out.println(iterator.next());
     }

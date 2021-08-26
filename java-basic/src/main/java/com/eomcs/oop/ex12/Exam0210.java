@@ -17,4 +17,26 @@ public class Exam0210 {
   }
 }
 
+//Player p1 = new Player() {
+//@Override
+//  public void play() {
+//  System.out.println("익명 클래스");
+//  }
+//};
+//p1.play();
+
+//  Player p = () -> System.out.println("Player...");
+//  p.play();
+//
+//
+
+// 람다 문법 만들기
+// *) 조건! 추상 메서드가 한 개짜리여야 한다
+// 1) 일단 밖의 껍데기를 지움 ( = 뒤의 "new 어쩌고")
+// 2) 메소드를 없앰
+// 3) 메서드와 바디의 사이에 -> 삽입
+// 3-1) 만약 메서드 바디에 문장이 하나라면 문장만 두고 괄호를 지울 수 있음
+// 4) 한 줄로 변경
+
+
 

@@ -46,7 +46,7 @@ public class Exam0530 {
     String compute(int a, int b);
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) { /* 파라미터는 같지만 타입이 다를 때 */
 
     // 리턴 타입 int ===> double
     Calculator1 c1 = MyCalculator::plus; // OK!
@@ -57,11 +57,15 @@ public class Exam0530 {
     //        return MyCalculator.plus(a, b);
     //      }
     //    };
+    // 암시적 형변환에 의하면 int는 float과 double로 바뀔 수 있기 때문에
+    // 여기에서 float을 int로 사용할 수 있다
     System.out.println(c1.compute(100, 200));
 
     // 리턴 타입 int ===> float
     Calculator2 c2 = MyCalculator::plus; // OK!
     System.out.println(c2.compute(100, 200));
+    // 암시적 형변환에 의하면 int는 float과 double로 바뀔 수 있기 때문에
+    // 여기에서 float을 int로 사용할 수 있다
 
     // 리턴 타입 int ===> short
     //    Calculator3 c3 = MyCalculator::plus; // 컴파일 오류!
@@ -72,6 +76,9 @@ public class Exam0530 {
     //        return MyCalculator.plus(a, b); // 컴파일 오류!
     //      }
     //    };
+    // int를 short로 변환할 수 없다
+    // 왜? int보다 short가 더 작기 때문에
+
 
 
     // 리턴 타입 int ===> void

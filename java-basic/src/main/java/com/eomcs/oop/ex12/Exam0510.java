@@ -4,7 +4,7 @@ package com.eomcs.oop.ex12;
 
 public class Exam0510 {
 
-  static class MyCalculator {
+  static class MyCalculator { // 코드 버리지 않고 재활용하기
     public static int plus(int a, int b) {return a + b;}
     public static int minus(int a, int b) {return a - b;}
     public static int multiple(int a, int b) {return a * b;}
@@ -17,11 +17,27 @@ public class Exam0510 {
 
   public static void main(String[] args) {
     // 메서드 한 개짜리 인터페이스의 구현체를 만들 때
-    // 기존 스태틱 메서드를 람다 구현체로 사용할 수 있다.
+    // 1) 익명 클래스 활용
+    Calculator obj1 = new Calculator() { // 인터페이스를 구현한 익명 클래스 생성
+      @Override
+      public int compute(int x, int y) {
+        return x * y;
+      }
+    };
+
+    // 2) 람다 문법 활용
+    Calculator obj2 = (x, y) -> x * y;
+
+    // 3) 기존에 작성한 클래스의 스태틱 메서드를 재활용하기
+    // => 인터페이스의 메서드 규격과 일치하는 메서드가 있다면,
+    //    그 메서드를 람다 구현체로 사용할 수 있다.
+    // => 새로 코드를 작성할 필요가 없어 매우 편리하다.
     // => 단 인터페이스에 선언된 메서드의 규격과 일치해야 한다.
-    // => 규격? 파라미터 타입 및 개수, 리턴 타입
+    // => 규격? 메서드의 파라미터 타입 및 개수, 리턴 타입
     // => 문법:
     //    클래스명::메서드명
+    //
+    // 최상단의 메서드 네 가지를 골라서 사용할 수 있다.
     Calculator c1 = MyCalculator::plus;
     Calculator c2 = MyCalculator::minus;
     Calculator c3 = MyCalculator::multiple;

@@ -62,7 +62,7 @@ public class Exam0540 {
 
     // 파라미터 타입: byte, byte ===> int, int
     Calculator1 c1 = MyCalculator::plus; // OK!
-    //
+    // byte 두 개를 인터페이스 = plsu에 담기 쌉가능
     //    Calculator1 xx = new Calculator1() {
     //      @Override
     //      public int compute(byte a, byte b) {
@@ -81,6 +81,7 @@ public class Exam0540 {
     //    };
 
     // 파라미터 타입: long, long ===> int, int
+    // => plus는 최대의 int값만 받을 수 있기 때문!
     //    Calculator3 c3 = MyCalculator::plus; // 컴파일 오류!
     //
     //    Calculator3 c3 = new Calculator3() {
@@ -131,6 +132,9 @@ public class Exam0540 {
     //        return MyCalculator.plus(a, b, c); // 컴파일 오류!
     //        // compute()는 int 값 세 개를 받아서 plus()에 세 개 모두 전달한다. 
     //        // 그러나 plus()는 int 파라미터가 두 개만 있다.
+    //        // => 파라미터 개수가 맞지 않음
+
+
     //      }
     //    };
 

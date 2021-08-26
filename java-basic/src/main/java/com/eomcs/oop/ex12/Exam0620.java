@@ -35,9 +35,12 @@ public class Exam0620 {
     // 인스턴스 메서드 레퍼런스로 Calculator 구현체를 만드는 방법
     //
     // Iterest i1 = 보통예금::year;
+    // 이 의미는 하단의 1 or 2와 같다는 뜻이다
 
     // 위의 코드는 내부적으로 다음과 같다.
-    //
+    // 1) 람다 표현:
+    //    Interest i1 = money -> 보통예금.year(money);
+    // 2) 익명 클래스:
     Interest i1 = new Interest() {
       @Override
       public double compute(int money) {

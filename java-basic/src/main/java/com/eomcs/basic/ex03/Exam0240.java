@@ -82,6 +82,7 @@ public class Exam0240 {
     //    이 객체의 accept()를 호출해주렴.
     list.forEach(new MyConsumer());
   }
+
 }
 
 
