@@ -1,10 +1,10 @@
-// Iterator 의 사용
+// Iterator 의 사용 - ArrayDeque
 package com.eomcs.basic.ex07;
 
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
-public class Exam0232 {
+public class Exam0223 {
   public static void main(String[] args) {
 
     ArrayDeque<String> stack = new ArrayDeque<>();

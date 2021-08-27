@@ -2,6 +2,7 @@
 package com.eomcs.basic.ex07;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Exam0320 {
 
@@ -29,17 +30,8 @@ public class Exam0320 {
       if (getClass() != obj.getClass())
         return false;
       Member other = (Member) obj;
-      if (age != other.age)
-        return false;
-      if (name == null) {
-        if (other.name != null)
-          return false;
-      } else if (!name.equals(other.name))
-        return false;
-      return true;
+      return age == other.age && Objects.equals(name, other.name);
     }
-
-
   }
 
   public static void main(String[] args) {
@@ -60,6 +52,7 @@ public class Exam0320 {
 
     // equals()와 hashCode()를 함께 비교하기 때문에
     // equals() 만 오버라이딩 해봐야 소용없다.
+    // equals()의 값만 같으면 소용이 없다.
     set.add(v5);
 
     System.out.println(set);

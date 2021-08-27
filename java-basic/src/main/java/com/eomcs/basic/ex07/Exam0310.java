@@ -15,6 +15,7 @@ public class Exam0310 {
       this.age = age;
     }
 
+    // toString() 붙은 건 마우스 오른쪽 버튼 >> source >> toString() 생성
     @Override
     public String toString() {
       return "Member [name=" + name + ", age=" + age + "]";
@@ -42,12 +43,9 @@ public class Exam0310 {
     //   hashCode()와 equals()의 리턴값으로 판단한다.
     // - Member 클래스에서
     //   hashCode()와 equals()를 오버라이딩 하지 않았기 때문에
-    //   Object로부터 상속 받은
-    //   hashCode()와 equals()를 그대로 사용하였고,
-    //   Object의 hashCode()는
-    //   인스턴스가 다르면 무조건 다른 해시값을 리턴한다.
-    //   Object의 equals()는
-    //   인스턴스의 주소가 같은 지 검사한다.
+    //   Object로부터 상속 받은 hashCode()와 equals()를 그대로 사용하였고,
+    //   Object의 hashCode()는 인스턴스가 다르면 무조건 다른 해시값을 리턴한다.
+    //   Object의 equals()는 인스턴스의 주소가 같은지 검사한다.
     // - 그래서 "유관순,16" 데이터가 같더라도 인스턴스가 다르기 때문에
     //   같은 값으로 간주하지 않은 것이다.
 

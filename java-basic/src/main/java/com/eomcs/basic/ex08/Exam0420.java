@@ -21,12 +21,8 @@ public class Exam0420 {
     while (values.hasMoreElements()) {
       System.out.println(values.nextElement());
     }
-
   }
-
 }
-
-
 /*
 
 List vs Set vs Map

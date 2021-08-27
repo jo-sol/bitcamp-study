@@ -28,7 +28,7 @@ public class Exam0310 {
     // Map에서 제거된 키는 꺼낼 수 없다.
     // 왜?
     // - Set 객체는 HashMap에 있는 key를 꺼내기 때문이다.
-    for (Object key : keys) {
+    for (Object key : keys) { // keys는 항상 현재
       System.out.println(key);
     }
   }

@@ -1,4 +1,5 @@
 // java.util.HashSet 클래스 사용 - 값을 꺼내는 방법 II
+//    => 꺼내는 값이 LinkedList인지 Stack인지 상관없이 Iterator 패턴을 사용
 package com.eomcs.basic.ex07;
 
 import java.util.HashSet;

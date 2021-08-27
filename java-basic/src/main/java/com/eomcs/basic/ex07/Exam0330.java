@@ -2,6 +2,7 @@
 package com.eomcs.basic.ex07;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Exam0330 {
 
@@ -22,12 +23,9 @@ public class Exam0330 {
 
     @Override
     public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + age;
-      result = prime * result + ((name == null) ? 0 : name.hashCode());
-      return result;
+      return Objects.hash(age, name);
     }
+
   }
 
   public static void main(String[] args) {
@@ -38,7 +36,11 @@ public class Exam0330 {
     Member v4 = new Member("안중근", 20);
     Member v5 = new Member("유관순", 16);
 
-    System.out.println(v3.equals(v5)); // true
+    System.out.println(v1.hashCode());
+    System.out.println(v2.hashCode());
+    System.out.println(v3.hashCode());
+    System.out.println(v4.hashCode());
+    System.out.println(v5.hashCode());
 
     HashSet<Member> set = new HashSet<>();
     set.add(v1);
@@ -46,7 +48,7 @@ public class Exam0330 {
     set.add(v3);
     set.add(v4);
 
-    // equals()와 hashCode()를 함께 비교하기 때문에
+    // equals()와 hashCode()를 ** 함께 ** 비교하기 때문에
     // hashCode() 만 오버라이딩 해봐야 소용없다.
     set.add(v5);
 

@@ -14,6 +14,10 @@ public class Exam0210 {
     map.put("s04", new Member("안중근", 20));
     map.put("s05", new Member("윤봉길", 30));
 
+    // HashMap이라는 곳에서 key 목록만 꺼낼 수 있다.
+    // key 자체는 절대 중복될 수 없다.
+    //  => 이를 강조하기 위해 keySet이라는 객체를 사용
+
     // - HashMap에서 key 목록을 꺼내기
     java.util.Set<String> keys = map.keySet(); // key 객체들이 들어있는 집합(컬렉션)을 리턴한다.
 
@@ -34,9 +38,9 @@ public class Exam0210 {
     }
     System.out.println("---------------------");
 
-    // 3) 만약 컬렉션 객체가 java.util.Collection 규칙을 따라 만든 클래스라면
+    // 3) 만약 컬렉션 객체가 java.util.Iterable 규칙을 따라 만든 클래스라면
     //    for(:) 반복문을 바로 사용할 수 있다.
-    for (String key : keys/* 배열 또는 Collection 객체 */) {
+    for (String key : keys/* 배열 또는 Iterable 객체 */) {
       System.out.println(map.get(key));
     }
     System.out.println("---------------------");

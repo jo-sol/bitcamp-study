@@ -6,12 +6,14 @@ import java.util.Hashtable;
 
 public class Exam0410 {
   public static void main(String[] args) {
+    // hashTable은 key와 value가 null이 될 수 없음.
+    // hashMap은 key와 value가 null이 될 수 있음.
 
     HashMap<String,Object> map = new HashMap<>();
     map.put(null, "홍길동"); // 1) null을 key로 사용할 수 있다.
     map.put("s01", null); // 2) value가 null이 될 수 있다.
-    // 3) 동기화를 지원하지 않는다.
-    // 멀티스레드가 동시에 사용할 때 문제가 발생할 수 있다.
+    // 3) 동기화를 지원하지 않는다. (네트워킹할 때 배움)
+    // => 멀티스레드가 동시에 사용할 때 문제가 발생할 수 있다.
     // => 대신 실행 속도가 빠르다.
 
     System.out.println(map.get(null));

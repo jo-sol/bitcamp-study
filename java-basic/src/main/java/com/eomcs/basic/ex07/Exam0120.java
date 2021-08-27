@@ -1,9 +1,10 @@
-// java.util.HashSet vs ArrayList
+// java.util.HashSet vs ArrayList (Set과 List의 차이)
 package com.eomcs.basic.ex07;
 
 import java.util.ArrayList;
 
 // ArrayList는 중복을 허용한다.
+// ArrayList 그냥 무조건 저장한다.
 public class Exam0120 {
   public static void main(String[] args) {
 
@@ -14,8 +15,8 @@ public class Exam0120 {
     list.add("ccc");
 
     // ArrayList는 값을 중복해서 넣을 수 있다.
-    list.add("aaa");
-    list.add("bbb");
+    list.add("aaa"); // 위에서 입력한 "aaa"와 같은 인스턴스라도 중복 저장.
+    list.add("bbb"); // 위에서 입력한 "bbb"와 같은 인스턴스라도 중복 저장.
 
     // null을 넣을 수 있다.
     // 여러 번 넣을 수 있다.
