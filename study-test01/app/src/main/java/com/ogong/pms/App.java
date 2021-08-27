@@ -26,7 +26,7 @@ import com.ogong.util.Prompt;
 public class App {
   List<Study> studyList = new LinkedList<>();
   NewStudyHandler newStudyHandler = new NewStudyHandler(studyList);
-
+  // ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
   List<Join> joinList = new ArrayList<>();
   JoinHandler joinHandler = new JoinHandler(joinList);
 
