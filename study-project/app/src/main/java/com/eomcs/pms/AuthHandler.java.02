@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms.handler; // 로그아웃 메서드 추가
 
 import java.util.List;
 import com.eomcs.pms.domain.Member;
@@ -48,6 +48,9 @@ public class AuthHandler {
     System.out.println("[로그아웃]");
 
     loginUser = null;
+    // loginUser 필드를 null로 초기화 시키면 됨
+    // 이는 로그인이 되었든 로그인을 하지 않았든
+    // 메인 메뉴에서 실행했을 때 "로그아웃 하였습니다" 출력
     System.out.println("로그아웃 하였습니다.");
   }
 

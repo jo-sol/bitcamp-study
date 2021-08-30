@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms.handler; // 로그인, 내 정보 메서드 추가
 
 import java.util.List;
 import com.eomcs.pms.domain.Member;
@@ -42,13 +42,6 @@ public class AuthHandler {
     System.out.printf("사진: %s\n", loginUser.getPhoto());
     System.out.printf("전화: %s\n", loginUser.getTel());
     System.out.printf("등록일: %s\n", loginUser.getRegisteredDate());
-  }
-
-  public void logout() {
-    System.out.println("[로그아웃]");
-
-    loginUser = null;
-    System.out.println("로그아웃 하였습니다.");
   }
 
   // ** for문의 memberList 즉, List는 Iterable 구현체이다.
