@@ -49,13 +49,6 @@ public class App {
       }
     });
 
-    mainMenuGroup.add(new Menu("내 정보") {
-      @Override
-      public void execute() {
-        authHandler.displayLoginUser();
-      }
-    });
-
     MenuGroup boardMenu = new MenuGroup("게시판");
     mainMenuGroup.add(boardMenu);
 

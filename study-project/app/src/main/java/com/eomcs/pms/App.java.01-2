@@ -1,4 +1,4 @@
-package com.eomcs.pms;
+package com.eomcs.pms; // 내 정보 메뉴 추가하기
 
 import java.util.ArrayList;
 import java.util.LinkedList;
