@@ -5,11 +5,11 @@ import java.util.List;
 import com.ogong.pms.domain.ToDo;
 import com.ogong.util.Prompt;
 
-public class ToDoListHandler {
+public class ToDoHandler {
 
   List<ToDo> todoList;
 
-  public ToDoListHandler(List<ToDo> todoList) {
+  public ToDoHandler(List<ToDo> todoList) {
     this.todoList = todoList;
   }
 
@@ -42,7 +42,7 @@ public class ToDoListHandler {
           todo.getTodoTitle(), 
           todo.getTodoContent(),
           todo.getTodoRemark(),
-          todo.getTodoStatus(),
+          getStatusToDo(todo.getTodoStatus()),
           todo.getTodoRegisteredDate());
     }
   }
@@ -61,7 +61,7 @@ public class ToDoListHandler {
     System.out.printf("제목: %s\n", todo.getTodoTitle());
     System.out.printf("내용: %s\n", todo.getTodoContent());
     System.out.printf("비고: %s\n", todo.getTodoRemark());
-    System.out.printf("진행 상황: %s\n", todo.getTodoStatus());
+    System.out.printf("진행 상황: %d\n", todo.getTodoStatus());
     System.out.printf("DATE: %s\n", todo.getTodoRegisteredDate());
   }
 
@@ -72,11 +72,13 @@ public class ToDoListHandler {
     ToDo todo = findBytodoNo(todoNo);
 
     String todoTitle = Prompt.inputString(String.format(
-        "To-Do List 제목: %s\n", todo.getTodoContent()));
+        "To-Do List 제목(%s): ", todo.getTodoTitle()));
     String todoContent = Prompt.inputString(String.format(
-        "To-Do List 내용: %s\n", todo.getTodoStatus()));
+        "To-Do List 내용(%s): ", todo.getTodoContent()));
+    int todoStatus = promptStatus(todo.getTodoStatus());
+
     String todoRemark = Prompt.inputString(String.format(
-        "To-Do List 내용: %s\n", todo.getTodoRemark()));
+        "To-Do List 비고(%s): ", todo.getTodoRemark()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N)");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -86,13 +88,14 @@ public class ToDoListHandler {
 
     todo.setTodoTitle(todoTitle);
     todo.setTodoContent(todoContent);
+    todo.setTodoStatus(todoStatus);
     todo.setTodoRemark(todoRemark);
     System.out.println("To-Do List 변경이 완료되었습니다.");
   }
 
   public void delete() {
     System.out.println("[To-Do List 삭제]");
-    int todoNo = Prompt.inputInt("선택하세요. ");
+    int todoNo = Prompt.inputInt("번호 선택: ");
 
     ToDo todo = findBytodoNo(todoNo);
 
@@ -107,7 +110,7 @@ public class ToDoListHandler {
       return;
     }
 
-    todoList.remove(todoNo);
+    todoList.remove(todo);
 
     System.out.println("To-Do List를 삭제하였습니다.");
   }
