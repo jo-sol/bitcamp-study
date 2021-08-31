@@ -24,7 +24,7 @@ public class App {
   BoardHandler boardHandler = new BoardHandler(boardList);
   MemberHandler memberHandler = new MemberHandler(memberList); // 등록된 memberList에서 찾아야 하기 때문 => 같은 LinkedList 사용
   ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
-  TaskHandler taskHandler = new TaskHandler(projectHandler);
+  TaskHandler taskHandler = new TaskHandler(memberHandler, projectHandler);
   AuthHandler authHandler = new AuthHandler(memberList); // 등록된 memberList에서 찾아야 하기 때문 => 같은 LinkedList 사용
 
   public static void main(String[] args) {
