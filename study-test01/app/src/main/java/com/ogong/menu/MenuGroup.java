@@ -93,6 +93,7 @@ public class MenuGroup extends Menu {
 
       try {
         int menuNo = Prompt.inputInt("선택> ");
+        System.out.println("----------------");
         if (menuNo == 0 && !disablePrevMenu) {
           // 현재 메뉴에서 나갈 때 스택에서 제거한다.
           breadCrumb.pop();
@@ -106,9 +107,9 @@ public class MenuGroup extends Menu {
 
         this.childs[menuNo - 1].execute();
       } catch (Throwable e) {
-        System.out.println("------------------------------------------------");
-        System.out.printf("오류 발생: %s\n", e.getClass().getName());
-        System.out.println("------------------------------------------------");
+        System.out.println("--------------------------");
+        System.out.println(e.getClass().getName());
+        System.out.println("--------------------------");
       }
     }
   }

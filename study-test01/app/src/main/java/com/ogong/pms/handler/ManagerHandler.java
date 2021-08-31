@@ -13,7 +13,7 @@ public class ManagerHandler {
     this.managerList = managerList;
   }
 
-  public void add() {
+  private void add() {
     System.out.println("[공지사항 등록하기]");
 
     Manager manager = new Manager();
@@ -27,7 +27,38 @@ public class ManagerHandler {
     managerList.add(manager);
   }
 
-  public void update() {
+  public void list() {
+    System.out.println("[공지사항 목록]");
+
+    Manager[] managers = managerList.toArray(new Manager[0]);
+
+    for (Manager manager : managers) {
+      System.out.printf("%d, %s, %s, %s\n", 
+          manager.getHostNo(), 
+          manager.getHostTitle(), 
+          manager.getHostWriter(),
+          manager.getHostRegisteredDate());
+    }
+  }
+
+  public void detail() {
+    System.out.println("[공지사항 상세보기]");
+    int inputHostNo = Prompt.inputInt("번호? ");
+
+    Manager manager = findByHostNo(inputHostNo);
+
+    if (manager == null) {
+      System.out.println("해당 번호의 공지글이 없습니다.");
+      return;
+    }
+
+    System.out.printf("제목: %s\n", manager.getHostTitle());
+    System.out.printf("내용: %s\n", manager.getHostContent());
+    System.out.printf("작성자: %s\n", manager.getHostWriter());
+    System.out.printf("등록일: %s\n", manager.getHostRegisteredDate());
+  }
+
+  private void update() {
     System.out.println("[공지사항 변경하기]");
     int hostNo = Prompt.inputInt("번호? ");
 
@@ -52,7 +83,7 @@ public class ManagerHandler {
     System.out.println("공지글을 변경하였습니다.");
   }
 
-  public void delete() {
+  private void delete() {
     System.out.println("[공지사항 삭제하기]");
     int hostNo = Prompt.inputInt("번호? ");
 
