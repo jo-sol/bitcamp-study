@@ -1,7 +1,6 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -15,40 +14,6 @@ public class ProjectHandler {
   public ProjectHandler(List<Project> projectList, MemberHandler memberHandler) {
     this.projectList = projectList;
     this.memberHandler = memberHandler;
-
-    // 샘플 프로젝트 미리 입력
-    Project project = new Project();
-    project.setNo(101);
-    project.setTitle("프로젝트1");
-    project.setContent("내용!!!");
-    project.setStartDate(Date.valueOf("2021-1-1"));
-    project.setEndDate(Date.valueOf("2021-2-2"));
-    project.setOwner(memberHandler.memberList.get(0));
-    project.setMembers(new ArrayList<>()); // 테스트에 지장 없도록 빈 멤버라도 추가
-
-    projectList.add(project);
-
-    project = new Project();
-    project.setNo(102);
-    project.setTitle("프로젝트2");
-    project.setContent("내용!!!");
-    project.setStartDate(Date.valueOf("2021-3-1"));
-    project.setEndDate(Date.valueOf("2021-4-2"));
-    project.setOwner(memberHandler.memberList.get(1));
-    project.setMembers(new ArrayList<>()); // 테스트에 지장 없도록 빈 멤버라도 추가
-
-    projectList.add(project);
-
-    project = new Project();
-    project.setNo(103);
-    project.setTitle("프로젝트3");
-    project.setContent("내용!!!");
-    project.setStartDate(Date.valueOf("2021-5-1"));
-    project.setEndDate(Date.valueOf("2021-6-2"));
-    project.setOwner(memberHandler.memberList.get(2));
-    project.setMembers(new ArrayList<>()); // 테스트에 지장 없도록 빈 멤버라도 추가
-
-    projectList.add(project);
   }
 
   public void add() {

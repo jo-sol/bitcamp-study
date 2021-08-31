@@ -1,4 +1,4 @@
-package com.eomcs.menu;
+package com.eomcs.menu; // 메뉴 선택 리펙토링 전까지의 리펙토링
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +19,6 @@ public class MenuGroup extends Menu {
   int size;
   boolean disablePrevMenu;
   String prevMenuTitle = "이전 메뉴";
-
-  // 이전으로 이동시키는 메뉴를 표현하기 위해 만든 클래스
-  // 의미 없는 클래스 (더미 클래스)
-  private static class PrevMenu extends Menu {
-    public PrevMenu() {
-      super(""); // 생성자 필요 >> 빈문자열(null)을 줌 >> 여기에서만 쓸 것
-    }
-    @Override
-    public void execute() {
-      // 아무 의미 없고 그냥 PrevMenu 만들기 위해 생성
-    }
-  }
-  static PrevMenu prevMenu = new PrevMenu();
 
   // 생성자를 정의하지 않으면 컴파일러가 기본 생성자를 자동으로 추가해 준다.
   // 문제는 컴파일러가 추가한 기본 생성자는 수퍼 클래스의 기본 생성자를 호출하기 때문에
@@ -101,30 +88,34 @@ public class MenuGroup extends Menu {
     while (true) {
       // Array인지 Linked인지 쓸지 구체적으로 하지 말고
       // List로 사용하는 게 낫다
-      printBreadCrumpMenuTitle(); // 1
-      List<Menu> menuList = getMenuList(); // 2 (1이랑 순서 바꿔도 상관없음)
-      printMenuList(menuList); // 3
+      List<Menu> menuList = getMenuList();
+
+      printBreadCrumpMenu();
+
+      printMenuList(menuList);
 
       try {
-        Menu menu = selectMenu(menuList);
-        if (menu == null) {
+        int menuNo = Prompt.inputInt("선택> ");
+        if (menuNo == 0 && !disablePrevMenu) {
+          // 현재 메뉴에서 나갈 때 스택에서 제거한다.
+          breadCrumb.pop();
+          return;
+        }
+
+        if (menuNo < 0 || menuNo > this.size) {
           System.out.println("무효한 메뉴 번호입니다.");
           continue;
         }
-        if (menu instanceof PrevMenu) {
-          breadCrumb.pop();
-          return; // 이전 메뉴로 나가라
-        }
 
-        menu.execute();
+        // 배열에서 바로 가지고 오지 않고 메뉴 리스트에서 가지고 옴
+        menuList.get(menuNo - 1).execute();
 
-      } catch (Exception e) {
+      } catch (Throwable e) {
         // try {} 블록 안에 있는 코드를 실행하다가 예외가 발생하면
         // 다음 문장을 실행한 후 시스템을 멈추지 않고 실행을 계속한다.
-        System.out.println("----------------------------------------------------------");
+        System.out.println("------------------------------------------------");
         System.out.printf("오류 발생: %s\n", e.getClass().getName());
-        e.printStackTrace(); // 개발하는 동안 왜 뜬 건지 알 수 있게 해야 함
-        System.out.println("----------------------------------------------------------");
+        System.out.println("------------------------------------------------");
       }
     }
   }
@@ -135,7 +126,7 @@ public class MenuGroup extends Menu {
     for (int i = 0; i < breadCrumb.size(); i++) {
       if (path.length() > 0) {
         path += " / ";
-      } // breadCrumb에 반복문 돌려서 title 생성
+      }
       Menu menu = breadCrumb.get(i); 
       path += menu.title;
     }
@@ -178,41 +169,22 @@ public class MenuGroup extends Menu {
 
   // 이렇게 한 줄짜리도 리펙토링 후 메서드로 따로 빼 주면
   // 주석을 달아 줄 필요가 없음 >> 주석이 존재한다는 것 자체가 리펙토링 대상
-  private void printBreadCrumpMenuTitle() {
+  private void printBreadCrumpMenu() {
     System.out.printf("\n[%s]\n", getBreadCrumb());
   }
 
   private void printMenuList(List<Menu> menuList) {
     int i = 1; // i는 0부터 시작해서
     for (Menu menu : menuList) { // 위에서 준비한 menuList를 여기에 주면 됨
-      System.out.printf("%d. %-20s\n", i++, menu.title); // 메뉴 리스트의 타이틀을 출력할 때마다 +1
+      System.out.printf("%d. %s\n", i++, menu.title); // 메뉴 리스트의 타이틀을 출력할 때마다 +1
       // 증가된 i값을 출력하라 i++
     }
 
-    if (!disablePrevMenu) { // 이전 메뉴로 가는 걸 비활성화 시킨 게 아니라면
-      System.out.printf("0. %s\n", this.prevMenuTitle); // 아~ 이전 메뉴로 가라는 거구나~
+    if (!disablePrevMenu) {
+      System.out.printf("0. %s\n", this.prevMenuTitle);
     }
+
   }
-
-  // 녹음 11시부터
-  private Menu selectMenu(List<Menu> menuList) {
-    int menuNo = Prompt.inputInt("선택> ");
-
-    if (menuNo < 0 || menuNo > menuList.size()) {
-      return null;
-    }
-
-    if (menuNo == 0 && !disablePrevMenu) {
-      // 현재 메뉴에서 나갈 때 스택에서 제거한다.
-      // 1) 프리뷰 메뉴를 리턴하든
-      return prevMenu; // 호출한 쪽에 '이전 메뉴' 선택을 알리기 위해 이렇게 함
-    }
-
-    // 배열에서 바로 가지고 오지 않고 메뉴 리스트에서 가지고 옴
-    // 2) 사용자가 선택한 번호를 리턴하든 상관없음
-    return menuList.get(menuNo - 1);
-  }
-
 }
 
 

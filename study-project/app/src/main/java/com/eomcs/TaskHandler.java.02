@@ -13,8 +13,8 @@ public class TaskHandler {
   List<Project> projectList;
   MemberHandler memberHandler;
 
-  public TaskHandler(List<Project> projectList, List<Task> taskList, MemberHandler memberHandler) {
-    this.projectList = projectList;
+
+  public TaskHandler(List<Task> taskList, MemberHandler memberHandler) {
     this.taskList = taskList;
     this.memberHandler = memberHandler;
   }

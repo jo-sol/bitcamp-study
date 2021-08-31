@@ -6,7 +6,7 @@ public class Task {
   private int no;
   private String content;
   private Date deadline;
-  private Member owner;
+  private String owner;
   private int status;
   private Project project;
   // task가 project를 사용할 것이기 때문
@@ -18,15 +18,6 @@ public class Task {
   // - 이처럼 강력하게 붙어 있는 상태가 됨
   // - task로 다른 걸 개발하고 싶을 때 project도 같이 가지고 와야 함
   // >> 따라서 단방향 참조를 권장함
-
-  // 객체의 내용을 출력할 때 println으로 바로바로 출력하면
-  // 개발하는 동안 확인하기 쉽기 때문에 toString()을 오버라이딩 함
-
-  @Override
-  public String toString() {
-    return "Task [no=" + no + ", content=" + content + ", deadline=" + deadline + ", owner=" + owner
-        + ", status=" + status + ", project=" + project + "]";
-  }
 
   public int getNo() {
     return no;
@@ -46,26 +37,16 @@ public class Task {
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
   }
+  public String getOwner() {
+    return owner;
+  }
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
   public int getStatus() {
     return status;
   }
   public void setStatus(int status) {
     this.status = status;
   }
-  public void setOwner(Member owner) {
-    this.owner = owner;
-  }
-
-  public Member getOwner() {
-    return owner;
-  }
-
-  // project에 대한 게터 세터 추가
-  public Project getProject() {
-    return project;
-  }
-  public void setProject(Project project) {
-    this.project = project;
-  }
-
 }

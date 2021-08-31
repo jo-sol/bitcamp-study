@@ -1,4 +1,4 @@
-package com.eomcs.menu;
+package com.eomcs.menu; // 메뉴 선택 리펙토링
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,18 +113,24 @@ public class MenuGroup extends Menu {
         }
         if (menu instanceof PrevMenu) {
           breadCrumb.pop();
-          return; // 이전 메뉴로 나가라
+          return;
         }
 
         menu.execute();
 
-      } catch (Exception e) {
+        int menuNo = Prompt.inputInt("선택> ");
+        if (menuNo == 0 && !disablePrevMenu) {
+          // 현재 메뉴에서 나갈 때 스택에서 제거한다.
+          breadCrumb.pop();
+          return;
+        }
+
+      } catch (Throwable e) {
         // try {} 블록 안에 있는 코드를 실행하다가 예외가 발생하면
         // 다음 문장을 실행한 후 시스템을 멈추지 않고 실행을 계속한다.
-        System.out.println("----------------------------------------------------------");
+        System.out.println("------------------------------------------------");
         System.out.printf("오류 발생: %s\n", e.getClass().getName());
-        e.printStackTrace(); // 개발하는 동안 왜 뜬 건지 알 수 있게 해야 함
-        System.out.println("----------------------------------------------------------");
+        System.out.println("------------------------------------------------");
       }
     }
   }
@@ -135,7 +141,7 @@ public class MenuGroup extends Menu {
     for (int i = 0; i < breadCrumb.size(); i++) {
       if (path.length() > 0) {
         path += " / ";
-      } // breadCrumb에 반복문 돌려서 title 생성
+      }
       Menu menu = breadCrumb.get(i); 
       path += menu.title;
     }
@@ -185,12 +191,12 @@ public class MenuGroup extends Menu {
   private void printMenuList(List<Menu> menuList) {
     int i = 1; // i는 0부터 시작해서
     for (Menu menu : menuList) { // 위에서 준비한 menuList를 여기에 주면 됨
-      System.out.printf("%d. %-20s\n", i++, menu.title); // 메뉴 리스트의 타이틀을 출력할 때마다 +1
+      System.out.printf("%d. %s\n", i++, menu.title); // 메뉴 리스트의 타이틀을 출력할 때마다 +1
       // 증가된 i값을 출력하라 i++
     }
 
-    if (!disablePrevMenu) { // 이전 메뉴로 가는 걸 비활성화 시킨 게 아니라면
-      System.out.printf("0. %s\n", this.prevMenuTitle); // 아~ 이전 메뉴로 가라는 거구나~
+    if (!disablePrevMenu) {
+      System.out.printf("0. %s\n", this.prevMenuTitle);
     }
   }
 

@@ -12,52 +12,6 @@ public class MemberHandler {
 
   public MemberHandler(List<Member> memberList) {
     this.memberList = memberList;
-
-    // AuthHandler에 있는 걸 MemberHandler로 옮김(여기 샘플이 우선)
-    // 샘플 회원 미리 입력
-    Member testUser = new Member();
-    testUser.setNo(1);
-    testUser.setName("aaa");
-    testUser.setEmail("aaa@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("aaa.gif");
-    testUser.setTel("010-1111-1111");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(2);
-    testUser.setName("bbb");
-    testUser.setEmail("bbb@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("bbb.gif");
-    testUser.setTel("010-1111-2222");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(3);
-    testUser.setName("ccc");
-    testUser.setEmail("ccc@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("ccc.gif");
-    testUser.setTel("010-1111-3333");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(4);
-    testUser.setName("ddd");
-    testUser.setEmail("ddd@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("ddd.gif");
-    testUser.setTel("010-1111-4444");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
   }
 
   public void add() {
@@ -190,18 +144,14 @@ public class MemberHandler {
     return false;
   }
 
-  public Member promptMember(String label) {
+  public String promptMember(String label) {
     while (true) {
-      String memberName = Prompt.inputString(label); // 1) label에 따라 출력하면서 member 이름을 받기
-      if (memberName.length() == 0) { // 2) memberName이 빈 문자열이면 null 리턴
+      String owner = Prompt.inputString(label);
+      if (this.exist(owner)) {
+        return owner;
+      } else if (owner.length() == 0) {
         return null;
       }
-
-      Member member = findByName(memberName); // 3) 만약 찾았으면 그 찾은 정보를 리턴하고
-      if (member != null) {
-        return member;
-      } 
-      // 4) 둘 다 아닐 경우에 하단 내용 출력
       System.out.println("등록된 회원이 아닙니다.");
     }
   }

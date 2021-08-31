@@ -20,12 +20,10 @@ public class Project {
 
   // 13-e. 프로젝트 관리 로그인 정보 활용 그림 참조
   // class diagram
-
   @Override
   public String toString() {
     return "Project [no=" + no + ", title=" + title + ", content=" + content + ", startDate="
-        + startDate + ", endDate=" + endDate + ", owner=" + owner + ", members=" + members
-        + ", tasks=" + tasks + "]";
+        + startDate + ", endDate=" + endDate + ", owner=" + owner + ", members=" + members + "]";
   }
 
   public int getNo() {
@@ -70,16 +68,6 @@ public class Project {
   }
   public void setMembers(List<Member> members) {
     this.members = members;
-  }
-
-  // tasks를 사용할 수 있는 getter/setter 추가
-
-  public List<Task> getTasks() {
-    return tasks;
-  }
-
-  public void setTasks(List<Task> tasks) {
-    this.tasks = tasks;
   }
 
 }

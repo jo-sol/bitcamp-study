@@ -7,11 +7,16 @@ import com.eomcs.util.Prompt;
 public class AuthHandler {
 
   List<Member> memberList;
-  Member loginUser;
+
+  static Member loginUser;
+  public static Member getLoginUser() {
+    return loginUser;
+  }
 
   public AuthHandler(List<Member> memberList) {
     this.memberList = memberList;
   }
+
 
   public void login() {
     System.out.println("[로그인]");

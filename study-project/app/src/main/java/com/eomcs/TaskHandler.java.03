@@ -10,8 +10,9 @@ import com.eomcs.util.Prompt;
 public class TaskHandler {
 
   List<Task> taskList;
-  List<Project> projectList;
+  List<Project> projectList; // 추가
   MemberHandler memberHandler;
+
 
   public TaskHandler(List<Project> projectList, List<Task> taskList, MemberHandler memberHandler) {
     this.projectList = projectList;
