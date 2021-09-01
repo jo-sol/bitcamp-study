@@ -6,8 +6,17 @@ public class NoticeBoard {
   private int notiNo; // 공지게시판 번호
   private String notiTitle; // 공지게시판 제목
   private String notiContent; // 공지게시판 내용
-  private String notiWriter; // 공지게시판 작성자
+  private Member masterWriter; // 공지게시판 작성자
   private Date notiRegisteredDate; // 공지게시판 등록일
+
+
+  @Override
+  public String toString() {
+    return "NoticeBoard [notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent="
+        + notiContent + ", masterWriter=" + masterWriter + ", notiRegisteredDate="
+        + notiRegisteredDate + "]";
+  }
+
   public int getNotiNo() {
     return notiNo;
   }
@@ -26,16 +35,16 @@ public class NoticeBoard {
   public void setNotiContent(String notiContent) {
     this.notiContent = notiContent;
   }
-  public String getNotiWriter() {
-    return notiWriter;
-  }
-  public void setNotiWriter(String notiWriter) {
-    this.notiWriter = notiWriter;
-  }
   public Date getNotiRegisteredDate() {
     return notiRegisteredDate;
   }
   public void setNotiRegisteredDate(Date notiRegisteredDate) {
     this.notiRegisteredDate = notiRegisteredDate;
+  }
+  public Member getMasterWriter() {
+    return masterWriter;
+  }
+  public void setMasterWriter(Member masterWriter) {
+    this.masterWriter = masterWriter;
   }
 }

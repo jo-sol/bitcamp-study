@@ -13,7 +13,7 @@ public class ManagerHandler {
     this.managerList = managerList;
   }
 
-  private void add() {
+  public void add() {
     System.out.println("[공지사항 등록하기]");
 
     Manager manager = new Manager();
@@ -21,7 +21,8 @@ public class ManagerHandler {
     manager.setHostNo(Prompt.inputInt("번호? "));
     manager.setHostTitle(Prompt.inputString("제목? "));
     manager.setHostContent(Prompt.inputString("내용? "));
-    manager.setHostWriter(Prompt.inputString("작성자? "));
+
+    manager.setMasterWriter(LoginHandler.getLoginMaster());
     manager.setHostRegisteredDate(new Date(System.currentTimeMillis()));
 
     managerList.add(manager);
@@ -36,7 +37,7 @@ public class ManagerHandler {
       System.out.printf("%d, %s, %s, %s\n", 
           manager.getHostNo(), 
           manager.getHostTitle(), 
-          manager.getHostWriter(),
+          manager.getMasterWriter().getMasterNickname(),
           manager.getHostRegisteredDate());
     }
   }
@@ -54,11 +55,11 @@ public class ManagerHandler {
 
     System.out.printf("제목: %s\n", manager.getHostTitle());
     System.out.printf("내용: %s\n", manager.getHostContent());
-    System.out.printf("작성자: %s\n", manager.getHostWriter());
+    System.out.printf("작성자: %s\n", manager.getMasterWriter().getMasterNickname());
     System.out.printf("등록일: %s\n", manager.getHostRegisteredDate());
   }
 
-  private void update() {
+  public void update() {
     System.out.println("[공지사항 변경하기]");
     int hostNo = Prompt.inputInt("번호? ");
 
@@ -69,12 +70,17 @@ public class ManagerHandler {
       return;
     }
 
+    if (manager.getMasterWriter().getMasterno() != LoginHandler.getLoginMaster().getMasterno()) {
+      System.out.println("변경 권한이 없습니다.");
+      return;
+    }
+
     String managerTitle = Prompt.inputString(String.format("제목(%s)? ", manager.getHostTitle()));
     String managerContent = Prompt.inputString(String.format("내용(%s)? ", manager.getHostContent()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
-      System.out.println("문의글 변경을 취소하였습니다.");
+      System.out.println("공지글 변경을 취소하였습니다.");
       return;
     }
 
@@ -83,7 +89,7 @@ public class ManagerHandler {
     System.out.println("공지글을 변경하였습니다.");
   }
 
-  private void delete() {
+  public void delete() {
     System.out.println("[공지사항 삭제하기]");
     int hostNo = Prompt.inputInt("번호? ");
 
@@ -94,20 +100,24 @@ public class ManagerHandler {
       return;
     }
 
+    if (manager.getMasterWriter().getMasterno() != LoginHandler.getLoginMaster().getMasterno()) {
+      System.out.println("삭제 권한이 없습니다.");
+      return;
+    }
+
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
-      System.out.println("문의글 삭제를 취소하였습니다.");
+      System.out.println("공지글 삭제를 취소하였습니다.");
       return;
     }
 
     managerList.remove(manager);
 
-    System.out.println("문의글을 삭제하였습니다.");
+    System.out.println("공지글을 삭제하였습니다.");
   }
 
   public Manager findByHostNo(int hostNo) {
-    Manager[] arr = managerList.toArray(new Manager[0]);
-    for (Manager manager : arr) {
+    for (Manager manager : managerList) {
       if (manager.getHostNo() == hostNo) {
         return manager;
       }

@@ -1,5 +1,6 @@
 package com.ogong.pms.handler;
 
+import java.sql.Date;
 import java.util.List;
 import com.ogong.pms.domain.Member;
 import com.ogong.util.Prompt;
@@ -8,9 +9,27 @@ public class MemberHandler {
 
   List<Member> memberList;
 
-
   public MemberHandler(List<Member> memberList) {
     this.memberList = memberList;
+
+    Member masterUser = new Member();
+    masterUser.setMasterno(0);
+    masterUser.setMasterNickname("관리자");
+    masterUser.setMasterEmail("ogong@ogong.com");
+    masterUser.setMasterPassword("1234");
+    masterUser.setMasterRegisteredDate(new Date(System.currentTimeMillis()));
+
+    memberList.add(masterUser);
+    //
+    //    Member User = new Member();
+    //    User.setPerNo(1);
+    //    User.setPerNickname("회원");
+    //    User.setPerEmail("naver");
+    //    User.setPerPassword("1111");
+    //    User.setPerPhoto("naver.jpg");
+    //    User.setPerRegisteredDate(new Date(System.currentTimeMillis()));
+    //
+    //    memberList.add(User);
   }
 
   public void add() {

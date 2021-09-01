@@ -1,0 +1,67 @@
+package com.eomcs.pms.handler;
+
+import java.util.List;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.util.Prompt;
+
+public abstract class AbstractProjectHandler {
+
+  // >> AbstractProjectHandler에서는 memberHandler를 사용할 이유가 없기 때문에
+  //    굳이 대표로 뽑지 않고 사용하는 부분에서만 직접 선언하여 적용해 주었다
+  protected List<Project> projectList;
+
+  public AbstractProjectHandler(List<Project> projectList) {
+    this.projectList = projectList;
+  }
+
+  // [getMemberNames 리펙토링]
+  // 1) 인스턴스 필드가 없으니까 static으로 선언
+  // 2) 현재 문자열을 리턴해 줌
+  // 3) Member 이름을 뽑아서 리턴해 주는 것이기 때문에 다른 클래스에 넣을 수 있음
+  // 4) Member 나 Project 도메인으로 옮길 수 있는데
+  // 5) 우리는 Project 도메인으로 옮김
+  // 6) 실질적으로 당장 사용하는 건 Project이기 때문
+  //
+  //  protected static String getMemberNames(List<Member> members) {
+  //    StringBuilder names = new StringBuilder(); 
+  //    for (Member member : members) {
+  //      if (names.length() > 0) { 
+  //        names.append(",");
+  //      }
+  //      names.append(member.getName());
+  //    }
+  //    return names.toString();
+  //  }
+
+  public Project findByNo(int no) {
+    for (Project project : projectList) {
+      if (project.getNo() == no) {
+        return project;
+      }
+    }
+    return null;
+  }
+
+  public Project promptProject() {
+    System.out.println("프로젝트: ");
+    for (Project project : projectList) {
+      System.out.printf("  %d. %s\n", project.getNo(), project.getTitle());
+    }
+    while (true) { 
+      int projectNo = Prompt.inputInt("프로젝트 번호 선택? (취소: 0) ");
+      if (projectNo == 0) {
+        return null;
+      }
+      Project selectedProject = findByNo(projectNo); 
+      if (selectedProject != null) { 
+        return selectedProject;
+      }
+      System.out.println("프로젝트 번호가 옳지 않습니다."); 
+    }
+  }
+}
+
+
+
+
+

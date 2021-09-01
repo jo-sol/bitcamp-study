@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms0831.handler;
 
 import java.util.List;
 import com.eomcs.pms.domain.Member;
@@ -8,6 +8,11 @@ public class AuthHandler {
 
   List<Member> memberList;
 
+  // 직접 필드에 안 하고 getter() 메서드를 사용하냐?
+  // 유지보수에 낫기 때문
+  // => projectHandler에서도 add()의 setOwner에서 (AuthHandler.getLoginUser())를
+  // => project.setOwner(AuthHandler.loginUser)라고 해도 무방하다.
+  // => 초보자는 별 차이를 못 느끼기 때문
   static Member loginUser;
   public static Member getLoginUser() {
     return loginUser;

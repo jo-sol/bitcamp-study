@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms.handler; // 게시글 검색 명령을 처리할 메서드 추가 // 기존 클래스 손댐으로서 위험성 높음
 
 import java.sql.Date;
 import java.util.List;
@@ -33,20 +33,11 @@ public class BoardHandler {
   public void list() {
     System.out.println("[게시글 목록]");
 
-    // 현재 BoardList에 보관된 값을 담을 수 있는 만큼 크기의 배열을 생성한다. 
-    Board[] boards = new Board[boardList.size()];
-
-    // 배열을 파라미터로 넘겨서 값을 받아 온다.
-    // => 넘겨 주는 배열의 크기가 충분하기 때문에 toArray()는 새 배열을 만들지 않을 것이다.
-    boardList.toArray(boards);
-
-    // 이렇게 제네릭이 적용된 List를 사용하면 
-    // List에서 값을 꺼낼 때 마다 형변환 할 필요가 없어 프로그래밍이 편리하다.
-    for (Board board : boards) {
+    for (Board board : boardList) {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
-          // 그냥 getWriter는 (녹음 12:03) 다시 듣기
+          // 그냥 getWriter는 작성자 목록만 있음
           // 그래서 getName으로 이름 뽑아줘야 함
           board.getWriter().getName(),
           board.getRegisteredDate(),
@@ -131,6 +122,31 @@ public class BoardHandler {
     boardList.remove(board);
 
     System.out.println("게시글을 삭제하였습니다.");
+  }
+
+  public void search() {
+    System.out.println("[게시글 검색]");
+
+    String input = Prompt.inputString("검색? ");
+
+    for (Board board : boardList) {
+      // contains >> input에 주어진 것을 포함하고 있다면
+      //    >> 가장 앞쪽에 !를 붙인 건 Not을 붙인 의미 (부정문)
+      if (!board.getTitle().contains(input) &&
+          !board.getContent().contains(input) &&
+          !board.getWriter().getName().contains(input))
+        // 여기에서 어떤 곳이라도 포함되어 있지 않으면 그 다음 게시글로 감
+        // 만약 이 중 하나라도 포함되어 있다면 찾은 것이기 때문에
+        // 그대로 출력한다.
+        continue;
+      System.out.printf("%d, %s, %s, %s, %d, %d\n", 
+          board.getNo(), 
+          board.getTitle(), 
+          board.getWriter().getName(),
+          board.getRegisteredDate(),
+          board.getViewCount(), 
+          board.getLike());
+    }
   }
 
   private Board findByNo(int no) {

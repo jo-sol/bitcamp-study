@@ -12,7 +12,6 @@ import com.ogong.pms.domain.Calender;
 import com.ogong.pms.domain.FreeBoard;
 import com.ogong.pms.domain.Manager;
 import com.ogong.pms.domain.Member;
-import com.ogong.pms.domain.NoticeBoard;
 import com.ogong.pms.domain.Study;
 import com.ogong.pms.domain.ToDo;
 import com.ogong.pms.handler.AskBoardHandler;
@@ -23,7 +22,6 @@ import com.ogong.pms.handler.LoginHandler;
 import com.ogong.pms.handler.ManagerHandler;
 import com.ogong.pms.handler.MemberHandler;
 import com.ogong.pms.handler.NewStudyHandler;
-import com.ogong.pms.handler.NoticeBoardHandler;
 import com.ogong.pms.handler.ToDoHandler;
 import com.ogong.util.Prompt;
 
@@ -35,12 +33,13 @@ public class App {
   List<Member> memberList = new LinkedList<>();
   MemberHandler memberHandler = new MemberHandler(memberList);
   LoginHandler loginHandler = new LoginHandler(memberList, memberHandler);
+  //  HostHandler hostHandler = new HostHandler(memberList, memberHandler);
 
   List<Manager> managerList = new ArrayList<>();
   ManagerHandler managerHandler = new ManagerHandler(managerList);
 
-  List<NoticeBoard> noticeBoardList = new ArrayList<>();
-  NoticeBoardHandler noticeboardHandler = new NoticeBoardHandler(noticeBoardList, managerList, managerHandler);
+  //  List<NoticeBoard> noticeBoardList = new ArrayList<>();
+  //  NoticeBoardHandler noticeboardHandler = new NoticeBoardHandler(noticeBoardList, managerList, managerHandler);
 
   List<AskBoard> askBoardList = new ArrayList<>();
   AskBoardHandler askBoardHandler = new AskBoardHandler(askBoardList);
@@ -95,15 +94,25 @@ public class App {
 
     // 메인의 하위메뉴 시작
     //---------------------------------------------------
+    //    MenuGroup masterMenu = new MenuGroup("관리자");
+    //    mainMenuGroup.add(masterMenu);
+    //    masterMenu.add(new Menu("로그인", Menu.ENABLE_LOGOUT) { // 로그아웃 되어있을 경우에만 활성화
+    //      @Override
+    //      public void execute() {
+    //        hostHandler.getLoginMaster();
+    //      }});
+    //---------------------------------------------------
+
+    //---------------------------------------------------
     MenuGroup joinMenu = new MenuGroup("회원가입");
     mainMenuGroup.add(joinMenu);
-    //  login(mainMenuGroup,joinMenu);
-    joinMenu.add(new Menu("개인") {
+    //    login(mainMenuGroup,joinMenu);
+    joinMenu.add(new Menu("개인", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         memberHandler.add(); 
       }});
-    joinMenu.add(new Menu("기업") {
+    joinMenu.add(new Menu("기업", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         memberHandler.add(); 
@@ -114,44 +123,64 @@ public class App {
     //---------------------------------------------------
     MenuGroup loginMenu = new MenuGroup("로그인");
     mainMenuGroup.add(loginMenu);
-    loginMenu.add(new Menu("개인") {
+
+    loginMenu.add(new Menu("관리자", Menu.ENABLE_LOGOUT) {
+      @Override
+      public void execute() {
+        loginHandler.masterLoginPage();
+      }});
+
+    loginMenu.add(new Menu("개인", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         loginHandler.addLoginPage();
       }});
 
-    loginMenu.add(new Menu("기업") {
+    loginMenu.add(new Menu("기업", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         loginHandler.addLoginPage(); 
       }});
-    loginMenu.add(new Menu("NAVER로 시작하기") {
+
+    //    loginMenu.add(new Menu("관리자", Menu.ENABLE_LOGOUT) {
+    //      @Override
+    //      public void execute() {
+    //        loginHandler.addLoginPage(); 
+    //      }});
+
+    loginMenu.add(new Menu("NAVER로 시작하기", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         loginHandler.naverLogin(); 
       }});
-    loginMenu.add(new Menu("KAKAO로 시작하기") {
+    loginMenu.add(new Menu("KAKAO로 시작하기", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         loginHandler.kakaoLogin(); 
       }});
-    loginMenu.add(new Menu("GOOGLE로 시작하기") {
+    loginMenu.add(new Menu("GOOGLE로 시작하기", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         loginHandler.googleLogin(); 
       }});
-    loginMenu.add(new Menu("회원 가입") {
+    loginMenu.add(new Menu("회원 가입", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         memberHandler.add();
       }});
-    loginMenu.add(new Menu("ID/PW 찾기") {
+    loginMenu.add(new Menu("ID/PW 찾기", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
         memberHandler.findEmail();
       }});
 
-    loginMenu.add(new Menu("로그아웃") {
+    loginMenu.add(new Menu("로그아웃", Menu.ENABLE_HOSTLOGIN) {
+      @Override
+      public void execute() {
+        loginHandler.logOut();
+      }});
+
+    loginMenu.add(new Menu("로그아웃", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
         loginHandler.logOut();
@@ -220,6 +249,13 @@ public class App {
     //---------------------------------------------------
     MenuGroup myStudyMenu = new MenuGroup("내 스터디");
     mainMenuGroup.add(myStudyMenu);
+    MenuGroup caMenu = new MenuGroup("캘린더");
+    myStudyMenu.add(caMenu);
+    caMenu.add(new Menu("일정 등록") {
+      @Override
+      public void execute() {
+        calenderHandler.add(); 
+      }});
     //---------------------------------------------------
 
     // 내스터디메뉴의 하위 메뉴 시작
@@ -366,19 +402,29 @@ public class App {
 
 
     //---------------------------------------------------
-    MenuGroup managerMenu = new MenuGroup("고객센터/관리자");
+    MenuGroup managerMenu = new MenuGroup("공지사항");
     mainMenuGroup.add(managerMenu);
-    managerMenu.add(new Menu("공지사항 등록하기") {
+    managerMenu.add(new Menu("공지사항 등록하기", Menu.ENABLE_HOSTLOGIN) {
       @Override
       public void execute() {
         managerHandler.add(); 
       }});
-    managerMenu.add(new Menu("공지사항 수정하기") {
+    managerMenu.add(new Menu("공지사항 목록") {
+      @Override
+      public void execute() {
+        managerHandler.list(); 
+      }});
+    managerMenu.add(new Menu("공지사항 상세보기") {
+      @Override
+      public void execute() {
+        managerHandler.detail(); 
+      }});
+    managerMenu.add(new Menu("공지사항 수정하기", Menu.ENABLE_HOSTLOGIN) {
       @Override
       public void execute() {
         managerHandler.update(); 
       }});
-    managerMenu.add(new Menu("공지사항 삭제하기") {
+    managerMenu.add(new Menu("공지사항 삭제하기", Menu.ENABLE_HOSTLOGIN) {
       @Override
       public void execute() {
         managerHandler.delete(); 
@@ -387,25 +433,25 @@ public class App {
 
 
     //---------------------------------------------------
-    MenuGroup noticeMenu = new MenuGroup("고객센터/회원");
-    mainMenuGroup.add(noticeMenu);
-    noticeMenu.add(new Menu("공지사항 목록") {
-      @Override
-      public void execute() {
-        noticeboardHandler.list(); 
-      }});
-    noticeMenu.add(new Menu("공지사항 상세보기") {
-      @Override
-      public void execute() {
-        noticeboardHandler.detail(); 
-      }});
+    //    MenuGroup noticeMenu = new MenuGroup("고객센터/회원");
+    //    mainMenuGroup.add(noticeMenu);
+    //    noticeMenu.add(new Menu("공지사항 목록") {
+    //      @Override
+    //      public void execute() {
+    //        noticeboardHandler.list(); 
+    //      }});
+    //    noticeMenu.add(new Menu("공지사항 상세보기") {
+    //      @Override
+    //      public void execute() {
+    //        noticeboardHandler.detail(); 
+    //      }});
     //---------------------------------------------------
 
 
     //---------------------------------------------------
     MenuGroup askMenu = new MenuGroup("문의사항/회원");
     mainMenuGroup.add(askMenu);
-    askMenu.add(new Menu("문의사항 등록") {
+    askMenu.add(new Menu("문의사항 등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
         askBoardHandler.add(); 
@@ -420,12 +466,12 @@ public class App {
       public void execute() {
         askBoardHandler.detail(); 
       }});
-    askMenu.add(new Menu("문의사항 변경") {
+    askMenu.add(new Menu("문의사항 변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
         askBoardHandler.update(); 
       }});
-    askMenu.add(new Menu("문의사항 삭제") {
+    askMenu.add(new Menu("문의사항 삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
         askBoardHandler.delete(); 
@@ -441,12 +487,12 @@ public class App {
   //    joinMenu.add(new Menu("개인") {
   //      @Override
   //      public void execute() {
-  //        joinHandler.add(); 
+  //        memberHandler.add(); 
   //      }});
   //    joinMenu.add(new Menu("기업") {
   //      @Override
   //      public void execute() {
-  //        joinHandler.add(); 
+  //        memberHandler.add(); 
   //      }});
   //  }
 }

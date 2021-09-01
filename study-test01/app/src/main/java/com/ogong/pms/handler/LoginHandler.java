@@ -10,10 +10,15 @@ public class LoginHandler {
   MemberHandler memberHandler;
 
   static Member loginUser;
+
   public static Member getLoginUser() {
     return loginUser;
   }
 
+  static Member loginMaster;
+  public static Member getLoginMaster() {
+    return loginMaster;
+  }
 
   public LoginHandler(List<Member> memberList, MemberHandler memberHandler) {
     this.memberList = memberList;
@@ -41,6 +46,27 @@ public class LoginHandler {
     } 
   }
 
+  public void masterLoginPage() {
+    String inputMasterEmail = Prompt.inputString("이메일: ");
+    String inputMasterPassword = "";
+    Member member = findByInputMasterEmail(inputMasterEmail);
+    if (member == null) {
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+    while (member != null) {
+      inputMasterPassword = Prompt.inputString("비밀번호: ");
+      if (member.getMasterPassword().equals(inputMasterPassword)) {
+        member.setMasterEmail(inputMasterEmail);
+        member.setMasterPassword(inputMasterPassword);
+        System.out.println("로그인되었습니다.");
+        loginMaster = member;
+        return;
+      }
+      System.out.println("비밀번호를 다시 입력하세요.");
+      continue;
+    } 
+  }
+
   public void logOut() {
     loginUser = null;
     System.out.println("로그아웃 되었습니다.");
@@ -56,4 +82,14 @@ public class LoginHandler {
     System.out.println("GOOGLE 로그인");
   }
 
+  private Member findByInputMasterEmail(String masterEmail) {
+    for (Member member : memberList) {
+      if (member.getMasterEmail().equals(masterEmail)) {
+        return member;
+      }
+    }
+    return null;
+  }
 }
+
+

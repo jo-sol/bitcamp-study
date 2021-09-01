@@ -11,6 +11,24 @@ public class Member {
   private String perPhoto;
   private Date perRegisteredDate;
 
+  private int masterno;
+  private String masterNickname;
+  private String masterEmail;
+  private String masterPassword;
+  private Date masterRegisteredDate;
+
+  // 객체의 내용을 출력할 때 println으로 바로바로 출력하면
+  // 개발하는 동안 확인하기 쉽기 때문에 toString()을 오버라이딩 함
+  @Override
+  public String toString() {
+    return "Member [perNo=" + perNo + ", perNickname=" + perNickname + ", perEmail=" + perEmail
+        + ", perPassword=" + perPassword + ", perPhoto=" + perPhoto + ", perRegisteredDate="
+        + perRegisteredDate + ", masterno=" + masterno + ", masterNickname=" + masterNickname
+        + ", masterEmail=" + masterEmail + ", masterPassword=" + masterPassword
+        + ", masterRegisteredDate=" + masterRegisteredDate + "]";
+  }
+
+
   public int getPerNo() {
     return perNo;
   }
@@ -47,24 +65,36 @@ public class Member {
   public void setPerRegisteredDate(Date perRegisteredDate) {
     this.perRegisteredDate = perRegisteredDate;
   }
-
-  //  private String ceo;
-  //  private int ceono;
-  //  private int ceoid;
-  //  private String ceoname;
-  //  private String ceopassword;
-  //  private String ceophoto;
-  //  private String ceo사업자등록번호;
-  //  private String ceo대표자명;
-  //  private String ceo점포명;
-  //  private String ceo점포주소상세주소;
-  //  private Date ceoregisteredDate;
-
-
-
-
-
-
-
+  // ---------------------------------------------------------------------------------
+  public int getMasterno() {
+    return masterno;
+  }
+  public void setMasterno(int masterno) {
+    this.masterno = masterno;
+  }
+  public String getMasterNickname() {
+    return masterNickname;
+  }
+  public void setMasterNickname(String masterNickname) {
+    this.masterNickname = masterNickname;
+  }
+  public String getMasterEmail() {
+    return masterEmail;
+  }
+  public void setMasterEmail(String masterEmail) {
+    this.masterEmail = masterEmail;
+  }
+  public String getMasterPassword() {
+    return masterPassword;
+  }
+  public void setMasterPassword(String masterPassword) {
+    this.masterPassword = masterPassword;
+  }
+  public Date getMasterRegisteredDate() {
+    return masterRegisteredDate;
+  }
+  public void setMasterRegisteredDate(Date masterRegisteredDate) {
+    this.masterRegisteredDate = masterRegisteredDate;
+  }
 
 }

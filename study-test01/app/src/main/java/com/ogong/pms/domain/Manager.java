@@ -6,8 +6,14 @@ public class Manager {
   private int hostNo; // 공지게시판 번호 - 관리자용
   private String hostTitle; // 공지게시판 제목 - 관리자용
   private String hostContent; // 공지게시판 내용 - 관리자용
-  private String hostWriter; // 공지게시판 작성자 - 관리자용
+  private Member masterWriter; // 공지게시판 작성자 - 관리자용
   private Date hostRegisteredDate; // 공지게시판 등록일 - 관리자용
+
+  @Override
+  public String toString() {
+    return "Manager [hostNo=" + hostNo + ", hostTitle=" + hostTitle + ", hostContent=" + hostContent
+        + ", masterWriter=" + masterWriter + ", hostRegisteredDate=" + hostRegisteredDate + "]";
+  }
 
   public int getHostNo() {
     return hostNo;
@@ -27,16 +33,16 @@ public class Manager {
   public void setHostContent(String hostContent) {
     this.hostContent = hostContent;
   }
-  public String getHostWriter() {
-    return hostWriter;
-  }
-  public void setHostWriter(String hostWriter) {
-    this.hostWriter = hostWriter;
-  }
   public Date getHostRegisteredDate() {
     return hostRegisteredDate;
   }
   public void setHostRegisteredDate(Date hostRegisteredDate) {
     this.hostRegisteredDate = hostRegisteredDate;
+  }
+  public Member getMasterWriter() {
+    return masterWriter;
+  }
+  public void setMasterWriter(Member masterWriter) {
+    this.masterWriter = masterWriter;
   }
 }

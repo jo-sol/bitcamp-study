@@ -3,7 +3,7 @@ package com.eomcs.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import com.eomcs.pms.handler.AuthHandler;
+import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.util.Prompt;
 
 // 역할
@@ -160,12 +160,12 @@ public class MenuGroup extends Menu {
     for (int i = 0; i < this.size; i++) {
       // 반복문을 도는데 그 메뉴가 활성화된 상태가 로그아웃만 해야 활성화되는 상태라면
       if (this.childs[i].enableState == Menu.ENABLE_LOGOUT
-          && AuthHandler.getLoginUser() == null) { 
+          && AuthLoginHandler.getLoginUser() == null) { 
         menuList.add(this.childs[i]);
 
         // 로그인 되었을 때만 활성화되는 메뉴는 로그인 된 상태일 때 메뉴 리스트에 추가한다.
       } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN
-          && AuthHandler.getLoginUser() != null) {
+          && AuthLoginHandler.getLoginUser() != null) {
         menuList.add(this.childs[i]);
 
         //만약에 그냥 모든 경우(All)에는 상관없이 메뉴 목록에 출력한다.
