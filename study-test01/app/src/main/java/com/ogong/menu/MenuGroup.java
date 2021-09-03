@@ -3,13 +3,13 @@ package com.ogong.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import com.ogong.pms.handler.AdminHandler;
 import com.ogong.pms.handler.LoginHandler;
 import com.ogong.util.Prompt;
 
+
 public class MenuGroup extends Menu {
 
-  // 메뉴의 bread crumb 목록 보관
-  // 모든 메뉴가 공유할 객체이기 때문에 스태틱 멤버로 선언한다.
   static Stack<Menu> breadCrumb = new Stack<>();
 
   Menu[] childs = new Menu[100];
@@ -18,14 +18,12 @@ public class MenuGroup extends Menu {
   String prevMenuTitle = "이전 메뉴";
 
   // 이전으로 이동시키는 메뉴를 표현하기 위해 만든 클래스
-  // 의미 없는 클래스 (더미 클래스)
   private static class PrevMenu extends Menu {
     public PrevMenu() {
-      super(""); // 생성자 필요 >> 빈문자열(null)을 줌 >> 여기에서만 쓸 것
+      super("");
     }
     @Override
     public void execute() {
-      // 아무 의미 없고 그냥 PrevMenu 만들기 위해 생성
     }
   }
   static PrevMenu prevMenu = new PrevMenu();
@@ -39,11 +37,15 @@ public class MenuGroup extends Menu {
     this.disablePrevMenu = disablePrevMenu;
   }
 
+  public MenuGroup(String title, int no) {
+    super(title);
+    this.enableState = no;
+  }
+
   public void setPrevMenuTitle(String prevMenuTitle) {
     this.prevMenuTitle = prevMenuTitle;
   }
 
-  // MenuGroup이 포함하는 하위 Menu를 다룰 수 있도록 메서드를 정의한다.
   public void add(Menu child) {
     if (this.size == this.childs.length) {
       return; 
@@ -51,7 +53,6 @@ public class MenuGroup extends Menu {
     this.childs[this.size++] = child; 
   }
 
-  // 배열에 들어 있는 Menu 객체를 찾아 제거한다.
   public Menu remove(Menu child) {
     int index = indexOf(child);
     if (index == -1) {
@@ -64,7 +65,6 @@ public class MenuGroup extends Menu {
     return child;
   }
 
-  // 배열에 들어 있는 Menu 객체의 인덱스를 알아낸다.
   public int indexOf(Menu child) {
     for (int i = 0; i < this.size; i++) {
       if (this.childs[i] == child) {
@@ -86,14 +86,12 @@ public class MenuGroup extends Menu {
 
   @Override 
   public void execute() {
-    // 현재 실행하는 메뉴를 스택에 보관한다.
     breadCrumb.push(this);
 
-
     while (true) {
-      printBreadCrumpMenuTitle(); // 1
-      List<Menu> menuList = getMenuList(); // 2 (1이랑 순서 바꿔도 상관없음)
-      printMenuList(menuList); // 3
+      printBreadCrumbMenuTitle();
+      List<Menu> menuList = getMenuList();
+      printMenuList(menuList);
 
       try {
         Menu menu = selectMenu(menuList);
@@ -103,19 +101,20 @@ public class MenuGroup extends Menu {
         }
         if (menu instanceof PrevMenu) {
           breadCrumb.pop();
-          return; // 이전 메뉴로 나가라
+          return;
         }
 
         menu.execute();
 
       } catch (Exception e) {
-        System.out.println("----------------------------------------------------------");
-        System.out.printf("오류 발생: %s\n", e.getClass().getName());
-        e.printStackTrace(); // 개발하는 동안 왜 뜬 건지 알 수 있게 해야 함
-        System.out.println("----------------------------------------------------------");
+        System.out.println("-----------------------------------------");
+        System.out.printf ("오류 발생: %s\n", e.getClass().getName());
+        e.printStackTrace();   // 왜 에러 떳는지 알려준다.
+        System.out.println("-----------------------------------------");
       }
     }
   }
+
 
   private String getBreadCrumb() {
     String path = "";
@@ -123,7 +122,7 @@ public class MenuGroup extends Menu {
     for (int i = 0; i < breadCrumb.size(); i++) {
       if (path.length() > 0) {
         path += " / ";
-      } // breadCrumb에 반복문 돌려서 title 생성
+      }
       Menu menu = breadCrumb.get(i); 
       path += menu.title;
     }
@@ -131,67 +130,53 @@ public class MenuGroup extends Menu {
     return path;
   }
 
-  // [DOM 트리 구조]
-  // 조건에 따라 메뉴 리스트 미리 확보하기
   // 출력될 메뉴 목록 준비
   // 왜?
   // - 메뉴 출력 속도를 빠르게 하기 위함.
   // - 메뉴를 출력할 때 출력할 메뉴와 출력하지 말아야 할 메뉴를 구분하는
-  //   시간을 줄이기 위해.
-  // - 매번 재구축해야 하기 때문에 while 문 안에 선언
-  //
+  //   시간을 줄이기 위함.
   private List<Menu> getMenuList() {
-    // 조건에 부합하는 것만 menuList에 담기
-    // 리턴되는 타입에서는 List로 선언하는 게 좋고,
-    // 메서드 안에서는 상관없다.
     ArrayList<Menu> menuList = new ArrayList<>();
     for (int i = 0; i < this.size; i++) {
-      // 반복문을 도는데 그 메뉴가 활성화된 상태가 로그아웃만 해야 활성화되는 상태라면
-      if (this.childs[i].enableState == Menu.ENABLE_LOGOUT
-          && LoginHandler.getLoginUser() == null) { 
+      if (this.childs[i].enableState == Menu.ENABLE_LOGOUT &&
+          LoginHandler.getLoginUser() == null) {
         menuList.add(this.childs[i]);
 
-      } else if (this.childs[i].enableState == Menu.ENABLE_LOGOUT
-          && LoginHandler.getLoginMaster() == null) {
-        menuList.add(this.childs[i]);
-
-        // 관리자로 로그인
-      } else if (this.childs[i].enableState == Menu.ENABLE_HOSTLOGIN
-          && LoginHandler.getLoginMaster() != null) {
-        menuList.add(this.childs[i]);
-
-        // 로그인 되었을 때만 활성화되는 메뉴는 로그인 된 상태일 때 메뉴 리스트에 추가한다.
       } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN
           && LoginHandler.getLoginUser() != null) {
         menuList.add(this.childs[i]);
 
-        //만약에 그냥 모든 경우(All)에는 상관없이 메뉴 목록에 출력한다.
+      } else if (this.childs[i].enableState == Menu.ENABLE_ADMINLOGOUT
+          && AdminHandler.getLoginAdmin() == null) {
+        menuList.add(this.childs[i]);
+
+      } else if (this.childs[i].enableState == Menu.ENABLE_ADMINLOGIN
+          && AdminHandler.getLoginAdmin() != null) {
+        menuList.add(this.childs[i]);
+
       } else if (this.childs[i].enableState == Menu.ENABLE_ALL) {
         menuList.add(this.childs[i]);
-      } 
+      }
     }
     return menuList;
   }
 
-  // 이렇게 한 줄짜리도 리펙토링 후 메서드로 따로 빼 주면
-  // 주석을 달아 줄 필요가 없음 >> 주석이 존재한다는 것 자체가 리펙토링 대상
-  private void printBreadCrumpMenuTitle() {
+  private void printBreadCrumbMenuTitle() {
     System.out.printf("\n[%s]\n", getBreadCrumb());
   }
 
   private void printMenuList(List<Menu> menuList) {
-    int i = 1; // i는 0부터 시작해서
-    for (Menu menu : menuList) { // 위에서 준비한 menuList를 여기에 주면 됨
-      System.out.printf("%d. %-20s\n", i++, menu.title); // 메뉴 리스트의 타이틀을 출력할 때마다 +1
-      // 증가된 i값을 출력하라 i++
+    int i = 1;
+    for (Menu menu : menuList) {
+      System.out.printf("%d. %-20s\n", i++ , menu.title);
     }
 
-    if (!disablePrevMenu) { // 이전 메뉴로 가는 걸 비활성화 시킨 게 아니라면
-      System.out.printf("0. %s\n", this.prevMenuTitle); // 아~ 이전 메뉴로 가라는 거구나~
+    if (!disablePrevMenu) {
+      System.out.printf("0. %s\n", this.prevMenuTitle);
     }
   }
 
-  private Menu selectMenu(List<Menu> menuList) {
+  private Menu selectMenu(List<Menu> menuList)  {
     int menuNo = Prompt.inputInt("선택> ");
 
     if (menuNo < 0 || menuNo > menuList.size()) {
@@ -199,18 +184,13 @@ public class MenuGroup extends Menu {
     }
 
     if (menuNo == 0 && !disablePrevMenu) {
-      // 현재 메뉴에서 나갈 때 스택에서 제거한다.
-      // 1) 프리뷰 메뉴를 리턴하든
-      return prevMenu; // 호출한 쪽에 '이전 메뉴' 선택을 알리기 위해 이렇게 함
-    }
+      return prevMenu;   // 호출한 쪽에 '이전 메뉴' 선택을 알리기 위해
+    } 
 
-    // 배열에서 바로 가지고 오지 않고 메뉴 리스트에서 가지고 옴
-    // 2) 사용자가 선택한 번호를 리턴하든 상관없음
     return menuList.get(menuNo - 1);
   }
 
 }
-
 
 
 

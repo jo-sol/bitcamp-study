@@ -1,20 +1,32 @@
 package com.ogong.pms.domain;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Study {
 
-  public int studyNo;  // 스터디 번호
-  public String studyTitle; // 스터디명
-  public String owner; // 작성자(조장)
-  public String subject; // 분야
-  public String area; // 지역
-  public String location; // 장소
-  public int numberOfPeple; // 인원수
-  public String face; // 대면/비대면
-  public String introduction; // 소개글
-  public Date registeredDate; // 스터디 가입일
+  private int studyNo;           // 스터디 번호
+  private String studyTitle;     // 스터디명
+  private Member owner;          // 작성자(조장)
+  private String subject;        // 분야
+  private String area;           // 지역
+  private int numberOfPeple;     // 인원수
+  private String face;           // 대면/비대면
+  private String introduction;   // 소개글
+  private Date registeredDate;   // 스터디 가입일
+  private List<Member> members = new ArrayList<>();
+  private List<Member> watingMember = new ArrayList<>();
 
+
+
+  @Override
+  public String toString() {
+    return "Study [studyNo=" + studyNo + ", studyTitle=" + studyTitle + ", owner=" + owner
+        + ", subject=" + subject + ", area=" + area + ", numberOfPeple=" + numberOfPeple + ", face="
+        + face + ", introduction=" + introduction + ", registeredDate=" + registeredDate
+        + ", members=" + members + ", watingMember=" + watingMember + "]";
+  }
   public int getStudyNo() {
     return studyNo;
   }
@@ -27,10 +39,10 @@ public class Study {
   public void setStudyTitle(String studyTitle) {
     this.studyTitle = studyTitle;
   }
-  public String getOwner() {
+  public Member getOwner() {
     return owner;
   }
-  public void setOwner(String owner) {
+  public void setOwner(Member owner) {
     this.owner = owner;
   }
   public String getSubject() {
@@ -44,12 +56,6 @@ public class Study {
   }
   public void setArea(String area) {
     this.area = area;
-  }
-  public String getLocation() {
-    return location;
-  }
-  public void setLocation(String location) {
-    this.location = location;
   }
   public int getNumberOfPeple() {
     return numberOfPeple;
@@ -74,5 +80,49 @@ public class Study {
   }
   public void setRegisteredDate(Date registeredDate) {
     this.registeredDate = registeredDate;
+  }
+  public List<Member> getMembers() {
+    return members;
+  }
+  public void setMembers(Member member) {
+    this.members.add(member);
+  }
+  public List<Member> getWatingMember() {
+    return watingMember;
+  }
+  public void setWatingMember(Member watingMember, int select) {
+    if (select == 0) {
+      this.watingMember.add(watingMember);      
+    } else if (select == 1) {
+      this.watingMember.remove(watingMember);
+    }
+  }
+
+  public String getMemberNames() {
+    if (this.members == null) {
+      return "";
+    }
+    StringBuilder names = new StringBuilder();
+    for (Member member : this.members) {
+      if (names.length() > 0) {
+        names.append(",");
+      }
+      names.append(member.getPerNickname());
+    }
+    return names.toString();
+  }
+
+  public String getWatingMemberNames() {
+    if (this.members == null) {
+      return "";
+    }
+    StringBuilder names = new StringBuilder();
+    for (Member member : this.watingMember) {
+      if (names.length() > 0) {
+        names.append(",");
+      }
+      names.append(member.getPerNickname());
+    }
+    return names.toString();
   }
 }

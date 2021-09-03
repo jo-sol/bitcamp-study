@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms.handler; // MemberPromptHandler >> 명령어를 처리하는 게 아니기 때문에 이름 변경
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,13 @@ import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 // prompt만 전문적으로 다루는 놈
-public class MemberPromptHandler extends AbstractMemberHandler {
+public class MemberPrompt {
 
-  public MemberPromptHandler(List<Member> memberList) {
-    super(memberList);
+  List<Member> memberList;
+  // 명령을 처리하고자 만든 게 아니라 다른 핸들러에게 도움을 주기 위해 만든 것이기 때문
+  // 상속 받지 말고 자체적으로 처리
+  public MemberPrompt(List<Member> memberList) {
+    this.memberList = memberList;
   }
 
   // findByName은 여기에서 사용하기 때문에 삭제 안 함

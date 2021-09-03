@@ -1,84 +1,64 @@
-//package com.ogong.pms.handler;
-//
-//import java.util.List;
-//import com.ogong.pms.domain.Manager;
-//import com.ogong.pms.domain.NoticeBoard;
-//import com.ogong.util.Prompt;
-//
-//public class NoticeBoardHandler {
-//
-//  List<NoticeBoard> noticeBoardList;
-//  List<Manager> manaerList;
-//  ManagerHandler managerHandler;
-//
-//  public NoticeBoardHandler(List<NoticeBoard> noticeBoardList, List<Manager> manaerList, ManagerHandler managerHandler) {
-//    this.noticeBoardList = noticeBoardList;
-//    this.manaerList = manaerList;
-//    this.managerHandler = managerHandler;
-//  }
-//
-//  //  public void add() {
-//  //    System.out.println("[공지사항]");
-//  //
-//  //    NoticeBoard notice = new NoticeBoard();
-//  //
-//  //    notice.setNotiNo(Prompt.inputInt("번호? "));
-//  //    notice.setNotiTitle(Prompt.inputString("제목? "));
-//  //    notice.setNotiContent(Prompt.inputString("내용? "));
-//  //    notice.setNotiWriter(Prompt.inputString("작성자? "));
-//  //    notice.setNotiRegisteredDate(new Date(System.currentTimeMillis()));
-//  //
-//  //    noticeBoardList.add(notice);
-//  //  }
-//
-//  public void list() {
-//    System.out.println("[공지사항 목록]");
-//
-//    Manager[] managers = manaerList.toArray(new Manager[0]);
-//
-//    for (Manager manager : managers) {
-//      System.out.printf("%d, %s, %s, %s\n", 
-//          manager.getHostNo(), 
-//          manager.getHostTitle(), 
-//          manager.getMasterWriter().getMasterNickname(),
-//          manager.getHostRegisteredDate());
-//    }
-//  }
-//
-//  public void detail() {
-//    System.out.println("[공지사항 상세보기]");
-//    int inputHostNo = Prompt.inputInt("번호? ");
-//
-//    Manager manager = managerHandler.findByHostNo(inputHostNo);
-//
-//    if (manager == null) {
-//      System.out.println("해당 번호의 공지글이 없습니다.");
-//      return;
-//    }
-//
-//    System.out.printf("제목: %s\n", manager.getHostTitle());
-//    System.out.printf("내용: %s\n", manager.getHostContent());
-//    System.out.printf("작성자: %s\n", manager.getMasterWriter().getMasterNickname());
-//    System.out.printf("등록일: %s\n", manager.getHostRegisteredDate());
-//  }
-//
-//  public void findByHostNo() {
-//    System.out.println("[공지사항]");
-//    int hostNo = Prompt.inputInt("번호: ");
-//
-//    Manager manager = managerHandler.findByHostNo(hostNo);
-//
-//    if (manager == null) {
-//      System.out.println("해당 번호의 공지글이 없습니다.");
-//      return;
-//    }
-//  }
-//
-//}
-//
-//
-//
-//
-//
-//
-//
+package com.ogong.pms.handler;
+
+import java.util.List;
+import com.ogong.pms.domain.NoticeBoard;
+import com.ogong.util.Prompt;
+
+public class NoticeBoardHandler {
+
+  List<NoticeBoard> noticeBoardList;
+  ManagerHandler managerHandler;
+
+  public NoticeBoardHandler(List<NoticeBoard> noticeBoardList, ManagerHandler managerHandler) {
+    this.noticeBoardList = noticeBoardList;
+    this.managerHandler = managerHandler;
+  }
+
+  public void list() {
+    System.out.println("▶ 공지 목록");
+
+    for (NoticeBoard noticeboard : noticeBoardList) {
+      System.out.printf("%d, %s, %s, %s\n", 
+          noticeboard.getNotiNo(), 
+          noticeboard.getNotiTitle(), 
+          noticeboard.getNotiWriter(),
+          noticeboard.getNotiRegisteredDate());
+    }
+  }
+
+  public void detail() {
+    System.out.println("▶ 공지 상세");
+    int inputNotiNo = Prompt.inputInt("번호? ");
+
+    NoticeBoard noticeboard = managerHandler.findByNotiNo(inputNotiNo);
+
+    if (noticeboard == null) {
+      System.out.println("공지를 다시 선택하세요.");
+      return;
+    }
+
+    System.out.printf("제목: %s\n", noticeboard.getNotiTitle());
+    System.out.printf("내용: %s\n", noticeboard.getNotiContent());
+    System.out.printf("작성자: %s\n", noticeboard.getNotiWriter());
+    System.out.printf("등록일: %s\n", noticeboard.getNotiRegisteredDate());
+  }
+
+  public void findByNotiNo() {
+    System.out.println("▶ 공지사항");
+    int inputNo = Prompt.inputInt("번호: ");
+
+    NoticeBoard noticeboard = managerHandler.findByNotiNo(inputNo);
+
+    if (noticeboard == null) {
+      System.out.println("해당 번호의 공지글이 없습니다.");
+      return;
+    }
+  }
+}
+
+
+
+
+
+
+

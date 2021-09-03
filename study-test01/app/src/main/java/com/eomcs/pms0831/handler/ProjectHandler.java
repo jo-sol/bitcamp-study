@@ -126,7 +126,11 @@ public class ProjectHandler {
       return;
     }
 
-    if(project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+    if(project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) { 
+      // 둘 다 getNo를 빼도 돌아가기는 함 >> 둘 다 리턴을 Member로 하기 때문
+      // getLoginUser 타고 들어갔을 때 리턴을 Member로 한다
+      // 우리가 리턴 자체를 Member로 하고 있으니까
+      // 원하는 것만 뽑아 오고 싶다면 이렇게 상세하게 넣어라
       System.out.println("변경 권한이 없습니다. ");
       return;
     }

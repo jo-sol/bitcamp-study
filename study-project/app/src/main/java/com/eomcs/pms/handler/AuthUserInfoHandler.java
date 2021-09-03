@@ -2,7 +2,7 @@ package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Member;
 
-public class AuthDisplayLoginUserHandler {
+public class AuthUserInfoHandler implements Command {
 
   // 메서드가 하나밖에 없으니까 메서드 안에 선언 - 뇌피셜
   //  static Member loginUser;
@@ -10,7 +10,7 @@ public class AuthDisplayLoginUserHandler {
   //    return loginUser;
   //  }
 
-  public void displayLoginUser() {
+  public void execute() {
 
     Member loginUser = AuthLoginHandler.getLoginUser();
 
