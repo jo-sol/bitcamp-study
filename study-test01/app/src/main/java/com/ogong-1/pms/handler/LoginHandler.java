@@ -10,15 +10,10 @@ public class LoginHandler {
   MemberHandler memberHandler;
 
   static Member loginUser;
-  static int userAccessLevel = 0x01;
-
   public static Member getLoginUser() {
     return loginUser;
   }
 
-  public static int getUserAccessLevel() {
-    return userAccessLevel;
-  }
 
   public LoginHandler(List<Member> memberList, MemberHandler memberHandler) {
     this.memberList = memberList;
@@ -26,7 +21,6 @@ public class LoginHandler {
   }
 
   public void addLoginPage() {
-    System.out.println();
     String inputEmail = Prompt.inputString("이메일: ");
     String inputPassword = "";
     Member member = memberHandler.findByInputEmail(inputEmail);
@@ -53,7 +47,6 @@ public class LoginHandler {
   }
 
   public void logOut() {
-    System.out.println();
     loginUser = null;
     System.out.println("로그아웃 되었습니다.");
   }

@@ -9,14 +9,8 @@ public class AdminHandler {
   List<Admin> adminList;
 
   static Admin loginAdmin;
-  static int userAccessLevel = 0x01;
-
   public static Admin getLoginAdmin() {
     return loginAdmin;
-  }
-
-  public static int getUserAccessLevel() {
-    return userAccessLevel;
   }
 
   public AdminHandler(List<Admin> adminList) {
@@ -34,7 +28,6 @@ public class AdminHandler {
   // ----------------------------------------------------------------------
 
   public void addAdminLoginPage() {
-    System.out.println();
     String inputadminEmail = Prompt.inputString("이메일: ");
     String inputadminPassword = "";
     Admin admin = findByAdminEmail(inputadminEmail);

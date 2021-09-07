@@ -64,6 +64,7 @@ public class App {
     // - 이 메뉴 아이디는 커맨드 객체를 찾을 때 사용할 것이다.
     String menuId;
 
+      // this$0 = outer; >> inner 클래스 만들 때 자동으로 생기는 것
     // inner 클래스의 생성자를 컴파일 할 때
     // 바깥 클래스의 인스턴스를 받는 파라미터가 자동으로 추가된다.
     // 개발자가 따로 파라미터를 추가할 필요가 없다.
@@ -71,7 +72,6 @@ public class App {
       this(/*outer,*/ title, ENABLE_ALL, menuId); // 다른 생성자와 코드가 중복된다면 다른 생성자를 호출하라.
       //      super(title); >> 아래와 생성자 중복
       //      this.menuId = menuId; >> 아래와 생성자 중복
-      // this$0 = outer; >> 자동으로 생김
     }
 
     // 수퍼 클래스인 Menu 클래스에 생성자가 두 개이기 때문에 맞춰서 적용해 줘야 함

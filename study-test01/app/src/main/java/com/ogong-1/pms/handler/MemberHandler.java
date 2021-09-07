@@ -1,7 +1,6 @@
 package com.ogong.pms.handler;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import com.ogong.pms.domain.Member;
 import com.ogong.util.Prompt;
@@ -20,7 +19,6 @@ public class MemberHandler {
     testMember.setPerPassword("1111");
     testMember.setPerPhoto("jpg");
     testMember.setPerRegisteredDate(new Date(System.currentTimeMillis()));
-    testMember.setPerMyStudy(new ArrayList<>());
     memberList.add(testMember);
 
     testMember = new Member();
@@ -29,9 +27,8 @@ public class MemberHandler {
     testMember.setPerPassword("1111");
     testMember.setPerPhoto("jpg");
     testMember.setPerRegisteredDate(new Date(System.currentTimeMillis()));
-    testMember.setPerMyStudy(new ArrayList<>());
-    memberList.add(testMember);
 
+    memberList.add(testMember);
     testMember = new Member();
     testMember.setPerNickname("코딩부장");
     testMember.setPerEmail("kakao");
@@ -46,7 +43,6 @@ public class MemberHandler {
     testMember.setPerPassword("1111");
     testMember.setPerPhoto("jpg");
     testMember.setPerRegisteredDate(new Date(System.currentTimeMillis()));
-    testMember.setPerMyStudy(new ArrayList<>());
     memberList.add(testMember);
 
     memberList.add(testMember);
@@ -56,7 +52,6 @@ public class MemberHandler {
     testMember.setPerPassword("1111");
     testMember.setPerPhoto("jpg");
     testMember.setPerRegisteredDate(new Date(System.currentTimeMillis()));
-    testMember.setPerMyStudy(new ArrayList<>());
     memberList.add(testMember);
 
     testMember = new Member();
@@ -65,7 +60,6 @@ public class MemberHandler {
     testMember.setPerPassword("1111");
     testMember.setPerPhoto("jpg");
     testMember.setPerRegisteredDate(new Date(System.currentTimeMillis()));
-    testMember.setPerMyStudy(new ArrayList<>());
     memberList.add(testMember);
   }
 

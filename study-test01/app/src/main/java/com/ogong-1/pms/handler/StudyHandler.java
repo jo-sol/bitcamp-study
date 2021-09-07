@@ -1,6 +1,5 @@
 package com.ogong.pms.handler;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.ogong.pms.domain.Member;
 import com.ogong.pms.domain.Study;
@@ -25,8 +24,8 @@ public class StudyHandler {
     testStudy.setNumberOfPeple(5);
     testStudy.setFace("대면");
     testStudy.setIntroduction("취업 뿌셔뿌셔");
-    testStudy.setMembers(new ArrayList<>());
-    testStudy.setWatingMember(new ArrayList<>());
+    testStudy.setMembers(new Member());
+    testStudy.setWatingMember(new Member(), 0);
     newStudyList.add(testStudy);
 
     testStudy = new Study();
@@ -38,8 +37,8 @@ public class StudyHandler {
     testStudy.setNumberOfPeple(6);
     testStudy.setFace("대면/비대면");
     testStudy.setIntroduction("공모전 아자");
-    testStudy.setMembers(new ArrayList<>());
-    testStudy.setWatingMember(new ArrayList<>());
+    testStudy.setMembers(new Member());
+    testStudy.setWatingMember(new Member(), 0);
     newStudyList.add(testStudy);
 
     testStudy = new Study();
@@ -51,8 +50,8 @@ public class StudyHandler {
     testStudy.setNumberOfPeple(3);
     testStudy.setFace("대면/비대면");
     testStudy.setIntroduction("시험 아자");
-    testStudy.setMembers(new ArrayList<>());
-    testStudy.setWatingMember(new ArrayList<>());
+    testStudy.setMembers(new Member());
+    testStudy.setWatingMember(new Member(), 0);
     newStudyList.add(testStudy);
 
     testStudy = new Study();
@@ -64,8 +63,8 @@ public class StudyHandler {
     testStudy.setNumberOfPeple(2);
     testStudy.setFace("비대면");
     testStudy.setIntroduction("지옥같은 SI 탈출");
-    testStudy.setMembers(new ArrayList<>());
-    testStudy.setWatingMember(new ArrayList<>());
+    testStudy.setMembers(new Member());
+    testStudy.setWatingMember(new Member(), 0);
     newStudyList.add(testStudy);
   }
   //------------------------------------------------------------------------------------------------
@@ -84,8 +83,8 @@ public class StudyHandler {
     study.setNumberOfPeple(Prompt.inputInt("인원수? "));
     study.setFace(Prompt.inputString("대면? "));
     study.setIntroduction(Prompt.inputString("소개글? "));
-    study.setMembers(new ArrayList<>());
-    study.setWatingMember(new ArrayList<>());
+    study.setMembers(new Member());
+    study.setWatingMember(new Member(), 0);
 
     System.out.println();
     String input = Prompt.inputString("등록하시겠습니까?(y/N)");
@@ -156,33 +155,16 @@ public class StudyHandler {
     System.out.printf("대면: %s\n", study.getFace());
     System.out.printf("소개글: %s\n", study.getIntroduction());
 
-    if (study.getOwner().getPerNickname().equals(LoginHandler.loginUser.getPerNickname())) {
-      System.out.println();
-      System.out.println();
-      System.out.println("1. 구성원보기");
-      System.out.println("2. 뒤로가기");
-      int selectNo = Prompt.inputInt("선택 ");
-      switch (selectNo) {
-        case 1 : listMember(study); break;
-        case 2 : return;
-        default : return;
-      }
+    System.out.println();
+    System.out.println("1. 참여 신청하기");
+    System.out.println("2. 구성원보기");
+    System.out.println("3. 뒤로가기");
+    int selectNo = Prompt.inputInt("선택 ");
+    switch (selectNo) {
+      case 1 : joinStudy(study); break;
+      case 2 : listMember(study); break;
+      default : return;
     }
-    try {
-      System.out.println();
-      System.out.println("1. 참여 신청하기");
-      System.out.println("2. 구성원보기");
-      System.out.println("3. 뒤로가기");
-      int selectNo = Prompt.inputInt("선택 ");
-      switch (selectNo) {
-        case 1 : joinStudy(study); break;
-        case 2 : listMember(study); break;
-        default : return;
-      }
-    } catch (NullPointerException e) {
-      System.out.println("로그인 해주세요");
-    }
-
   }
   //------------------------------------------------------------------------------------------------
 
@@ -193,11 +175,8 @@ public class StudyHandler {
     System.out.println("[구성원 보기]");
     Member member = LoginHandler.getLoginUser();
 
-    if (member == null ) {
+    if (member == null) {
       System.out.println("로그인 한 회원만 조회 가능합니다.");
-      return;
-    } else if (member != null && !study.getOwner().getPerEmail().equals(member.getPerEmail())) {
-      System.out.println("조장만 조회 가능합니다.");
       return;
     }
 
@@ -211,25 +190,35 @@ public class StudyHandler {
     List<Member> waitingMembers = study.getWatingMember();
 
     System.out.println();
-    if (!study.getWatingMemberNames().equals("")) {
+    if (!study.getWatingMemberNames().equals("null")) {
       String input = Prompt.inputString("대기중인 회원 중 승인할 닉네임을 입력하세요 : ");
-      Member m = new Member();
 
-      for (Member watingMember : waitingMembers) {        
-        if (watingMember.getPerNickname().equals(input)) {
-          study.getMembers().add(watingMember);
-          System.out.printf("%s님이 구성원으로 승인되었습니다.\n", watingMember.getPerNickname());
-          //System.out.println(study);
-          //System.out.println(watingMember);
-          List<Study> studyList = watingMember.getPerMyStudy();
-          studyList.add(study);
-          m = watingMember;
+      //      for (Member watingMember : waitingMembers) {        
+      //        //System.out.println(waitingMembers);
+      //        //System.out.println(watingMember);
+      //        //System.out.println(input);
+      //        //System.out.println(watingMember.getPerNickname().equals(input));
+      //        if (watingMember != null) {
+      //          //          if (watingMember.getPerNickname().equals(input)) {
+      //          //            study.setMembers(watingMember);
+      //          //            study.setWatingMember(watingMember, 1);
+      //          //          }
+      //          System.out.println(watingMember);
+      //        }
+      //      }
+
+      for (int i = 1; i < waitingMembers.size(); i++) {
+        if (waitingMembers.get(i).getPerNickname().equals(input)) {
+          //System.out.println("");
+          study.setMembers(waitingMembers.get(i));
+          System.out.printf("%s님이 구성원으로 승인되었습니다.", waitingMembers.get(i).getPerNickname());
+          study.setWatingMember(waitingMembers.get(i), 1);
         }
       }
-      study.getWatingMember().remove(m);
     }
   }
   //------------------------------------------------------------------------------------------------
+
 
 
   //------------------------------------------------------------------------------------------------
@@ -243,16 +232,12 @@ public class StudyHandler {
       return;
     }
 
-    if(study.getOwner().getPerNickname().equals(member.getPerNickname())) {
-      System.out.println("참여중인 조장은 신청할 수 없습니다.");
-      return;
-    } 
-
     String input = Prompt.inputString("스터디에 참여하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n")) {
       return;
     }
     study.getWatingMember().add(member);
+    study.setWatingMember(member, 0);
     System.out.println();
     System.out.println("참여신청이 완료 되었습니다.\n승인이 완료될때까지 기다려주세요.");
   }

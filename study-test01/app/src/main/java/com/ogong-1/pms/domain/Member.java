@@ -1,7 +1,6 @@
 package com.ogong.pms.domain;
 
 import java.sql.Date;
-import java.util.List;
 
 public class Member {
 
@@ -11,10 +10,6 @@ public class Member {
   private String perPassword;
   private String perPhoto;
   private Date perRegisteredDate;
-
-  private List<Study> perMyStudy;
-
-
 
   @Override
   public String toString() {
@@ -58,11 +53,24 @@ public class Member {
   public void setPerRegisteredDate(Date perRegisteredDate) {
     this.perRegisteredDate = perRegisteredDate;
   }
-  public List<Study> getPerMyStudy() {
-    return perMyStudy;
-  }
-  public void setPerMyStudy(List<Study> perMyStudy) {
-    this.perMyStudy = perMyStudy;
-  }
+
+  //  private String ceo;
+  //  private int ceono;
+  //  private int ceoid;
+  //  private String ceoname;
+  //  private String ceopassword;
+  //  private String ceophoto;
+  //  private String ceo사업자등록번호;
+  //  private String ceo대표자명;
+  //  private String ceo점포명;
+  //  private String ceo점포주소상세주소;
+  //  private Date ceoregisteredDate;
+
+
+
+
+
+
+
 
 }

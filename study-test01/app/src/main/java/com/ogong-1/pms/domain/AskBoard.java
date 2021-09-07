@@ -6,16 +6,9 @@ public class AskBoard {
   private int askNo; // 문의게시판 번호
   private String askTitle; // 문의게시판 제목
   private String askContent; // 문의게시판 내용
-  private Member askWriter; // 문의게시판 작성자
+  private String askWriter; // 문의게시판 작성자
   private int askVeiwCount; // 문의게시판 조회수
   private Date askRegisteredDate; // 문의게시판 등록일
-
-  @Override
-  public String toString() {
-    return "AskBoard [askNo=" + askNo + ", askTitle=" + askTitle + ", askContent=" + askContent
-        + ", askWriter=" + askWriter + ", askVeiwCount=" + askVeiwCount + ", askRegisteredDate="
-        + askRegisteredDate + "]";
-  }
 
   public int getAskNo() {
     return askNo;
@@ -35,11 +28,10 @@ public class AskBoard {
   public void setAskContent(String askContent) {
     this.askContent = askContent;
   }
-
-  public Member getAskWriter() {
+  public String getAskWriter() {
     return askWriter;
   }
-  public void setAskWriter(Member askWriter) {
+  public void setAskWriter(String askWriter) {
     this.askWriter = askWriter;
   }
   public int getAskVeiwCount() {

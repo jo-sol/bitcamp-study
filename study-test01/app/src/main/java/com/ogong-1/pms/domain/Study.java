@@ -1,5 +1,6 @@
 package com.ogong.pms.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,10 @@ public class Study {
   private String face;           // 대면/비대면
   private String introduction;   // 소개글
   private Date registeredDate;   // 스터디 가입일
-  private List<Member> members; // 구성원
-  private List<Member> watingMember; // 대기 중인 인원
+  private List<Member> members = new ArrayList<>();
+  private List<Member> watingMember = new ArrayList<>();
+
+
 
   @Override
   public String toString() {
@@ -24,7 +27,6 @@ public class Study {
         + face + ", introduction=" + introduction + ", registeredDate=" + registeredDate
         + ", members=" + members + ", watingMember=" + watingMember + "]";
   }
-
   public int getStudyNo() {
     return studyNo;
   }
@@ -82,15 +84,18 @@ public class Study {
   public List<Member> getMembers() {
     return members;
   }
-  public void setMembers(List<Member> members) {
-    this.members = members;
+  public void setMembers(Member member) {
+    this.members.add(member);
   }
   public List<Member> getWatingMember() {
     return watingMember;
   }
-
-  public void setWatingMember(List<Member> watingMember) {
-    this.watingMember = watingMember;
+  public void setWatingMember(Member watingMember, int select) {
+    if (select == 0) {
+      this.watingMember.add(watingMember);      
+    } else if (select == 1) {
+      this.watingMember.remove(watingMember);
+    }
   }
 
   public String getMemberNames() {

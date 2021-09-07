@@ -1,8 +1,9 @@
-package com.eomcs.pms;   // 리팩토링 >> static 멤버를 미리 import 해 줌 >> 사용할 때 다 빼도 됨
+package com.eomcs.pms;  
 
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,15 +46,12 @@ public class App {
   List<Board> boardList = new ArrayList<>();
   List<Member> memberList = new LinkedList<>();
   List<Project> projectList = new ArrayList<>();
-  // 각각의 taskList는 프로젝트에서 다룰 것
 
-  // 1) commandMap 사용을 위한 생성자 만들기 
   HashMap<String,Command> commandMap = new HashMap<>();
 
   MemberPrompt memberPrompt = new MemberPrompt(memberList);
   ProjectPrompt projectPrompt = new ProjectPrompt(projectList);
 
-  // non-static 중첩 클래스로서 inner 클래스
   class MenuItem extends Menu {
     String menuId;
 
@@ -80,7 +78,6 @@ public class App {
     app.service();
   }
 
-  // 2) commandMap 사용을 위한 생성자 만들기
   public App() {
     commandMap.put("/board/add", new BoardAddHandler(boardList));
     commandMap.put("/board/list", new BoardListHandler(boardList));
@@ -101,9 +98,6 @@ public class App {
     commandMap.put("/project/update", new ProjectUpdateHandler(projectList, memberPrompt));
     commandMap.put("/project/delete", new ProjectDeleteHandler(projectList));
 
-    // projectListHandler >> AbstractProjectHandler의 ProjectPrompt를 사용
-    // ProjectPrompt 분리하기
-    // projectListHandler >> projectPrompt
     commandMap.put("/task/add", new TaskAddHandler(projectPrompt));
     commandMap.put("/task/list", new TaskListHandler(projectPrompt));
     commandMap.put("/task/detail", new TaskDetailHandler(projectPrompt));
@@ -118,14 +112,23 @@ public class App {
   void service() {
     createMainMenu().execute();
     Prompt.close();
+
+    // 1) 게시글 데이터를 파일로 내보내기(저장하기, 쓰기)
+    // 2) FileOutputStream 사용
+    // 3) try () 안에 선언 >> try {} 블록을 나가면 close() 해라 >> .close() 사용 안 해도 됨
+    try (FileOutputStream out = new FileOutputStream("board.data");) {
+      for (Board board : boardList) { 
+
+      }
+    } catch (Exception e) {
+      System.out.println("게시글을 파일에 저장 중 오류 발생");
+    }
   }
 
   Menu createMainMenu() {
     MenuGroup mainMenuGroup = new MenuGroup("메인");
     mainMenuGroup.setPrevMenuTitle("종료");
 
-    // 어떤 메뉴 아이디를 실행할지 Command 메뉴에서 이미 코드를 다 짰기 때문에
-    // 사용할 어떤 메뉴를 Command 객체를 뒤에 저장해 준다
     mainMenuGroup.add(new MenuItem("로그인", ACCESS_LOGOUT, "/auth/login"));
     mainMenuGroup.add(new MenuItem("내 정보", ACCESS_GENERAL | ACCESS_ADMIN, "/auth/userinfo"));
     mainMenuGroup.add(new MenuItem("로그아웃", ACCESS_GENERAL | ACCESS_ADMIN, "/auth/logout"));
@@ -188,7 +191,6 @@ public class App {
     return taskMenu;
   }
 
-  // 테스트용 - 메뉴 통제가 가능한지 확인만
   private Menu createAdminMenu() {
     MenuGroup adminMenu = new MenuGroup("관리자", ACCESS_ADMIN);
     adminMenu.add(new MenuItem("회원 등록", "/member/add"));
@@ -199,15 +201,6 @@ public class App {
   }
 
 }
-
-
-
-
-
-
-
-
-
 
 
 

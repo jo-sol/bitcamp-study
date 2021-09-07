@@ -67,7 +67,7 @@ public class MenuGroup extends Menu {
 
   // 배열에 들어 있는 Menu 객체를 찾아 제거한다.
   public Menu remove(Menu child) {
-    if(childs.remove(child))
+    if (childs.remove(child))
       return child;
     return null;
   }
@@ -154,7 +154,7 @@ public class MenuGroup extends Menu {
     return menuList;
   }
 
-  // 이렇게 한 줄짜리도 리펙토링 후 메서드로 따로 빼 주면
+  // 이렇게 한 줄짜리도 리팩토링 후 메서드로 따로 빼 주면
   // 주석을 달아 줄 필요가 없음 >> 주석이 존재한다는 것 자체가 리펙토링 대상
   private void printBreadCrumpMenuTitle() {
     System.out.printf("\n[%s]\n", getBreadCrumb());
