@@ -3,7 +3,8 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -110,16 +111,28 @@ public class App {
   }
 
   void service() {
+
     createMainMenu().execute();
     Prompt.close();
 
-    // 게시글 데이터를 파일로 내보내기(저장하기, 쓰기)
-    try (FileOutputStream out = new FileOutputStream("board.data")) {
+    // 게시글 데이터를 CSV 형식으로 출력한다.
+    // 텍스트를 출력하는 것이기 때문에 FileOut이 아니라 FileWriter 사용
+    // Charset.forName("UTF-8") 지정은 되도록 해 줘라 -> 어느 OS에서 저장하든 UTF-8로 출력된다
+    try (FileWriter out = new FileWriter("board.csv", Charset.forName("UTF-8"))) {
       for (Board board : boardList) {
-        out.write(board.getNo());
+        out.write(String.format("%d,%s,%s,%s,%d,%d,%d,%s\n",
+            board.getNo(),
+            board.getTitle(),
+            board.getContent(),
+            board.getRegisteredDate(),
+            board.getViewCount(),
+            board.getLike(),
+            board.getWriter().getNo(),
+            board.getWriter().getName()));
       }
+      System.out.println("게시글 데이터 출력 완료!");
     } catch (Exception e) {
-      System.out.println("게시글을 파일에 저장 중 오류 발생!");
+      System.out.println("게시글 데이터 출력 오류!");
     }
   }
 
@@ -190,4 +203,15 @@ public class App {
     return adminMenu;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 

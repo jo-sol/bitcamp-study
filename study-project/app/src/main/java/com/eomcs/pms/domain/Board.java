@@ -36,7 +36,6 @@ public class Board {
   public void setContent(String content) {
     this.content = content;
   }
-
   public Date getRegisteredDate() {
     return registeredDate;
   }
@@ -55,13 +54,11 @@ public class Board {
   public void setLike(int like) {
     this.like = like;
   }
-
   public Member getWriter() {
     return writer;
   }
   public void setWriter(Member writer) {
     this.writer = writer;
   }
-
 
 }
