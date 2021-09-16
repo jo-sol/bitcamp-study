@@ -108,7 +108,6 @@ public class Project implements CsvValue {
       lastIndex = offset + 1;
     }
 
-
     // 4) 작업 로딩
     // => 작업의 개수를 읽어 온다.
     int taskSize = Integer.valueOf(values[lastIndex + 1]); // 작업을 저장할 위치는 마지막 번호의 다음에 있는 번호(찐 마지막 - 작업 시작점)니까 + 1 해 준다.
