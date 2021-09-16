@@ -1,4 +1,4 @@
-package com.eomcs.pms.domain;
+package com.eomcs.pms.domain; // loadCsv 메서드 추가
 
 import java.sql.Date;
 import com.eomcs.csv.CsvValue;
@@ -35,7 +35,7 @@ public class Board implements CsvValue {
         this.getWriter().getName());
   }
 
-  // 다음 메서드는 파라미터로 받은 CSV 문자열에서 값을 추출하여
+**  // 다음 메서드는 파라미터로 받은 CSV 문자열에서 값을 추출하여
   // Board 객체의 각 필드에 저장한다.
   // 중요!! 인스턴스가 존재한 상태여야 한다.
   @Override

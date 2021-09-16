@@ -1,9 +1,8 @@
-package com.eomcs.pms.domain;
+package com.eomcs.pms.domain; // valueOfCsv(String) 스태틱 메서드 추가 - CSV 문자열을 만드는 객체가 인스턴스를 초기화
 
 import java.sql.Date;
-import com.eomcs.csv.CsvValue;
 
-public class Board implements CsvValue {
+public class Board {
   private int no;
   private String title;
   private String content;
@@ -19,11 +18,10 @@ public class Board implements CsvValue {
         + "]";
   }
 
-  // 다음 메서드는 CsvValue 규칙에 따라 정의한 메서드다.
-  @Override
+  // 주어진 인스턴스에서 필드값을 뽑아서 하나의 csv 문자열을 만들어 리턴한다
   public String toCsvString() { // CsvString 리턴
-    // 한 줄의 csv니까 \n 삭제
-    // 얘가 생성한 문자열을 자동으로 리턴한다.
+    // - 한 줄의 csv니까 \n 삭제
+    // - 얘가 생성한 문자열을 자동으로 리턴한다.
     return String.format("%d,%s,%s,%s,%d,%d,%d,%s",
         this.getNo(),
         this.getTitle(),
@@ -35,29 +33,7 @@ public class Board implements CsvValue {
         this.getWriter().getName());
   }
 
-  // 다음 메서드는 파라미터로 받은 CSV 문자열에서 값을 추출하여
-  // Board 객체의 각 필드에 저장한다.
-  // 중요!! 인스턴스가 존재한 상태여야 한다.
-  @Override
-  public void loadCsv(String csv) {
-    String[] values = csv.split(",");
-
-    // CSV 문자열에서 추출한 값을 객체의 필드에 저장한다.
-    this.setNo(Integer.valueOf(values[0]));
-    this.setTitle(values[1]);
-    this.setContent(values[2]);
-    this.setRegisteredDate(Date.valueOf(values[3]));
-    this.setViewCount(Integer.valueOf(values[4]));
-    this.setLike(Integer.valueOf(values[5]));
-
-    Member m = new Member();
-    m.setNo(Integer.valueOf(values[6]));
-    m.setName(values[7]);
-
-    this.setWriter(m);
-  }
-
-  // static?
+ ** // static?
   // - 문자열을 가지고 Board 객체를 만들어야 하기 때문
   // - 인스턴스 변수 사용 안 하기 때문
   public static Board valueOfCsv(String csv) {

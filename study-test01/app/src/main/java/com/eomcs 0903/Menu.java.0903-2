@@ -1,7 +1,7 @@
 package com.eomcs.menu; // 접근 범위 변경
 
 public abstract class Menu {
-  // lang >> Exam0480, Exam0481 참고
+  // lang >> ex05 >> Exam0480, Exam0481 참고
 
   //  public static final int ENABLE_ALL = 0; // 상수 관리하기
   //  public static final int ENABLE_LOGOUT = 1; // 로그아웃 되었을 때만

@@ -2,7 +2,6 @@ package com.eomcs.pms.domain;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.eomcs.csv.CsvValue;
 
@@ -115,17 +114,15 @@ public class Project implements CsvValue {
 
     for (int i = 0, offset = lastIndex + 2; i < taskSize; i ++, offset += 6) { // 위에서 t.get어쩌고를 보면 작업은 총 6 개를 저장한다. 따라서 6 개씩 증가해야 함.
       // => 파일에서 작업 데이터를 로딩한다.
-      // 0916 ) java-basic > basic > ex02 > Exam0171, Exam0172 참고
       Task t = new Task();
-      t.loadCsv(String.join(",",  Arrays.copyOfRange(values, offset, offset + 6))); // 시작점부터 끝점까지
-      //      t.loadCsv(String.format("%d,%s,%s,%d,%d,%s",
-      //          values[offset],
-      //          values[offset + 1],
-      //          values[offset + 2],
-      //          values[offset + 3],
-      //          values[offset + 4],
-      //          values[offset + 5]
-      //          ));
+      t.loadCsv(String.format("%d,%s,%s,%d,%d,%s",
+          values[offset],
+          values[offset + 1],
+          values[offset + 2],
+          values[offset + 3],
+          values[offset + 4],
+          values[offset + 5]
+          ));
 
       // => 프로젝트에 작업을 추가한다.
       this.getTasks().add(t);
