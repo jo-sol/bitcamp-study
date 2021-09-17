@@ -1,4 +1,4 @@
-package com.eomcs.pms;
+package com.eomcs.pms; // command.execute(new CommandRequest()); //어떻게 사용할지 모르겠지만 무조건 Request 객체를 만들어서 넘겨야 함
 
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
@@ -80,7 +80,7 @@ public class App {
     public void execute() {
       Command command = commandMap.get(menuId);
       try {
-        command.execute(new CommandRequest(commandMap)); //어떻게 사용할지 모르겠지만 무조건 Request 객체를 만들어서 넘겨야 함 >> 반드시 commandMap을 넘겨 줘야 한다
+        command.execute(new CommandRequest()); //어떻게 사용할지 모르겠지만 무조건 Request 객체를 만들어서 넘겨야 함
       } catch (Exception e) {
         System.out.printf("%s 명령을 실행하는 중 오류 발생!\n", menuId);
         e.printStackTrace();
@@ -94,12 +94,15 @@ public class App {
   }
 
   public App() {
-
     commandMap.put("/board/add", new BoardAddHandler(boardList));
     commandMap.put("/board/list", new BoardListHandler(boardList));
-    commandMap.put("/board/update", new BoardUpdateHandler(boardList));
-    commandMap.put("/board/delete", new BoardDeleteHandler(boardList));
-    commandMap.put("/board/detail", new BoardDetailHandler(boardList));
+
+    BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
+    BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
+    //    commandMap.put("/board/update", boardUpdateHandler);
+    //    commandMap.put("/board/delete", boardDeleteHandler);
+    commandMap.put("/board/detail", 
+        new BoardDetailHandler(boardList, boardUpdateHandler, boardDeleteHandler));
     commandMap.put("/board/search", new BoardSearchHandler(boardList));
 
     commandMap.put("/member/add", new MemberAddHandler(memberList));

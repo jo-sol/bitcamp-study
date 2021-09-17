@@ -11,9 +11,9 @@ public class BoardDeleteHandler extends AbstractBoardHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[게시글 삭제]");
-    int no = Prompt.inputInt("번호? ");
+    int no = (int) request.getAttribute("no"); // 객체인데 어떻게 int 값이야? >> int 값으로 알아서 언박싱
 
     Board board = findByNo(no);
 

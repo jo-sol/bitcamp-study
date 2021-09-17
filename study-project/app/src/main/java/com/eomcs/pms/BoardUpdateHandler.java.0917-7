@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.pms.handler; // execute()를 사용하는 모든 핸들러마다 execute(CommandRequest request)로 파라미터 받기 > 번호로 받는 애들을 (int) request.getAttribute("no"); 로 변경
 
 import java.util.List;
 import com.eomcs.pms.domain.Board;
