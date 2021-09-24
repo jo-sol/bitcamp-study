@@ -13,7 +13,8 @@ public class BoardUpdateHandler extends AbstractBoardHandler {
   @Override
   public void execute(CommandRequest request) {
     System.out.println("[게시글 변경]");
-    int no = (int) request.getAttribute("no"); // "no"로 된 애들 꺼내 묻지 말고 꺼내~
+    int no = (int) request.getAttribute("no");
+    // "no"로 된 애들 꺼내 묻지 말고 꺼내~
 
     Board board = findByNo(no);
 
