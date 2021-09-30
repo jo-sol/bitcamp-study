@@ -24,6 +24,8 @@ public class ProjectPrompt {
     }
 
     Collection<Project> projectList = requestAgent.getObjects(Project.class);
+    // => getObjects: 서버에서 받은 문자열이 여러 개일 때 [{...},{...},...{}] (List를 의미)
+    // => 야 project 목록 좀 꺼내 줘 --> projectList를 만들어서 출력해 줌
 
     for (Project project : projectList) {
       System.out.printf("  %d. %s\n", project.getNo(), project.getTitle());
@@ -35,6 +37,7 @@ public class ProjectPrompt {
         return null;
       }
       Project selectedProject = findByNo(projectNo, projectList);
+      // => 야 내가 프로젝트 목록을 줄 테니까 거기에서 내가 원하는 프로젝트 번호를 찾아서 출력해 줘
       if (selectedProject != null) {
         return selectedProject;
       }

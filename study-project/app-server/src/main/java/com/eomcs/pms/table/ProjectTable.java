@@ -1,6 +1,8 @@
 package com.eomcs.pms.table;
 
+import java.util.List;
 import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.server.DataProcessor;
 import com.eomcs.server.Request;
 import com.eomcs.server.Response;
@@ -22,6 +24,9 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
       case "project.selectOne": selectOne(request, response); break;
       case "project.update": update(request, response); break;
       case "project.delete": delete(request, response); break;
+      case "project.task.insert": inserttask(request, response); break;
+      case "project.task.update": updateTask(request, response); break;
+      case "project.task.delete": deleteTask(request, response); break;
       default:
         response.setStatus(Response.FAIL);
         response.setValue("해당 명령을 지원하지 않습니다.");
@@ -98,14 +103,54 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
     return -1;
   }
 
-  private void taskinsert(Request request, Response response) throws Exception {
-    Project project = request.getObject(Project.class);
-    int no = Integer.parseInt(request.getParameter("no"));
-    Project m = findByNo(no);
+  private void inserttask(Request request, Response response) throws Exception {
+    Task task = request.getObject(Task.class);
+    Project project = findByNo(task.getProject().getNo());
     project.getTasks().add(task);
     response.setStatus(Response.SUCCESS);
   }
 
+  private void updateTask(Request request, Response response) throws Exception {
+    Task task = request.getObject(Task.class);
+
+    Project project = findByNo(task.getProject().getNo());
+
+    int index = indexOfTask(task.getNo(), project.getTasks());
+    if (index == -1) {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 번호의 작업을 찾을 수 없습니다.");
+      return;
+    }
+
+    project.getTasks().set(index, task);
+    response.setStatus(Response.SUCCESS);
+  }
+
+  private void deleteTask(Request request, Response response) throws Exception {
+    int taskNo = Integer.parseInt(request.getParameter("taskNo"));
+    int projectNo = Integer.parseInt(request.getParameter("projectNo"));
+
+    Project project = findByNo(projectNo);
+
+    int index = indexOfTask(taskNo, project.getTasks());
+    if (index == -1) {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 번호의 작업을 찾을 수 없습니다.");
+      return;
+    }
+
+    project.getTasks().remove(index);
+    response.setStatus(Response.SUCCESS);
+  }
+
+  private int indexOfTask(int taskNo, List<Task> taskList) {
+    for (int i = 0; i < taskList.size(); i++) {
+      if (taskList.get(i).getNo() == taskNo) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
 
 

@@ -45,6 +45,7 @@ public class TaskAddHandler implements Command {
     }
 
     requestAgent.request("project.task.insert", task);
+    // => 프로젝트에 이 task를 add 해 주세용~ 하고 서버로 보냄
 
     if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
       System.out.println("작업을 등록했습니다.");

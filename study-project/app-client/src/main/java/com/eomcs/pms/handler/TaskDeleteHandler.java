@@ -1,21 +1,28 @@
 package com.eomcs.pms.handler;
 
-import com.eomcs.pms.domain.Project;
+import java.util.HashMap;
 import com.eomcs.pms.domain.Task;
+import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
-public class TaskDeleteHandler extends TaskHandlerHelper {
+public class TaskDeleteHandler implements Command {
 
-  public TaskDeleteHandler(ProjectPrompt projectPrompt) {
-    super(projectPrompt);
+  RequestAgent requestAgent;
+  ProjectPrompt projectPrompt;
+
+  public TaskDeleteHandler(RequestAgent requestAgent, ProjectPrompt projectPrompt) {
+    this.requestAgent = requestAgent;
+    this.projectPrompt = projectPrompt;
   }
 
   @Override
-  public void execute(CommandRequest request) {
+  public void execute(CommandRequest request) throws Exception {
     System.out.println("[작업 삭제]");
 
     Task task = (Task) request.getAttribute("task");
-    Project project = (Project) request.getAttribute("project");
+    // Delete는 Detail에서 넘어오기 때문에 Task만 있으면 됨
+    //    Project project = (Project) request.getAttribute("project");
+    // => Delete에서는 project 안 씀
 
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -23,8 +30,17 @@ public class TaskDeleteHandler extends TaskHandlerHelper {
       return;
     }
 
-    project.getTasks().remove(task);
+    HashMap<String,String> params = new HashMap<>();
+    params.put("taskNo", String.valueOf(task.getNo()));
+    params.put("projectNo", String.valueOf(task.getProject().getNo()));
 
-    System.out.println("작업를 삭제하였습니다.");
+    requestAgent.request("project.task.delete", params);
+
+    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
+      System.out.println("작업를 삭제하였습니다.");
+    } else {
+      System.out.println("작업 삭제 실패!");
+    }
+
   }
 }

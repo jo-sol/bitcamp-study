@@ -4,16 +4,21 @@ import java.sql.Date;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
+import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
-public class TaskUpdateHandler extends TaskHandlerHelper {
+public class TaskUpdateHandler implements Command {
 
-  public TaskUpdateHandler(ProjectPrompt projectPrompt) {
-    super(projectPrompt);
+  RequestAgent requestAgent;
+  ProjectPrompt projectPrompt;
+
+  public TaskUpdateHandler(RequestAgent requestAgent, ProjectPrompt projectPrompt) {
+    this.requestAgent = requestAgent;
+    this.projectPrompt = projectPrompt;
   }
 
   @Override
-  public void execute(CommandRequest request) {
+  public void execute(CommandRequest request) throws Exception {
     System.out.println("[작업 변경]");
 
     Task task = (Task) request.getAttribute("task");
@@ -21,7 +26,7 @@ public class TaskUpdateHandler extends TaskHandlerHelper {
 
     String content = Prompt.inputString(String.format("내용(%s)? ", task.getContent()));
     Date deadline = Prompt.inputDate(String.format("마감일(%s)? ", task.getDeadline()));
-    int status = promptStatus(task.getStatus());
+    int status = TaskHandlerHelper.promptStatus(task.getStatus());
 
     Member owner = MemberPrompt.promptMember(
         String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner().getName()), 
@@ -42,6 +47,13 @@ public class TaskUpdateHandler extends TaskHandlerHelper {
     task.setStatus(status);
     task.setOwner(owner);
 
-    System.out.println("작업를 변경하였습니다.");
+    requestAgent.request("project.task.update", task);
+
+    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
+      System.out.println("작업를 변경하였습니다.");
+    } else {
+      System.out.println("작업 변경 실패!");
+    }
   }
 }
+
