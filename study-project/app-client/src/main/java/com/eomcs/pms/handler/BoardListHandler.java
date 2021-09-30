@@ -14,7 +14,7 @@ public class BoardListHandler implements Command {
 
   @Override
   public void execute(CommandRequest request) throws Exception {
-    System.out.println("[회원 목록]");
+    System.out.println("[게시글 목록]");
 
     requestAgent.request("board.selectList", null);
 
@@ -26,12 +26,13 @@ public class BoardListHandler implements Command {
     Collection<Board> boardList = requestAgent.getObjects(Board.class);
 
     for (Board board : boardList) {
-      System.out.printf("%d, %s, %s, %s, %s\n", 
+      System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
-          board.getContent(), 
-          board.getWriter(), 
-          board.getRegisteredDate());
+          board.getWriter().getName(),
+          board.getRegisteredDate(),
+          board.getViewCount(), 
+          board.getLike());
     }
   }
 }
