@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.eomcs.pms.table.BoardTable;
 import com.eomcs.pms.table.JsonDataTable;
 import com.eomcs.pms.table.MemberTable;
+import com.eomcs.pms.table.ProjectTable;
 import com.eomcs.server.DataProcessor;
 import com.eomcs.server.RequestProcessor;
 
@@ -21,17 +22,18 @@ public class ServerApp {
     Socket socket = serverSocket.accept();
     System.out.println("클라이언트가 접속했음");
 
-    // RequestProcessor가 사용할 DataProcessor 맵 준비
+    // RequestProcessor 가 사용할 DataProcessor 맵 준비
     HashMap<String,DataProcessor> dataProcessorMap = new HashMap<String,DataProcessor>();
 
-    // 데이터 처리 담당자를 등록한다.
+    // => 데이터 처리 담당자를 등록한다.
     dataProcessorMap.put("board.", new BoardTable());
     dataProcessorMap.put("member.", new MemberTable());
+    dataProcessorMap.put("project.", new ProjectTable());
 
-    // RequestProcessor에게 dataProcessorMap를 넘겨준다. => 야~ 일해~
     RequestProcessor requestProcessor = new RequestProcessor(socket, dataProcessorMap);
     requestProcessor.service();
     requestProcessor.close();
+
 
     // => 데이터를 파일에 저장한다.
     Collection<DataProcessor> dataProcessors = dataProcessorMap.values();
@@ -46,15 +48,3 @@ public class ServerApp {
     serverSocket.close();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
