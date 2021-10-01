@@ -1,16 +1,16 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
+import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class BoardAddHandler implements Command {
 
-  RequestAgent requestAgent;
+  BoardDao boardDao; // BoardDao 규칙에 따라 사용하는 객체를 쓰겠다
 
-  public BoardAddHandler(RequestAgent requestAgent) {
-    this.requestAgent = requestAgent;
+  public BoardAddHandler(BoardDao boardDao) {
+    this.boardDao = boardDao;
   }
 
   @Override
@@ -26,13 +26,9 @@ public class BoardAddHandler implements Command {
     board.setWriter(AuthLoginHandler.getLoginUser()); // 가짜 데이터 사용
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
-    requestAgent.request("board.insert", board);
+    boardDao.insert(board);
 
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
-      System.out.println("게시글을 등록했습니다.");
-    } else {
-      System.out.println("게시글 등록 실패!");
-    }
+    System.out.println("게시글을 저장했습니다.");
   }
 }
 

@@ -62,6 +62,8 @@ public class BoardTable extends JsonDataTable<Board> implements DataProcessor {
     int no = Integer.parseInt(request.getParameter("no"));
     Board b = findByNo(no);
 
+    Thread.sleep(30000); // 30초 정도 잡고 있어
+
     if (b != null) {
       response.setStatus(Response.SUCCESS);
       response.setValue(b);

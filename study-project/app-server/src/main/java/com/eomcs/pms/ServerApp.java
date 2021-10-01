@@ -2,10 +2,8 @@ package com.eomcs.pms;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collection;
 import java.util.HashMap;
 import com.eomcs.pms.table.BoardTable;
-import com.eomcs.pms.table.JsonDataTable;
 import com.eomcs.pms.table.MemberTable;
 import com.eomcs.pms.table.ProjectTable;
 import com.eomcs.server.DataProcessor;
@@ -32,19 +30,21 @@ public class ServerApp {
       System.out.println("클라이언트와 접속");
 
       // RequestProcessor에게 dataProcessorMap를 넘겨준다. => 야~ 일해~
+      // 1) 새 실행 흐름 생성
       RequestProcessor requestProcessor = new RequestProcessor(socket, dataProcessorMap);
-      requestProcessor.service();
-      requestProcessor.close();
-      System.out.println("클라이언트와 접속 종료!");
 
-      // => 데이터를 파일에 저장한다.
-      Collection<DataProcessor> dataProcessors = dataProcessorMap.values();
-      for (DataProcessor dataProcessor : dataProcessors) {
-        if (dataProcessor instanceof JsonDataTable) {
-          // 만약 데이터 처리 담당자가 JsonDataTable 의 자손이라면,
-          ((JsonDataTable<?>)dataProcessor).save();
-        }
-      }
+      // 2) 새로 생성한 실행 흐름을 시작시킨다.
+      // => run()이 호출될 것이다.
+      // => 시작 시킨 후 즉시 리턴한다.
+      //    즉 새로 생성한 실행 흐름이 종료될 때까지 기다리지 않는다.
+      // 야! 시작해! > 다음 // 야! 실행해! > 다음 // 야! 시작해! > 다음 // 반복
+      // => 동시 접속을 실행하는 방법이다.
+      requestProcessor.start();
+      // => 내부적으로 run() 메서드를 실행시킨다.
+
+      // 2번은 한 번만 실행되기 때문에,
+      // new RequestProcessor(socket, dataProcessorMap).start(); 로 해도 된다.
+
     }
 
     //    System.out.println("서버 종료");
