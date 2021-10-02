@@ -11,6 +11,8 @@ public class Response {
   Object value;
 
   public Response() {}
+  // => 아래 파라미터 들어가는 걸 하나 만들면 기본 생성자는 이렇게 빈값으로 둬야 한다
+  // => 기존 생성자가 있으면 다른 생성자를 추가할 수 없기 때문
 
   public Response(String status, Object value) {
     this.status = status;
