@@ -12,4 +12,14 @@ dependencies {
     implementation 'com.google.guava:guava:30.1-jre'
     // Google JSON 라이브러리
     implementation 'com.google.code.gson:gson:2.8.8'
+    // maria db에 접속하기 위해 필요한 것
+    // MARIA JDBC
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+    // oracle db에 접속하기 위해 필요한 것
+    // ORACLE JDBC
+    implementation 'com.oracle.database.jdbc:ojdbc11-production:21.3.0.0'
+    // mssql db에 접속하기 위해 필요한 것
+    // MSSQL JDBC
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11'
+    
 }
