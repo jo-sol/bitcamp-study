@@ -17,7 +17,7 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
     // oracle db에 접속하기 위해 필요한 것
     // ORACLE JDBC
-    implementation 'com.oracle.database.jdbc:ojdbc11-production:21.3.0.0'
+    implementation 'com.oracle.database.jdbc:ojdbc11:21.3.0.0'
     // mssql db에 접속하기 위해 필요한 것
     // MSSQL JDBC
     implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11'

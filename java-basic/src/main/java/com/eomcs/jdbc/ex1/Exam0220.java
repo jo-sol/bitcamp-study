@@ -15,7 +15,7 @@ public class Exam0220 {
         "study", // username
         "1111" // password
         );) {
-
+      // ; 세미콜론 없어도 됨
       System.out.println("DBMS와 연결됨!");
 
     }
