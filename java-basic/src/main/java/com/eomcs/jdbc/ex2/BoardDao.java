@@ -1,8 +1,8 @@
 // 데이터를 처리하는 코드를 별도의 클래스로 캡슐화시킨다.
 // => data 영속성(지속성)을 관리하는 클래스를 DAO(Data Access Object)라 부른다.
 // => data 영속성(지속성)
-// - 데이터를 저장하고 유지하는 것.
-// - "데이터 퍼시스턴스(persistence)"라 부른다.
+//    - 데이터를 저장하고 유지하는 것.
+//    - "데이터 퍼시스턴스(persistence)"라 부른다.
 package com.eomcs.jdbc.ex2;
 
 import java.sql.Connection;
@@ -22,7 +22,7 @@ public class BoardDao {
       stmt.executeUpdate("delete from x_board_file where board_id = " + no);
 
       // 게시글 삭제
-      return stmt.executeUpdate("delete from x_board where board_id=?" + no);
+      return stmt.executeUpdate("delete from x_board where board_id=" + no);
     }
   }
 
@@ -52,23 +52,21 @@ public class BoardDao {
         Statement stmt = con.createStatement();) {
 
       String sql = String.format(
-          "insert into x_board(title,contents) values(?,?)",
+          "insert into x_board(title,contents) values('%s','%s')", 
           board.getTitle(),
-          board.getContent()); {
-          }
+          board.getContent());
 
-          return stmt.executeUpdate(sql);
+      return stmt.executeUpdate(sql);
     }
   }
 
   public int update(Board board) throws Exception {
     try (Connection con = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement(
-            )) {
+        Statement stmt = con.createStatement()) {
 
       String sql = String.format(
-          "update x_board set title='%s', contents='%s'? where board_id=%d", 
+          "update x_board set title='%s', contents='%s' where board_id=%d", 
           board.getTitle(),
           board.getContent(),
           board.getNo());
@@ -92,6 +90,7 @@ public class BoardDao {
       board.setContent(rs.getString("contents"));
       board.setRegisteredDate(rs.getDate("created_date"));
       board.setViewCount(rs.getInt("view_count"));
+
       return board;
     }
   }

@@ -57,7 +57,7 @@ public class Exam0110 {
       // => DriverManager.getDriver(jdbcUrl);
       // => jdbcUrl
       // jdbc:[DBMS]://서버주소:포트번호/데이터베이스명
-      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb://"); // 야 mariadb 드라이버 있냐?
+      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb://");
       System.out.println(driver);
 
       java.sql.Driver driver2 = DriverManager.getDriver("jdbc:oracle:thin://");

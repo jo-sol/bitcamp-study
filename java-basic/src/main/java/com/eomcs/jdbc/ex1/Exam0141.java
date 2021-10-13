@@ -24,21 +24,21 @@ public class Exam0141 {
     // 현재 jdbc.drivers 에 등록된 클래스 이름이 없다.
     System.out.printf("jdbc.drivers=%s\n", System.getProperty("jdbc.drivers"));
 
-
     try {
       // Driver 구현체를 명시적으로 로딩하지 않는다!
       // DriverManager에 자동 등록된 것을 확인해보자!
-      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb:");
+      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb://");
       System.out.println(driver);
+
       // 그럼에도 MariaDB Driver를 찾을 수 있다!
       // 왜?
-      // - JVM은 프로그램을 실행할 때
+      // - JVM은 프로그램을 실행할 때 
       //   'service-provider loading' 절차에 따라
       //   .jar 파일에 있는 클래스를 찾아 로딩하거나 객체를 자동으로 생성한다.
-      // - JDBC의 경우도 이 규칙에 따른다.
-      //   즉 'serviece-provider loading' 규칙에 따라 .jar 파일이 만들어졌다면, 
-      //   지정한 Driver 구현체가 자동으로 로딩되고 객체가 생성되어
-      //   DriverManager에게 등록될 것이다.
+      // - JDBC의 경우도 이 규칙을 따른다.
+      //   즉 'service-provider loading' 규칙에 따라 .jar 파일이 만들어졌다면,
+      //   지정한 Driver 구현체가 자동으로 로딩되고 객체가 생성되어 
+      //   DriverManager에 등록될 것이다.
 
       // 이 프로젝트에 Oracle JDBC 드라이버와 MSSQL Server의 JDBC 드라이버도 있다.
       // 이들 드라이버도 'service-provider loading' 규칙에 따라 만들어졌기 때문에

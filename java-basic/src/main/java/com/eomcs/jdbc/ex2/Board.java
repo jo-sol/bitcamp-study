@@ -14,7 +14,7 @@ public class Board implements Serializable {
   // DB 테이블의 컬럼 값을 저장할 인스턴스 변수를 준비한다.
   // => 보통 컬럼이름은 DB 관례에 따라 약자로 기술한다.
   // => 그러나 자바에서는 자바의 관례에 따라 변수명을 만들라!
-  // DB 컬럼명과 같게 하지 말라!
+  //    DB 컬럼명과 같게 하지 말라!
   int no;
   String title;
   String content;

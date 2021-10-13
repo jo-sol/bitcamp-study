@@ -18,7 +18,6 @@ public class Exam0130 {
     // => 따라서 특정한 Driver 구현체에 종속되지 않게 만들 수 있다.
     try {
       // Class.forName("fully-qualified class name(패키지명을 포함한 클래스명)")
-      // *** fully-qualified ***
       // => 문자열 파라미터로 주어진 클래스를 찾아 메모리(Method Area)에 로딩한다.
       // => 이 과정에서 static {} 블록이 실행될 것이고,
       //    결국 Driver 인스턴스가 생성되어 DriverManager에게 등록될 것이다.
@@ -31,7 +30,7 @@ public class Exam0130 {
       Class.forName("org.mariadb.jdbc.Driver");
 
       // DriverManager에 자동 등록된 것을 확인해보자!
-      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb:");
+      java.sql.Driver driver = DriverManager.getDriver("jdbc:mariadb://");
       System.out.println(driver);
 
     } catch (Exception e) {

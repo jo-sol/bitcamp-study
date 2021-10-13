@@ -49,9 +49,9 @@ public class Exam0210 {
       //
       // 도메인 객체(예: Board)
       // => 두 객체 사이에 데이터를 실어 나르는 역할을 한다고 해서
-      // "DTO(Data Transfer Object)"라고도 부른다.
+      //    "DTO(Data Transfer Object)"라고도 부른다.
       // => 두 객체 사이에 전달되는 값을 표현한다고 해서
-      // "VO(Value Object)"라고도 부른다.
+      //    "VO(Value Object)"라고도 부른다.
       //
     } catch (Exception e) {
       e.printStackTrace();

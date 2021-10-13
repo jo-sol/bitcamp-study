@@ -24,7 +24,7 @@ public class Exam0321 {
             rs.getTime(4), // created_date
             rs.getInt(5)); // view_count
 
-        // getXxx(컬럼 번호):
+        // getXxx(컬럼번호):
         // => DBMS에 설정된 컬럼의 타입에 따라 값을 변환해서 받고 싶다면,
         //    다음과 같이 해당 타입의 값을 리턴하는 getXxx()를 호출한다.
         // => int, number: getInt()
