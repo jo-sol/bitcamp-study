@@ -1,31 +1,22 @@
 package com.eomcs.pms.handler;
 
 import java.util.Collection;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class ProjectPrompt {
 
-  protected RequestAgent requestAgent;
+  ProjectDao projectDao;
 
-  public ProjectPrompt(RequestAgent requestAgent) {
-    this.requestAgent = requestAgent;
+  public ProjectPrompt(ProjectDao projectDao) {
+    this.projectDao = projectDao;
   }
 
   public Project promptProject() throws Exception {
     System.out.println("프로젝트:");
 
-    requestAgent.request("project.selectList", null);
-
-    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-      System.out.println("목록 조회 실패!");
-      return null;
-    }
-
-    Collection<Project> projectList = requestAgent.getObjects(Project.class);
-    // => getObjects: 서버에서 받은 문자열이 여러 개일 때 [{...},{...},...{}] (List를 의미)
-    // => 야 project 목록 좀 꺼내 줘 --> projectList를 만들어서 출력해 줌
+    Collection<Project> projectList = projectDao.findAll();
 
     for (Project project : projectList) {
       System.out.printf("  %d. %s\n", project.getNo(), project.getTitle());
@@ -37,7 +28,6 @@ public class ProjectPrompt {
         return null;
       }
       Project selectedProject = findByNo(projectNo, projectList);
-      // => 야 내가 프로젝트 목록을 줄 테니까 거기에서 내가 원하는 프로젝트 번호를 찾아서 출력해 줘
       if (selectedProject != null) {
         return selectedProject;
       }
@@ -54,14 +44,3 @@ public class ProjectPrompt {
     return null;
   }
 }
-
-//  protected Project findByNo(int no) throws Exception {
-//    HashMap<Object,Object> params = new HashMap<>();
-//    params.put("no", no);
-//
-//    requestAgent.request("project.selectOneByNo", params);
-//    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-//      return null;
-//    }
-//    return requestAgent.getObject(Project.class);
-//  }
