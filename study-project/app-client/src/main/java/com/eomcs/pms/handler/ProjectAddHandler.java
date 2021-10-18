@@ -20,7 +20,6 @@ public class ProjectAddHandler implements Command {
 
     Project project = new Project();
 
-    project.setNo(Prompt.inputInt("번호? "));
     project.setTitle(Prompt.inputString("프로젝트명? "));
     project.setContent(Prompt.inputString("내용? "));
     project.setStartDate(Prompt.inputDate("시작일? "));
@@ -33,8 +32,3 @@ public class ProjectAddHandler implements Command {
     System.out.println("프로젝트를 저장했습니다!");
   }
 }
-
-
-
-
-

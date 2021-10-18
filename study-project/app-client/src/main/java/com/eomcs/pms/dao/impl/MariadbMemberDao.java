@@ -94,7 +94,7 @@ public class MariadbMemberDao implements MemberDao {
       stmt.setString(1, name);
 
       // ResultSet을 자동 Close 하기 위해 try문 안에 try문을 또 둠
-      // 일반 문장은 try() 안에 둘 수 없기 때문에 94번줄 문장을 밖에 따로 둔 것
+      // 일반 문장은 try() 안에 둘 수 없기 때문에 stmt.setString(1, name); 문장을 밖에 따로 둔 것
       try (ResultSet rs = stmt.executeQuery()) {
 
         if (!rs.next()) {
@@ -109,6 +109,31 @@ public class MariadbMemberDao implements MemberDao {
         member.setTel(rs.getString("tel"));
         member.setRegisteredDate(rs.getDate("created_dt"));
 
+        return member;
+      }
+    }
+  }
+
+  @Override
+  public Member findByEmailAndPassword(String email, String password) throws Exception {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no,name,email,photo,tel,created_dt from pms_member"
+            + " where email=? and password=password(?)")) {
+
+      stmt.setString(1, email);
+      stmt.setString(2, password);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (!rs.next()) {
+          return null;
+        }
+        Member member = new Member();
+        member.setNo(rs.getInt("member_no"));
+        member.setName(rs.getString("name"));
+        member.setEmail(rs.getString("email"));
+        member.setPhoto(rs.getString("photo"));
+        member.setTel(rs.getString("tel"));
+        member.setRegisteredDate(rs.getDate("created_dt"));
         return member;
       }
     }

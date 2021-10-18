@@ -60,6 +60,3 @@ public class ProjectDetailHandler implements Command {
     }
   }
 }
-
-
-
