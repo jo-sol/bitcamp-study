@@ -29,17 +29,12 @@ public class RequestAgent {
   }
 
   public void request(String command, Object value) throws Exception {
-    // Socket, PrintWriter, BufferedRead 한 번만 사용할 거니까 여기에 넣어 버림(이동)
-    // => try(){} > AutoCloseable 구현체인 경우는 괄호 안에 넣을 수 있기 때문에 close()를 자동화 시킬 수 있다.
     try (Socket socket = new Socket(ip, port);  
         PrintWriter out = new PrintWriter(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-      // 서버쪽으로 데이터를 보낸다.
-      // - 서버에 명령어를 한 줄 보낸다.
       out.println(command);
 
-      // - 객체를 JSON으로 변환하여 서버에 보낸다.
       if (value != null) {
         out.println(new Gson().toJson(value));
       } else {
@@ -50,8 +45,7 @@ public class RequestAgent {
       // 서버에서 응답을 받는다.
       status = in.readLine();
       jsonData = in.readLine();
-
-    } // close()들은 자동으로 처리되기 때문 > try(){}는 close()를 자동으로 사용하기 위해 받음
+    }
   }
 
   public String getStatus() {
@@ -68,14 +62,6 @@ public class RequestAgent {
     Type type = TypeToken.getParameterized(Collection.class, elementType).getType(); 
     return new Gson().fromJson(jsonData, type);
   }
-
-  // 무조건 연결을 끊기 때문에 이제 close는 필요하지 않음
-  //  @Override
-  //  public void close() {
-  //    try {out.close();} catch (Exception e) {}
-  //    try {in.close();} catch (Exception e) {}
-  //    try {socket.close();} catch (Exception e) {}
-  //  }
 }
 
 

@@ -6,7 +6,7 @@ import com.eomcs.util.Prompt;
 
 public class BoardDeleteHandler implements Command {
 
-  BoardDao boardDao; // BoardDao 규칙에 따라 사용하는 객체를 쓰겠다
+  BoardDao boardDao;
 
   public BoardDeleteHandler(BoardDao boardDao) {
     this.boardDao = boardDao;
@@ -40,3 +40,10 @@ public class BoardDeleteHandler implements Command {
     System.out.println("게시글을 삭제하였습니다.");
   }
 }
+
+
+
+
+
+
+

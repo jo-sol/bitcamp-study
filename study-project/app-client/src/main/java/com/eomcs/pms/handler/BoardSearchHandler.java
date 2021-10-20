@@ -7,7 +7,7 @@ import com.eomcs.util.Prompt;
 
 public class BoardSearchHandler implements Command {
 
-  BoardDao boardDao; // BoardDao 규칙에 따라 사용하는 객체를 쓰겠다
+  BoardDao boardDao;
 
   public BoardSearchHandler(BoardDao boardDao) {
     this.boardDao = boardDao;
@@ -32,3 +32,10 @@ public class BoardSearchHandler implements Command {
     }
   }
 }
+
+
+
+
+
+
+

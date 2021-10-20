@@ -6,7 +6,7 @@ import com.eomcs.util.Prompt;
 
 public class BoardUpdateHandler implements Command {
 
-  BoardDao boardDao; // BoardDao 규칙에 따라 사용하는 객체를 쓰겠다
+  BoardDao boardDao;
 
   public BoardUpdateHandler(BoardDao boardDao) {
     this.boardDao = boardDao;
@@ -29,15 +29,8 @@ public class BoardUpdateHandler implements Command {
       return;
     }
 
-    // 임시 변수 temp에 옮기기
-    Board temp = new Board();
-    temp.setNo(board.getNo());
-    temp.setRegisteredDate(board.getRegisteredDate());
-    temp.setLike(board.getLike());
-    temp.setViewCount(board.getViewCount());
-    temp.setWriter(board.getWriter());
-    temp.setTitle(Prompt.inputString(String.format("제목(%s)? ", board.getTitle())));
-    temp.setContent(Prompt.inputString(String.format("내용(%s)? ", board.getContent())));
+    String title = Prompt.inputString(String.format("제목(%s)? ", board.getTitle()));
+    String content = Prompt.inputString(String.format("내용(%s)? ", board.getContent()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -45,7 +38,10 @@ public class BoardUpdateHandler implements Command {
       return;
     }
 
-    boardDao.update(temp); // 야 업데이트 해 줘 여기 내가 담아놓은 temp 있어
+
+    board.setTitle(title);
+    board.setContent(content);
+    boardDao.update(board);
 
     System.out.println("게시글을 변경하였습니다.");
   }
