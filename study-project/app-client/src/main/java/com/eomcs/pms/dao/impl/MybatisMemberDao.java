@@ -68,3 +68,6 @@ public class MybatisMemberDao implements MemberDao {
     sqlSession.commit();
   }
 }
+
+
+
