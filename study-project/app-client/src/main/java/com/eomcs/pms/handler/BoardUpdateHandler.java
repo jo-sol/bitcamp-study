@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
@@ -7,9 +8,11 @@ import com.eomcs.util.Prompt;
 public class BoardUpdateHandler implements Command {
 
   BoardDao boardDao;
+  SqlSession sqlSession;
 
-  public BoardUpdateHandler(BoardDao boardDao) {
+  public BoardUpdateHandler(BoardDao boardDao, SqlSession sqlSession) {
     this.boardDao = boardDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
