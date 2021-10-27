@@ -33,6 +33,8 @@ public class MemberListHandler extends GenericServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     // 웹 브라우저로 보내야 하기 때문에 out 객체(웹 브라우저로 보내는 출력 객체임)
+
+    out.println("<DOCTYPE html");
     out.println("<html>");
     out.println("<head>");
     out.println("   <title>회원목록</title>");
@@ -40,12 +42,28 @@ public class MemberListHandler extends GenericServlet {
     out.println("<body>");
     out.println("<h1>[회원 목록]</h1>"); // header 1 큰 제목
     out.println("<a href='form'>새회원</a><br>"); // 같은 멤버 밑에 form
-
+    out.println("<table border='1'>");
+    out.println("<thead>");
+    out.println("<tr>");
+    out.println("<th>번호</th>");
+    out.println("<th>이름</th>");
+    out.println("<th>이메일</th>");
+    out.println("<th>전화</th>");
+    out.println("<th>등록일</th>");
+    out.println("<tr>");
+    out.println("</thead>");
+    out.println("<tbody>");
     try {
       Collection<Member> memberList = memberDao.findAll();
 
       for (Member member : memberList) {
-        out.printf("%d, <a href='detail?no=%1$d'>%s</a>, %s, %s, %s<br>", // <br> 브레이크: new line과 같은 의미 (\n)
+        out.printf(""
+            + "<tr><td>%d</td> "
+            + " <td><a href='detail?no=%1$d'>%s</a></td>"
+            + " <td>%s</td>"
+            + " <td>%s</td>"
+            + " <td>%s</td>"
+            + "</tr>", // <br> 브레이크: new line과 같은 의미 (\n)
             member.getNo(),  // 1$ : 첫 번째 애를 사용하겠다는 의미
             member.getName(), 
             member.getEmail(), 
@@ -55,6 +73,8 @@ public class MemberListHandler extends GenericServlet {
     } catch (Exception e) {
       throw new ServletException(e); 
     }
+    out.println("</tbody>");
+    out.println("</table>");
     out.println("</body>");
     out.println("</html>");
 
