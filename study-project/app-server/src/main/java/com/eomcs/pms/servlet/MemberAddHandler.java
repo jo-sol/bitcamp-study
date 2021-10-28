@@ -60,13 +60,18 @@ public class MemberAddHandler extends HttpServlet {
       out.println("<a href='list'>[목록]</a><br>"); // 다시 리스트로 가게 하기
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      out.println("목록 조회 오류!");
+      e.printStackTrace(); // 왜 에러가 떴는지 서버창에 띄워주기
     }
 
     out.println("</body>");
     out.println("</html>");
-  }
 
+    // 리프래시(refresh)
+    // 웹브라우저에게 서버가 보내 준 HTML을 출력한 후
+    // 1초가 경과하면 지정한 URL을 다시 요청하도록 명령한다.
+    response.setHeader("Refresh", "1;url=list"); // url=http://localhost:8080/pms/member/list (상대경로)
+  }
 }
 
 

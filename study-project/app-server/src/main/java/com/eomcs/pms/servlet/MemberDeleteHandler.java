@@ -59,10 +59,23 @@ public class MemberDeleteHandler extends HttpServlet {
       out.println("<a href='list'>[목록]<a><br>");
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      out.println("목록 조회 오류!");
+      e.printStackTrace(); // 왜 에러가 떴는지 서버창에 띄워주기
     }
 
     out.println("</body>");
     out.println("</html>");
+
+    // 리다이렉트(redirect) --> 응답 상관없이 바로 넘어가게 하고 싶으면 리다이렉트(로그인 후)
+    // 서버에 응답을 받는 즉시 지정한 URL로 요청하도록 웹브라우저에게 명령한다.
+    // 이때 서버는 응답할 때 내용을 보내지 않는다.
+    // 어? 그럼 위에서 출력한 내용은 어떻게 되나요?
+    // => 위의 코드에서 출력한 내용은 현재 버퍼에 보관되어 있다.
+    // => 아직 웹브라우저에게 보낸 상태가 아니다.
+    // => 따라서 위 코드에서 출력한 모든 내용, 즉 버퍼에 들어 있는 콘텐트는 모두 버려진다.
+    // => 그래서 클라이언트로 내용을 보내지 않는 것이다.
+    // => 오직 다시 요청해야 하는 URL 정보만 보낸다.
+
+    response.sendRedirect("list"); // 여기는 무조건 URL만 지정한다
   }
 }
