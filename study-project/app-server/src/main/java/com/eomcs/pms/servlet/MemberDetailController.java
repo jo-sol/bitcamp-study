@@ -31,7 +31,7 @@ public class MemberDetailController extends GenericServlet {
 
     try {
       int no = Integer.parseInt(request.getParameter("no")); // int값이 안 넘어올 수 있으니까 try 안에 넣기
-      Member member = memberDao.findByNo(no);
+      Member member = memberDao.findByNo(no); // 멤버를 요청해
 
 
       if (member == null) {
