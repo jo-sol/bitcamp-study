@@ -6,11 +6,23 @@
 <html>
 <head>
    <title>회원목록</title>
+   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+   
+   <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script> <!-- 의존하는 것 우선 -->
+   <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+   
+   <style>
+    .container {
+      xborder: 1px solid red; /* container에 속해 있는 건 테두리 좀 그려 봐 */ /* xborder는 테두리 없음 */
+      width: 640px; /* 원하는 사이즈 크기 고정 */
+    }
+   </style>
 </head>
 <body>
-<h1>[회원 목록] (MVC + EL + JSTL)</h1>
-<a href='form'>새회원</a><br>
-<table border='1'>
+<div class="container"> <!-- 화면 자동 고정(이름: container) -->
+<h1>회원 목록 (MVC + EL + JSTL + BootStrap)</h1>
+<a href='form' class="btn btn-outline-success btn-sm">새회원</a><br>
+<table class="table table-hover">
 <thead>
 <tr>
 <th>번호</th>
@@ -34,6 +46,7 @@
 
 </tbody>
 </table>
+</div><!-- .container -->
 </body>
 </html>
 
