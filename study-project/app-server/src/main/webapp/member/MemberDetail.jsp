@@ -7,10 +7,12 @@
 <head>
   <title>회원상세</title>
   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-  
+  <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.css">
+      
   <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-  
+  <script src="../node_modules/sweetalert2/dist/sweetalert2.js"></script>
+     
   <style>
     .container {
       xborder: 1px solid red;
@@ -23,7 +25,7 @@
 <div class="container">
 <h1>회원 상세(MVC + EL + BootStrap)</h1>
 
-<form action='update'>
+<form id="member-form" action='update'>
 <div class="mb-3 row">
     <label for="f-no" class="col-sm-2 col-form-label">번호</label>
     <div class="col-sm-5">
@@ -73,6 +75,20 @@
 <a href='list' class="btn btn-success">목록</a><br>
 </form>
 </div><!-- .container -->
+
+<script>
+document.querySelector("#member-form").onsubmit = () => { // "#member-form"에 대해 onsubmit() 이벤트 발생!
+	if (document.querySelector("#f-name").value == "" ||
+				document.querySelector("#f-email").value == "" ||
+				  document.querySelector("#f-password").value == "") {
+		/* window.alert("필수 입력 항목이 비어 있습니다.") */
+		Swal.fire('필수 입력 항목이 비어 있습니다.')
+		return false; // 일단 서버에 보내지 마
+	}
+};
+
+</script>
+
 </body>
 </html>
 
