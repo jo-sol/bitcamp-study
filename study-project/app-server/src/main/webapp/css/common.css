@@ -1,11 +1,17 @@
 @charset "UTF-8";
 
+.container {
+    xborder: 1px solid red;
+    width: 640px;
+}
+
 header {
 	border: 1px solid red;
 }
 
 footer {
 	border: 1px solid blue;
+	clear: left;
 }
 
 aside {

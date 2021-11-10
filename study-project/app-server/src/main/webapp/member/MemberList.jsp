@@ -2,23 +2,8 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-   <title>회원목록</title>
-   <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.css">
-    <link rel="stylesheet" href="../css/common.css">
-    
-   <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script> <!-- 의존하는 것 우선 -->
-   <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-   <script src="../node_modules/sweetalert2/dist/sweetalert2.js"></script>
-   
+<!-- 모든 내용이 template1의 ${contentUrl} 자리로 들어감 -->
    <style>
-    .container {
-      xborder: 1px solid red; /* container에 속해 있는 건 테두리 좀 그려 봐 */ /* xborder는 테두리 없음 */
-      width: 640px; /* 원하는 사이즈 크기 고정 */
-    }
     tr a{
     text-decoration: none;
     color: black;
@@ -30,14 +15,7 @@
     cursor: pointer;
     }
    </style>
-</head>
-<body>
-<div class="container"> <!-- 화면 자동 고정(이름: container) -->
-
-<jsp:include page="../header.jsp"></jsp:include>
-<jsp:include page="../sidebar.jsp"></jsp:include>
-<div id ="content">
-
+   
 <h1>회원 목록 (MVC + EL + JSTL + BootStrap)</h1>
 <a href='form' class="btn btn-outline-success btn-sm">새회원</a><br>
 <table class="table table-hover">
@@ -91,7 +69,4 @@ trList.forEach(function(trTag) {
 	  };
 	});
 </script>
-
-</body>
-</html>
 
