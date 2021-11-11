@@ -17,11 +17,11 @@ footer {
 aside {
 	border: 1px solid green;
 	float: left;
-	width: 90px;
+	width: 120px;
 	min-height: 300px;
 }
 
 #content {
 	border: 1px dashed yellow;
-	margin-left: 100px;
+	margin-left: 130px;
 }

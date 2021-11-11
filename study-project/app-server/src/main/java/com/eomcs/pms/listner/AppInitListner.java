@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
 
 @WebListener // 웹에서 자동으로 실행할 수 있게 넣어 줘야 함 > 없으면 실행조차 할 수 없음
@@ -24,6 +25,7 @@ public class AppInitListner implements ServletContextListener {
 
       // SqlSession 객체를 통해 MemberDao 구현체를 자동 생성한다.
       MemberDao memberDao = sqlSession.getMapper(MemberDao.class);
+      BoardDao boardDao = sqlSession.getMapper(BoardDao.class);
 
       // 모든 웹 컴포넌트(서블릿, 리스너, 필터)가 공유할 객체를 두는 저장소
       ServletContext 웹애플리케이션공용저장소 = sce.getServletContext();
@@ -31,15 +33,17 @@ public class AppInitListner implements ServletContextListener {
       // 웹 애플리케이션 공용 저장소에 DAO 객체를 보관한다.
       // => 이 저장소에 보관된 객체는 서블릿에서 사용할 것이다.
       웹애플리케이션공용저장소.setAttribute("memberDao", memberDao);
+      웹애플리케이션공용저장소.setAttribute("boardDao", boardDao);
 
       웹애플리케이션공용저장소.setAttribute("sqlSession", sqlSession);
 
+      웹애플리케이션공용저장소.setAttribute("contextPath", 웹애플리케이션공용저장소.getContextPath());
 
     } catch (Exception e) {
       System.out.println("DAO 객체 준비 중 오류 발생!");
     }
-  }
 
+  }
 
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
@@ -47,7 +51,4 @@ public class AppInitListner implements ServletContextListener {
 
     sqlSession.close();
   }
-
-
-
 }
