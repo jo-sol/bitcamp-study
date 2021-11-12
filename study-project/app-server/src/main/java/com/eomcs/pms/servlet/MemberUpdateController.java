@@ -83,11 +83,10 @@ public class MemberUpdateController extends HttpServlet {
       memberDao.update(member);
       sqlSession.commit();
 
-      response.sendRedirect("list");
+      request.setAttribute("contentUrl", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }
