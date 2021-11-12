@@ -33,7 +33,7 @@
     <a href="${contextPath}/upload/member/${member.photo}" >
         <img id="f-photo-image" src="${contextPath}/upload/member/${member.photo}_100x100.jpg">
     </a>
-    <input id='f-photo' type='file' name='photo' class="form-control">
+    <input id='f-photo' type='file' name='photoFile' class="form-control">
   </div>
 </div>
 <div class="mb-3 row">

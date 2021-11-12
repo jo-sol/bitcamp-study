@@ -24,7 +24,8 @@
 <div class="mb-3 row">
   <label for='f-photo' class="col-sm-2 col-form-label">사진</label> 
   <div class="col-sm-10">
-    <input id='f-photo' type='file' name='photo' class="form-control">
+    <input id='f-photo' type='file' name='photoFile' class="form-control">
+    <!-- name은 클래스와 같게 하지 마!! 클래스는 스트링이니까!! (입력 폼에 있는) 맴버 객체의 프라퍼티 이름과 같아야 함 -->
   </div>
 </div>
 <div class="mb-3 row">

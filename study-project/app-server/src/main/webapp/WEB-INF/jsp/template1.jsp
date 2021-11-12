@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <c:if test="${not empty refresh}">
+    <meta http-equiv="Refresh" content="${refresh}">
+  </c:if>
   <title>${pageTitle}</title>
   <link rel="stylesheet" href="${contextPath}/node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="${contextPath}/node_modules/sweetalert2/dist/sweetalert2.css">
@@ -17,14 +20,14 @@
 <body>
 <div class="container">
 
-<jsp:include page="/header.jsp"/>
-<jsp:include page="/sidebar.jsp"/>
+<jsp:include page="header.jsp"/>
+<jsp:include page="sidebar.jsp"/>
  
 <div id="content">
 <jsp:include page="${contentUrl}"/>
 </div><!-- #content --> 
 
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="footer.jsp"/>
 
 </div><!-- .container -->
 
