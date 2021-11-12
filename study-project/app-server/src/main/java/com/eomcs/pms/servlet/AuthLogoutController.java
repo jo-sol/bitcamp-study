@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/auth/logout")
-public class AuthLogoutHandler extends HttpServlet {
+public class AuthLogoutController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException { // 입력 폼에 값이 넘어온다고 가정
-
-    request.getSession().invalidate(); // 세션에 저장된 것을 무효화해라 (다 날아감)
+      throws ServletException, IOException {
+    request.getSession().invalidate();
     response.sendRedirect("loginForm");
   }
 }

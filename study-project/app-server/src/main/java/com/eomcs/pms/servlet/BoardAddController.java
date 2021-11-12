@@ -19,8 +19,6 @@ public class BoardAddController extends HttpServlet {
   SqlSession sqlSession;
   BoardDao boardDao;
 
-  // 객체 생성할 때 딱 한 번 호출
-  // 오버라이드 init(안에 아무것도 없어야 함) 얘로 함
   @Override
   public void init() {
     ServletContext 웹애플리케이션공용저장소 = getServletContext();
@@ -31,19 +29,17 @@ public class BoardAddController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     try {
       Board board = new Board();
 
       board.setTitle(request.getParameter("title"));
       board.setContent(request.getParameter("content"));
-
       board.setWriter((Member) request.getSession().getAttribute("loginUser"));
 
       boardDao.insert(board);
       sqlSession.commit();
 
-      response.sendRedirect("list"); // add 했으니까 list로 가라
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
@@ -51,6 +47,7 @@ public class BoardAddController extends HttpServlet {
     }
   }
 }
+
 
 
 

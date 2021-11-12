@@ -8,14 +8,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter("/*") // 언제 실행? 모든 요청에 대해서!
+@WebFilter("/*")
 public class CharacterEncodingFilter implements Filter {
-  //init와 distroy는 디폴트로 구현되어 있어서 안 해도 됨
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
-    // 서블릿에서 getParameter()로 데이터를 꺼내기 전에
+    // 서블릿에서 getParameter()로 데이터를 꺼내기 전에 
     // 웹브라우저가 보낸 데이터의 인코딩을 알려준다.
     request.setCharacterEncoding("UTF-8");
 

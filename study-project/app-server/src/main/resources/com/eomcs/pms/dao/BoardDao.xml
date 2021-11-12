@@ -20,7 +20,7 @@
   </resultMap>
   
   <sql id="select1">
-      select
+    select
       b.board_no,
       b.title,
       b.created_dt,
@@ -34,7 +34,7 @@
   </sql>
   
   <sql id="order1">
-      order by 
+    order by 
       b.board_no desc
   </sql>
   
@@ -42,7 +42,7 @@
     <include refid="select1"/>
     <include refid="order1"/>
   </select>
-   
+     
   <select id="findByNo" resultMap="BoardMap" parameterType="int">
     select
       b.board_no,
@@ -64,65 +64,33 @@
       view_cnt = view_cnt + 1
     where board_no=#{no}
   </update>
-  
-    <select id="findByKeyword" resultMap="BoardMap" parameterType="string">
-      <include refid="select1"/>
-    where
+
+  <select id="findByKeyword" resultMap="BoardMap" parameterType="string">
+    <include refid="select1"/>
+    where 
       b.title like(concat('%',#{keyword},'%'))
       or b.content like (concat('%',#{keyword},'%'))
       or m.name like (concat('%',#{keyword},'%'))
     <include refid="order1"/>
   </select>
-    
+  
   <insert id="insert" parameterType="board">
-    insert into pms_board(title,content,member_no)
+    insert into pms_board(title,content,member_no) 
     values(#{title},#{content},#{writer.no})
   </insert>
   
   <update id="update" parameterType="board">
-	  update pms_board set
-	    title=#{title},
-	    content=#{content}
-	  where
-	    board_no=#{no}
+    update pms_board set
+      title=#{title},
+      content=#{content}
+    where 
+      board_no=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from pms_board
-    where
-      board_no=#{no}
+    delete from pms_board 
+    where board_no=#{no}
   </delete>
-  
-<!--   
-  <select id="findByEmailAndPassword" resultMap="MemberMap" parameterType="map">
-    select 
-      member_no,
-      name,
-      email,
-      photo,
-      tel,
-      created_dt 
-    from 
-      pms_member
-    where 
-      email=#{email} and password=password(#{password})
-  </select>
-  
-  <select id="findByName" resultMap="MemberMap" parameterType="string">
-    select 
-      member_no,
-      name,
-      email,
-      photo,
-      tel,
-      created_dt 
-    from 
-      pms_member
-    where 
-      name=#{value}
-  </select>
--->  
-  
 </mapper>
 
 

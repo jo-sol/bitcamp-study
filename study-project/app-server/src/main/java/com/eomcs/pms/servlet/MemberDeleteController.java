@@ -32,17 +32,15 @@ public class MemberDeleteController extends HttpServlet {
 
     try {
       int no = Integer.parseInt(request.getParameter("no"));
-
       Member member = memberDao.findByNo(no);
-
       if (member == null) {
-        throw new Exception("해당 번호의 회원이 없습니다.<br>");
+        throw new Exception("해당 번호의 회원이 없습니다.");
+      }
 
-      } 
       memberDao.delete(no);
       sqlSession.commit();
 
-      response.sendRedirect("list"); // 여기는 무조건 URL만 지정한다
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
@@ -50,3 +48,10 @@ public class MemberDeleteController extends HttpServlet {
     }
   }
 }
+
+
+
+
+
+
+

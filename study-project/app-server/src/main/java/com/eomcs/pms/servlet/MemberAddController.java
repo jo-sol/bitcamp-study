@@ -27,10 +27,8 @@ public class MemberAddController extends HttpServlet {
   SqlSession sqlSession;
   MemberDao memberDao;
 
-  // 객체 생성할 때 딱 한 번 호출
-  // 오버라이드 init(안에 아무것도 없어야 함) 얘로 함
   @Override
-  public void init() throws ServletException {
+  public void init() {
     ServletContext 웹애플리케이션공용저장소 = getServletContext();
     sqlSession = (SqlSession) 웹애플리케이션공용저장소.getAttribute("sqlSession");
     memberDao = (MemberDao) 웹애플리케이션공용저장소.getAttribute("memberDao");
@@ -39,8 +37,8 @@ public class MemberAddController extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     try {
+
       Member member = new Member();
 
       member.setName(request.getParameter("name"));
@@ -52,15 +50,14 @@ public class MemberAddController extends HttpServlet {
       if (photoPart.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
         photoPart.write(getServletContext().getRealPath("/upload/member") + "/" + filename);
-        // 상속받은 서블릿 중에서 getServletContext를 리턴받는 애가 있음
-        // 걔를 통해서 getRealPath(업로드 경로)를 알아내서 저장
-        member.setPhoto(filename); // 실제 저장한 파일명을 데이터 베이스에 저장하도록
+        member.setPhoto(filename);
 
         Thumbnails.of(getServletContext().getRealPath("/upload/member") + "/" + filename)
         .size(20, 20)
         .outputFormat("jpg")
-        .crop(Positions.CENTER) // 원본 이미지를 위 사이즈에 맞게 컷팅
+        .crop(Positions.CENTER)
         .toFiles(new Rename() {
+          @Override
           public String apply(String name, ThumbnailParameter param) {
             return name + "_20x20";
           }
@@ -69,8 +66,9 @@ public class MemberAddController extends HttpServlet {
         Thumbnails.of(getServletContext().getRealPath("/upload/member") + "/" + filename)
         .size(100, 100)
         .outputFormat("jpg")
-        .crop(Positions.CENTER) // 원본 이미지를 위 사이즈에 맞게 컷팅
+        .crop(Positions.CENTER)
         .toFiles(new Rename() {
+          @Override
           public String apply(String name, ThumbnailParameter param) {
             return name + "_100x100";
           }
@@ -79,8 +77,9 @@ public class MemberAddController extends HttpServlet {
 
       memberDao.insert(member);
       sqlSession.commit();
-      response.setHeader("Refresh", "1;url=list"); 
-      request.setAttribute("pageTitle", "회원목록");
+
+      response.setHeader("Refresh", "1;url=list");
+      request.setAttribute("pageTitle", "회원등록");
       request.setAttribute("contentUrl", "/member/MemberAdd.jsp");
       request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
@@ -88,17 +87,13 @@ public class MemberAddController extends HttpServlet {
       // 오류를 출력할 때 사용할 수 있도록 예외 객체를 저장소에 보관한다.
       request.setAttribute("error", e);
 
-      // 오류가 발생하면 오류 내용을 출력할 뷰를 호출한다.
+      // 오류가 발생하면, 오류 내용을 출력할 뷰를 호출한다.
       RequestDispatcher 요청배달자 = request.getRequestDispatcher("/Error.jsp");
       요청배달자.forward(request, response);
     }
-
-    // 리프래시(refresh)
-    // 웹브라우저에게 서버가 보내 준 HTML을 출력한 후
-    // 1초가 경과하면 지정한 URL을 다시 요청하도록 명령한다.
-    // url=http://localhost:8080/pms/member/list (상대경로)
   }
 }
+
 
 
 

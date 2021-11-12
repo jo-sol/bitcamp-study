@@ -1,7 +1,6 @@
 package com.eomcs.pms.servlet;
 
 import java.io.IOException;
-import java.util.Collection;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 
-@WebServlet("/board/list")
-public class BoardListController extends HttpServlet {
+@WebServlet("/board/detail")
+public class BoardDetailController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   BoardDao boardDao;
@@ -26,13 +25,21 @@ public class BoardListController extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     try {
-      Collection<Board> boardList = boardDao.findAll();
+      int no = Integer.parseInt(request.getParameter("no"));
+      Board board = boardDao.findByNo(no);
 
-      request.setAttribute("boardList", boardList);
+      if (board == null) {
+        throw new Exception("해당 번호의 게시글이 없습니다.");
+      }
 
-      request.setAttribute("pageTitle", "게시글목록");
-      request.setAttribute("contentUrl", "/board/BoardList.jsp");
+      boardDao.updateCount(no);
+
+      request.setAttribute("board", board);
+
+      request.setAttribute("pageTitle", "게시글");
+      request.setAttribute("contentUrl", "/board/BoardDetail.jsp");
       request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
