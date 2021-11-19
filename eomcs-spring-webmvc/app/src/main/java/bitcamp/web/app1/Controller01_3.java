@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/c01_3") // 핸들러에 적용될 기본 URL을 지정한다.
+@RequestMapping("/c01_3") // 핸들러에 적용될 기본 URL을 지정한다. // 기본 URL
 public class Controller01_3 {
 
-  @RequestMapping("h1") // 기본 URL에 뒤에 붙는 상세 URL. 예) /c01_3/h1
+  @RequestMapping("/h1") // 기본 URL에 뒤에 붙는 상세 URL. 예) /c01_3/h1
   @ResponseBody
   public String handler() {
     return "h1";
   }
 
-  @RequestMapping("/h2") // 앞에 /를 붙여도 되고 생략해도 된다. 예) /c01_3/h2
+  @RequestMapping("h2") // 앞에 /를 붙여도 되고 생략해도 된다. 예) /c01_3/h2
   @ResponseBody
   public String handler2() {
     return "h2";

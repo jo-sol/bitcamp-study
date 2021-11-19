@@ -10,19 +10,19 @@ public class Controller01_2 {
 
   // 요청이 들어 왔을 때 호출되는 메서드를 "request handler" 라 부른다.
 
-  @RequestMapping("/c01_2_h1") // 핸들러에서 URL을 지정한다.
+  @RequestMapping(path = {"/c01_2_h1"}) // 핸들러에서 URL을 지정한다.
   @ResponseBody
   public String handler() {
     return "c01_2_h1";
   }
 
-  @RequestMapping("/c01_2_h2") // 핸들러에서 URL을 지정한다.
+  @RequestMapping(value = {"/c01_2_h2"}) // 핸들러에서 URL을 지정한다.
   @ResponseBody
   public String handler2() {
     return "c01_2_h2";
   }
 
-  @RequestMapping("/c01_2/h3") // URL을 지정할 때 디렉토리 형식으로 지정할 수 있다.
+  @RequestMapping({"/c01_2/h3"}) // URL을 지정할 때 디렉토리 형식으로 지정할 수 있다.
   @ResponseBody
   public String handler3() {
     return "/c01_2/h3";
@@ -35,6 +35,7 @@ public class Controller01_2 {
   }
 
   // 한 개의 request handler에 여러 개의 URL을 매핑할 수 있다.
+  // 여러개일 경우 중괄호{} 생략 불가
   @RequestMapping({"/c01_2/h5", "/c01_2/h6", "/c01_2/h7"})
   @ResponseBody
   public String handler5() {

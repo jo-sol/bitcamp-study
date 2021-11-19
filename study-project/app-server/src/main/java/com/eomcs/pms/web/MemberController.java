@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
@@ -18,15 +20,15 @@ import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
-  @Autowired SqlSessionFactory sqlSessionFactory; // sqlSession에 대해 트랜젝션 처리(공장을 줘) // 바로 쓸 수 없고 공장에 요청해서 실행해야 함
+  @Autowired SqlSessionFactory sqlSessionFactory;
   @Autowired MemberDao memberDao;
   @Autowired ServletContext sc;
 
-  @GetMapping("/member/form")
+  @GetMapping("form")
   public ModelAndView form() {
-
     ModelAndView mv = new ModelAndView();
     mv.addObject("pageTitle", "새회원");
     mv.addObject("contentUrl", "member/MemberForm.jsp");
@@ -34,9 +36,8 @@ public class MemberController {
     return mv;
   }
 
-  @PostMapping("/member/add")
+  @PostMapping("add")
   public ModelAndView add(Member member, Part photoFile) throws Exception {
-
     if (photoFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       photoFile.write(sc.getRealPath("/upload/member") + "/" + filename);
@@ -68,9 +69,6 @@ public class MemberController {
     memberDao.insert(member);
     sqlSessionFactory.openSession().commit();
 
-    //response.setHeader("Refresh", "1;url=list"); 1번
-    //request.setAttribute("refresh", "2;url=list"); 2번 (Model어쩌고 전)
-
     ModelAndView mv = new ModelAndView();
     mv.addObject("refresh", "2;url=list");
     mv.addObject("pageTitle", "회원등록");
@@ -79,25 +77,20 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/list") // post는 PostMapping이라고 하면 됨
+  @GetMapping("list")
   public ModelAndView list() throws Exception {
 
-    // 클라이언트 요청을 처리하는데 필요한 데이터 준비
     Collection<Member> memberList = memberDao.findAll();
 
     ModelAndView mv = new ModelAndView();
-
-    // 뷰 컴포넌트가 준비한 데이터를 사용할 수 있도록 저장소에 보관한다.
     mv.addObject("memberList", memberList);
-
-    // 출력을 담당할 뷰를 설정한다.
     mv.addObject("pageTitle", "회원목록");
-    mv.addObject("contentUrl", "member/MemberList.jsp"); // member 앞에 / 빼기 > template1 입장에서 찾는 것이기 때문!
+    mv.addObject("contentUrl", "member/MemberList.jsp");
     mv.setViewName("template1");
     return mv;
-  } 
+  }
 
-  @GetMapping("/member/detail")
+  @GetMapping("detail")
   public ModelAndView detail(int no) throws Exception {
     Member member = memberDao.findByNo(no);
     if (member == null) {
@@ -112,8 +105,7 @@ public class MemberController {
     return mv;
   }
 
-
-  @PostMapping("/member/update")
+  @PostMapping("update")
   public ModelAndView update(Member member, Part photoFile) throws Exception {
 
     Member oldMember = memberDao.findByNo(member.getNo());
@@ -162,7 +154,7 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/delete")
+  @GetMapping("delete")
   public ModelAndView delete(int no) throws Exception {
     Member member = memberDao.findByNo(no);
     if (member == null) {
@@ -176,11 +168,15 @@ public class MemberController {
     mv.setViewName("redirect:list");
     return mv;
   }
+
+  @GetMapping("checkEmail")
+  @ResponseBody
+  public String checkEmail(String email) throws Exception {
+    Member member = memberDao.findByEmail(email);
+    if (member == null) {
+      return "false";
+    } else {
+      return "true";
+    }
+  }
 }
-
-
-
-
-
-
-
